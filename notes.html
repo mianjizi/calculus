@@ -1,0 +1,2700 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>微积分（上）期中复习讲义</title>
+<style>
+  :root { --ok:#2e9e5b; --bad:#d9534f; }
+  #wrap { color: var(--foreground); font-size: 14px; line-height: 1.75; max-width: 900px; }
+  h1.chead { font-size: 17px; margin: 18px 0 6px; padding-top: 10px; border-top: 1px solid var(--border);
+             cursor: pointer; }
+  h1.chead .chev { color: var(--muted-foreground); float: right; font-size: 13px; }
+  section.chapter.shut .cbody { display: none; }
+  h2.thead { font-size: 14.5px; margin: 8px 0 4px; padding: 5px 8px; border: 1px solid var(--border);
+             border-radius: 6px; background: var(--card); cursor: pointer; font-weight: 600; }
+  h2.thead .tid { color: var(--accent); margin-right: 6px; }
+  h2.thead .chev { color: var(--muted-foreground); float: right; font-size: 12px; }
+  .topic.closed .tbody { display: none; }
+  .tbody { padding: 2px 4px 8px 14px; border-left: 2px solid var(--border); margin-left: 4px; }
+  .topic.hide, section.chapter.hide { display: none; }
+  .tb { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
+  input#q { font: inherit; background: transparent; color: var(--foreground); border: 1px solid var(--border);
+            border-radius: 6px; padding: 3px 8px; min-width: 220px; }
+  button { font: inherit; color: var(--foreground); background: var(--card); border: 1px solid var(--border);
+           border-radius: 6px; padding: 3px 10px; cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  #toc { border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; background: var(--card);
+         margin: 10px 0 4px; }
+  #toc.shut { display: none; }
+  .tc { margin: 2px 0; }
+  .tt { color: var(--foreground); font-weight: 600; text-decoration: none; }
+  .ti { color: var(--muted-foreground); font-size: 12.5px; text-decoration: none; margin: 0 8px 0 0;
+        white-space: nowrap; }
+  .ti:hover, .tt:hover { color: var(--accent); }
+  a { color: var(--accent); }
+  table { border-collapse: collapse; font-size: 12.5px; margin-top: 6px; }
+  th, td { border: 1px solid var(--border); padding: 3px 8px; text-align: left; vertical-align: top; }
+  th { color: var(--muted-foreground); font-weight: 600; }
+  blockquote { margin: 8px 0; padding: 2px 0 2px 12px; border-left: 2px solid var(--accent);
+               color: var(--muted-foreground); }
+  code { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 3px;
+         font-size: 12.5px; }
+  .hint { color: var(--muted-foreground); font-size: 12.5px; }
+  strong { color: var(--foreground); }
+</style></head>
+<body><div id="wrap">
+<div class="tb">
+  <input id="q" placeholder="搜索考点 / 知识点（如：罗尔、分部积分、间断点）">
+  <button id="bOpen">展开全部</button>
+  <button id="bShut">收起考点</button>
+  <button id="bToc">目录</button>
+  <span class="hint" id="cnt"></span>
+</div>
+<div id="toc"><div class="tc"><a class="tt" href="#_1">微积分（上）期中复习讲义</a><a class="ti" href="#_2">怎么用这份材料</a><a class="ti" href="#_3">考点地图</a></div><div class="tc"><a class="tt" href="#1">第 1 章　函数与极限</a><a class="ti" href="#11">1.1 基本极限、等价替换与四则运算</a><a class="ti" href="#12">1.2 泰勒展开定阶：什么时候不能用等价替换</a><a class="ti" href="#13">1.3 无穷小的比较与阶</a><a class="ti" href="#14-1">1.4 1^∞ 型与幂指函数极限</a><a class="ti" href="#15">1.5 连续性与间断点的分类</a><a class="ti" href="#16">1.6 数列极限：递推、裂项与夹逼</a><a class="ti" href="#17">1.7 变限积分函数：求导、极限与平均值</a></div><div class="tc"><a class="tt" href="#2">第 2 章　导数与微分</a><a class="ti" href="#21">2.1 导数定义：凑出差商</a><a class="ti" href="#22">2.2 分段函数与绝对值型函数的可导性</a><a class="ti" href="#23">2.3 隐函数求导（含二阶）</a><a class="ti" href="#24">2.4 参数方程确定的函数求导</a><a class="ti" href="#25">2.5 高阶导数：莱布尼茨公式与幂级数法</a><a class="ti" href="#26">2.6 切线与法线</a><a class="ti" href="#27">2.7 幂指函数求导</a></div><div class="tc"><a class="tt" href="#3">第 3 章　微分中值定理与导数的应用</a><a class="ti" href="#31">3.1 罗尔定理与辅助函数构造</a><a class="ti" href="#32">3.2 拉格朗日中值定理与不等式证明</a><a class="ti" href="#33">3.3 泰勒公式与积分不等式</a><a class="ti" href="#34">3.4 单调性与极值（含变限积分函数）</a><a class="ti" href="#35">3.5 方程根的个数</a><a class="ti" href="#36">3.6 凹凸性与拐点</a><a class="ti" href="#37">3.7 渐近线</a><a class="ti" href="#38">3.8 闭区间上的最值</a><a class="ti" href="#39">3.9 参数取值范围：单调性 + 端点极限</a></div><div class="tc"><a class="tt" href="#4">第 4 章　不定积分</a><a class="ti" href="#41">4.1 分部积分</a><a class="ti" href="#42">4.2 第二类换元：三角代换与根式代换</a><a class="ti" href="#43">4.3 有理函数的部分分式分解</a><a class="ti" href="#44">4.4 分段函数的原函数：连续性定常数</a><a class="ti" href="#45">4.5 原函数的性质（奇偶、周期、单调）</a><a class="ti" href="#46">4.6 基本积分表、凑微分与换元</a></div><div class="tc"><a class="tt" href="#a">附录 A　逐题索引</a></div><div class="tc"><a class="tt" href="#b">附录 B　辅助函数与定理选择清单</a></div><div class="tc"><a class="tt" href="#c-20">附录 C　考前 20 分钟易错清单</a></div><div class="tc"><a class="tt" href="#d">附录 D　名师方法索引（含出处）</a></div></div>
+<section class="chapter" data-ch="微积分（上）期中复习讲义">
+<h1 id="_1" class="chead">微积分（上）期中复习讲义<span class="chev">▾</span></h1>
+<div class="cbody">
+<blockquote>
+<p>配套《微积分（上）期中自测 · 四套卷》。讲义按第 1–4 章组织，每个考点都标出了它在四套卷里的题号；做题和看讲解可以来回对照，不用在两边找。</p>
+</blockquote>
+<div class="topic closed" data-tid="">
+<h2 id="_2" class="thead"><span class="tid"></span> <span class="tname">怎么用这份材料</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<ol>
+<li><strong>先做第四套</strong>（自编热身卷，最容易找手感），交卷后只看一件事：总分旁边的<strong>章节掌握度表</strong>，哪个百分数低就先看哪一章。</li>
+<li>按题号跳到对应考点：每个考点先看<strong>「为什么」</strong>（这段是理解用的，不背也行），再看<strong>「本卷真题」</strong>里那道题的<strong>关键一步</strong>，最后自己把那一步补成完整过程。</li>
+<li>每个考点除了「一句话 / 为什么 / 怎么做」，还有三块加料：
+   - <strong>原理</strong>——这招为什么成立（推导层面，不是口诀）；
+   - <strong>名师方法</strong>——张宇、武忠祥、汤家凤等在公开讲义、题解里的通行讲法，每条都带可打开的<strong>出处</strong>；
+   - <strong>例题</strong>——把该考点的方法落到一道题上，含答案。
+   全部方法的检索表见 <strong>附录 D 名师方法索引</strong>。</li>
+<li>再刷第一、二、三套真题。做错的题，把考点编号记下来回看——<strong>同一考点在卷子里通常出现 2–3 次</strong>，错一次说明方法没长在身上，不是粗心。</li>
+<li>考前 20 分钟：只看<strong>附录 C 易错清单</strong>和<strong>附录 B 辅助函数清单</strong>。</li>
+</ol>
+<blockquote>
+<p><strong>一句话记住这份卷子的性格</strong>：选择题八成在考「定义与判定」（可导不可导、连续不连续、几阶无穷小），填空题八成在考「按公式走一遍」（隐函数、参数方程、换元、分部），大题八成在考「中值定理 + 单调性 + 根的个数」。<strong>定义题不要用直觉，要按定义算</strong>——这是考研高数最稳定的一条得分线。</p>
+</blockquote>
+</div></div>
+<div class="topic closed" data-tid="">
+<h2 id="_3" class="thead"><span class="tid"></span> <span class="tname">考点地图</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<table>
+<thead>
+<tr>
+<th>考点</th>
+<th>名称</th>
+<th>本卷题号</th>
+<th>难度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.1</td>
+<td>基本极限、等价替换与四则运算</td>
+<td>套1-9、套3-10、套4-1、套4-8</td>
+<td>★</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>泰勒展开定阶：什么时候不能用等价替换</td>
+<td>套1-1、套1-10、套4-9</td>
+<td>★★</td>
+</tr>
+<tr>
+<td>1.3</td>
+<td>无穷小的比较与阶</td>
+<td>套2-3、套2-4、套3-2、套3-3、套3-4、套3-15、套3-16、套4-4</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>1.4</td>
+<td>1^∞ 型与幂指函数极限</td>
+<td>套1-15、套1-16、套2-9、套2-10、套2-11、套3-1、套3-5、套3-11、套4-15</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>1.5</td>
+<td>连续性与间断点的分类</td>
+<td>套1-5、套2-1、套2-2、套3-7、套4-12</td>
+<td>★★</td>
+</tr>
+<tr>
+<td>1.6</td>
+<td>数列极限：递推、裂项与夹逼</td>
+<td>套3-6、套3-12</td>
+<td>★★</td>
+</tr>
+<tr>
+<td>1.7</td>
+<td>变限积分函数：求导、极限与平均值</td>
+<td>套2-16、套3-9</td>
+<td>★★</td>
+</tr>
+<tr>
+<td>2.1</td>
+<td>导数定义：凑出差商</td>
+<td>套1-3、套1-4、套2-14</td>
+<td>★★</td>
+</tr>
+<tr>
+<td>2.2</td>
+<td>分段函数与绝对值型函数的可导性</td>
+<td>套1-2、套2-5、套2-6、套4-2</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>2.3</td>
+<td>隐函数求导（含二阶）</td>
+<td>套1-11、套1-12、套4-16</td>
+<td>★★</td>
+</tr>
+<tr>
+<td>2.4</td>
+<td>参数方程确定的函数求导</td>
+<td>套2-12、套2-13、套3-14</td>
+<td>★★</td>
+</tr>
+<tr>
+<td>2.5</td>
+<td>高阶导数：莱布尼茨公式与幂级数法</td>
+<td>套3-13</td>
+<td>★★</td>
+</tr>
+<tr>
+<td>2.6</td>
+<td>切线与法线</td>
+<td>套4-13</td>
+<td>★</td>
+</tr>
+<tr>
+<td>2.7</td>
+<td>幂指函数求导</td>
+<td>套4-10</td>
+<td>★</td>
+</tr>
+<tr>
+<td>3.1</td>
+<td>罗尔定理与辅助函数构造</td>
+<td>套3-19、套3-20、套4-5、套4-20</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>3.2</td>
+<td>拉格朗日中值定理与不等式证明</td>
+<td>套1-7、套1-19、套1-20、套2-19、套4-19</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>3.3</td>
+<td>泰勒公式与积分不等式</td>
+<td>套2-20</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>3.4</td>
+<td>单调性与极值（含变限积分函数）</td>
+<td>套2-7、套2-17、套4-7、套4-17</td>
+<td>★★</td>
+</tr>
+<tr>
+<td>3.5</td>
+<td>方程根的个数</td>
+<td>套1-6、套1-17、套2-15</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>3.6</td>
+<td>凹凸性与拐点</td>
+<td>套1-13、套4-3</td>
+<td>★★</td>
+</tr>
+<tr>
+<td>3.7</td>
+<td>渐近线</td>
+<td>套3-8</td>
+<td>★</td>
+</tr>
+<tr>
+<td>3.8</td>
+<td>闭区间上的最值</td>
+<td>套4-11</td>
+<td>★</td>
+</tr>
+<tr>
+<td>3.9</td>
+<td>参数取值范围：单调性 + 端点极限</td>
+<td>套3-17</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>4.1</td>
+<td>分部积分</td>
+<td>套1-14、套2-18、套4-18</td>
+<td>★★</td>
+</tr>
+<tr>
+<td>4.2</td>
+<td>第二类换元：三角代换与根式代换</td>
+<td>套3-18</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>4.3</td>
+<td>有理函数的部分分式分解</td>
+<td>套1-18</td>
+<td>★★★</td>
+</tr>
+<tr>
+<td>4.4</td>
+<td>分段函数的原函数：连续性定常数</td>
+<td>套1-8</td>
+<td>★★</td>
+</tr>
+<tr>
+<td>4.5</td>
+<td>原函数的性质（奇偶、周期、单调）</td>
+<td>套2-8</td>
+<td>★★</td>
+</tr>
+<tr>
+<td>4.6</td>
+<td>基本积分表、凑微分与换元</td>
+<td>套4-6、套4-14</td>
+<td>★</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div></div>
+</div></section>
+<section class="chapter" data-ch="第 1 章　函数与极限">
+<h1 id="1" class="chead">第 1 章　函数与极限<span class="chev">▾</span></h1>
+<div class="cbody">
+<p>本章在卷面上占 8 道选择 + 6 道填空里的一半以上，是<strong>性价比最高的一章</strong>。核心只有两句话：极限存在靠左右夹逼，无穷小比较靠化成同一个幂。</p>
+<div class="topic closed" data-tid="1.1">
+<h2 id="11" class="thead"><span class="tid">1.1</span> <span class="tname">基本极限、等价替换与四则运算</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：把式子拆成「有限个已经知道的极限」，其中每个无穷小因子都换成与它等价的、最简单的那个。</p>
+<p><strong>为什么</strong>：等价无穷小替换之所以合法，是因为 lim(α/α′) = 1，于是
+lim(αβ/γ) = lim(α/α′)·lim(α′β/γ) = lim(α′β/γ)。
+换句话说它只允许你<strong>在乘除的位置</strong>动刀，因为那里是「同一个因子的缩放」。加减的位置上，两个无穷小相消，谁比谁大一个量级完全变了，替换就会出错（这正是不定式 0/0 的坑）。</p>
+<p><strong>怎么做</strong>：① 认出型（0/0、∞/∞、0·∞、∞−∞）；② 0/0 时先把极限存在的因子（趋向 1 或非零常数）单独拎出来；③ 剩下的乘积因子做等价替换；④ 出现加减相消，马上换泰勒（见 1.2）。</p>
+<!-- DEEP:why:1.1 -->
+<p><strong>原理</strong>（为什么这招成立）：极限的四则运算法则只在各部分极限都存在时才成立，所以「拆项」必须先把极限存在且非零的部分算成数拿出去，剩下才是真正的未定式。等价替换在乘除位置合法的原因是无穷小乘除的阶可以合并：α=α′(1+o(1))、β=β′(1+o(1))，相乘后仍是 α′β′(1+o(1))；而加减位置 α−β=(α′−β′)+高阶项，只有 α′−β′ 与 α−β 同阶时才能替换，这正是 lim α/β≠1 的来源。</p>
+<!-- /DEEP:why:1.1 -->
+
+<!-- DEEP:meth:1.1 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>武忠祥｜先定型，再选法</strong>：① 求极限的第一步不是算，而是判断型：0/0、∞/∞、0·∞、∞−∞、1^∞、0^0、∞^0 七种未定式里属于哪一种；② 型定了工具就定了：0·∞ 化为 0/0 或 ∞/∞；∞−∞ 通分或倒代换 u=1/x；1^∞、0^0、∞^0 一律化为 e^{v·ln u}；③ 0/0 型三步法：极限非零的因子先算出数；再用有理化、变量代换化简；最后按 等价无穷小 → 洛必达 → 泰勒 的优先级挑工具。（例：含参极限（求 a、b 那类）本质仍是求极限：先把参数当常数按型选法，再由极限存在反解参数。）</li>
+<li><strong>武忠祥｜加减位置不能替换时，创造条件（+t−t）</strong>：① 加减位置能不能用等价替换，先看被换的两项是不是等价量：替换后比值极限为 1（或 −1）就不许换；② 口诀是「有条件要上，没有条件创造条件也要上」：人为 +t−t、+1−1，把和差结构配成能用等价替换的因式形式；③ 洛必达越做越繁时也走这条路：拆项加泰勒展开，而不是硬求导。（例：分子含 cos t − e^{−t²/2} 这类相减结构时，直接替换会互相抵消得 0（错），应拆项后用泰勒定阶。）</li>
+<li><strong>通用技巧｜加减法可用等价无穷小的充要条件（比值判据）</strong>：① 乘除位置无条件可用：α~α′、β~β′ 则 αβ~α′β′、α/β~α′/β′；② 加减位置：α−β~α′−β′ 的充要条件是 lim(α/β)=c≠1；α+β~α′+β′ 的充要条件是 lim(α/β)=c≠−1；③ 常用差函数等价（x→0）：tan x−sin x~x³/2、x−sin x~x³/6、arcsin x−x~x³/6、tan x−x~x³/3、x−arctan x~x³/3。（例：反例：lim(tan x−sin x)/x³ 把两者都换成 x 得 0，实际是 1/2。正例：lim(e^{3x}−e^{5x})/(sin 2x−sin 7x)，因 3/5≠1、2/7≠1，可放心替换为 (3x−5x)/(2x−7x)=2/5。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://cloud.tencent.com/developer/article/2113035">https://cloud.tencent.com/developer/article/2113035</a>
+- <a href="https://www.saikr.com/a/2765">https://www.saikr.com/a/2765</a></p>
+<!-- /DEEP:meth:1.1 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套1 第9题（2015 数一 (9)，lim (ln cos x)/x²）：<code>ln cos x = ln(1 + (cos x − 1)) ~ cos x − 1</code>，再用 <code>1 − cos x ~ x²/2</code>，得 −1/2。<strong>关键一步</strong>：把 x 当成 0 附近的数，<code>cos x − 1</code> 本身是无穷小，所以 <code>ln(1 + u) ~ u</code> 可以直接用在这里，不需要二阶泰勒。</li>
+<li>套3 第10题（2016 数三 (9)，已知极限式求 lim f(x)）：分子 <code>√(1 + u) − 1 ~ u/2</code>，于是原式 = lim [f(x)·sin 2x/2] / (e^{3x} − 1) = lim [x f(x)]/(3x) = lim f(x)/3 = 2，得 6。<strong>关键一步</strong>：把 <code>f(x)</code> 当成一个整体（题目没说它连续，只需要它出现在乘除位置）。</li>
+<li>套4 第1题（(1 − cos x)/x²）：1/2。等价或 <code>1 − cos x = 2sin²(x/2)</code> 都能做。</li>
+<li>套4 第8题（(x² + 3x − 1)/(2x² − x + 5)，x → ∞）：同次幂，系数比 = 1/2。<strong>关键一步</strong>：∞/∞ 型先抓大头，不用洛必达。</li>
+</ul>
+<!-- DEEP:ex:1.1 -->
+<p><strong>例题</strong>：求 lim_{x→0}(1−cos x)/(x sin x)：分子等价 x²/2、分母等价 x²（乘除位置可换），得 1/2。若在加减位置乱换（如把 tan x−sin x 两项都换成 x）会得 0，与真值 1/2 矛盾。</p>
+<!-- /DEEP:ex:1.1 -->
+
+<p><strong>易错点</strong>：① 把 <code>sin x ~ x</code> 用在加减里，比如 (tan x − sin x)/x³，替换成 (x − x)/x³ = 0 就错了（正确是 1/2，见 1.2）；② 忘记 <code>e^x − 1 ~ x</code> 的 x 必须趋于 0——写成 e^{3x} − 1 ~ 3x 才对；③ 分式里 lim f(x)/3 存在不代表 f 存在，要整体看。</p>
+<p><strong>小练</strong>：求 lim (x → 0) (e^{x²} − 1)/(1 − cos x)。<strong>答案</strong>：2（分子 ~ x²，分母 ~ x²/2）。</p>
+</div></div>
+<div class="topic closed" data-tid="1.2">
+<h2 id="12" class="thead"><span class="tid">1.2</span> <span class="tname">泰勒展开定阶：什么时候不能用等价替换</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：分子分母出现<strong>加减相消</strong>时，把每一项展开到<strong>第一个不抵消的幂次</strong>，然后只留那一项。</p>
+<p><strong>为什么</strong>：等价替换只保留了主项，可两个主项相减正好抵消，剩下的信息全在被丢掉的高阶项里。泰勒展开就是「把丢掉的项按需要补回来」的正式说法。常用展开（x → 0）记这三个够用一张卷子：</p>
+<ul>
+<li><code>sin x = x − x³/6 + o(x³)</code>，<code>tan x = x + x³/3 + o(x³)</code>，<code>arctan x = x − x³/3 + o(x³)</code></li>
+<li><code>ln(1 + x) = x − x²/2 + x³/3 + o(x³)</code>，<code>e^x = 1 + x + x²/2 + x³/6 + o(x³)</code></li>
+<li><code>cos x = 1 − x²/2 + x⁴/24 + o(x⁴)</code>，<code>(1 + u)^α = 1 + αu + α(α−1)u²/2 + o(u²)</code></li>
+</ul>
+<p><strong>怎么做</strong>：① 估一下要展到几阶——看分母的阶；② 每项展到「比分母高一阶」就停；③ 相加后把抵消的项划掉，剩下的最高阶项决定阶数和系数。</p>
+<!-- DEEP:why:1.2 -->
+<p><strong>原理</strong>（为什么这招成立）：泰勒展开是把函数写成 x 的多项式加高阶余项，相减时同次项按系数合并：系数相等的项直接抵消，所以相减型必须展到系数首次不同的那一阶；分式型分母的次数决定精度，分子展得更高也无用，因为商里低于分母次的项都不影响极限。这就是「上下同阶、幂次最低」两条原则的由来。</p>
+<!-- /DEEP:why:1.2 -->
+
+<!-- DEEP:meth:1.2 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>张宇｜泰勒定阶两条原则：A/B 型上下同阶、A−B 型幂次最低</strong>：① A/B 型（分式）：分子分母展开到相同的阶——分母是 x^k 就展到 x^k；② A−B 型（相减）：展到两项系数第一次不相等的那个最低次幂为止，这就是幂次最低；③ 停止判据：再展一阶后最低次幂系数不再恰好抵消就停，不必多展；相减结构若用等价替换会抵消，就必须改用泰勒。（例：lim(x+sin x)/x 中 x+sin x = x−(−sin x)，展到一次项得 x−(−x)=2x 即停。）</li>
+<li><strong>武忠祥｜先看精度是否统一，再看要不要泰勒</strong>：① 凡出现和差结构（arcsin x−sin x、arctan x−tan x 一类），等价替换必然互相抵消，只能上泰勒；② 先试 ±1 配凑：能配成因式形式就用等价替换，配不成再展开；③ 精度统一：分子分母展到同次项再算，阶数不齐是这类题的头号失分点。（例：lim(arcsin x−sin x)/(arctan x−tan x) 需用 arcsin x=x+x³/6+o(x³) 一类展开，分子分母都展到 x³。）</li>
+<li><strong>通用技巧｜幂次最低原则的完整算例</strong>：① 相减型求 (A−B)/x^n 时，A、B 各展到系数第一次不相等的那一阶再相减；② 只展到系数相同的那一阶会全部抵消，得到 0 的错误结果。（例：cos x−e^{−x²/2}：cos x=1−x²/2+x⁴/24+…，e^{−x²/2}=1−x²/2+x⁴/8+…，相减得 −x⁴/12+o(x⁴)，即 ~−x⁴/12（只展到 x² 会全抵消为 0）。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://www.cnblogs.com/elite-00/articles/17330257.html">https://www.cnblogs.com/elite-00/articles/17330257.html</a>
+- <a href="https://www.kaoyantools.com/26allnotes/26sxnote/25356.html">https://www.kaoyantools.com/26allnotes/26sxnote/25356.html</a>
+- <a href="https://publish.obsidian.md/gee-math-2/1-1.+%E5%87%BD%E6%95%B0%E7%9A%84%E6%9E%81%E9%99%90%E4%B8%8E%E8%BF%9E%E7%BB%AD/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F">https://publish.obsidian.md/gee-math-2/1-1.+%E5%87%BD%E6%95%B0%E7%9A%84%E6%9E%81%E9%99%90%E4%B8%8E%E8%BF%9E%E7%BB%AD/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F</a></p>
+<!-- /DEEP:meth:1.2 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套1 第1题（2013 数一 (1)，lim (x − arctan x)/x^k = c）：<code>x − arctan x = x³/3 + o(x³)</code>，故 k = 3、c = 1/3，选 D。<strong>关键一步</strong>：x − arctan x 相消后只剩三阶项，所以是 3 阶（不是 1 阶也不是 2 阶）。</li>
+<li>套1 第10题（2018 数二 (9)，lim x²[arctan(x+1) − arctan x]）：用 <code>arctan u − arctan v = arctan((u − v)/(1 + uv))</code>，得 arctan(1/(x² + x + 1)) ~ 1/(x² + x + 1)，乘 x² 得 1。<strong>关键一步</strong>：两个 arctan 相减不能各自替换，先合并成一个 arctan，再替换。</li>
+<li>套4 第9题（(tan x − sin x)/x³）：<code>tan x − sin x = tan x(1 − cos x) ~ x·(x²/2) = x³/2</code>，极限 1/2。<strong>关键一步</strong>：提公因式把「减法」变成「乘法」，这一步之后等价替换就合法了——这是最省事的技巧，比泰勒快。</li>
+</ul>
+<!-- DEEP:ex:1.2 -->
+<p><strong>例题</strong>：求 lim_{x→0}(cos x−e^{−x²/2})/x⁴：cos x=1−x²/2+x⁴/24+o(x⁴)，e^{−x²/2}=1−x²/2+x⁴/8+o(x⁴)，相减得 −x⁴/12+o(x⁴)，故极限为 −1/12（只展到 x² 会全抵消为 0）。</p>
+<!-- /DEEP:ex:1.2 -->
+
+<p><strong>易错点</strong>：① 只展一项就去算比值；② 把 <code>o(x³)</code> 当成 0 之外的量乱丢（该保留的正好是它代表的那一阶）；③ 遇到 <code>x − sin x</code>、<code>x − ln(1+x)</code>、<code>x − tan x</code> 这类「x 减去自己的展开」，一律展到三阶。</p>
+<p><strong>小练</strong>：求 lim (x → 0) (x − sin x)/x³。<strong>答案</strong>：1/6（<code>x − sin x = x³/6 + o(x³)</code>）。</p>
+</div></div>
+<div class="topic closed" data-tid="1.3">
+<h2 id="13" class="thead"><span class="tid">1.3</span> <span class="tname">无穷小的比较与阶</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：阶 = 化成 x^α 之后的 α；<strong>α 小的叫低阶（趋于 0 慢），α 大的叫高阶（趋于 0 快）</strong>。</p>
+<p><strong>为什么</strong>：比较两个无穷小，本质是看比值 α/β 的极限：等于 1 是等价，等于非零常数是同阶，等于 0 说明分子「更快地消失」是更高阶，等于 ∞ 则更低阶。所有判断都归结成「把两边都写成 x^α」。</p>
+<p><strong>怎么做</strong>：</p>
+<ol>
+<li>把每个量化到 <code>x^α</code> 形式（用等价替换 + 变限积分「求导降一阶」）。</li>
+<li>变限积分 <code>∫_0^{u(x)} f(t)dt</code> 的阶 = f 在 0 处的阶 + u(x) 的阶（所以「求导一次降一阶」）。</li>
+<li>排序题先各自算阶再比大小；含参数题让不抵消的最高阶相等即可。</li>
+</ol>
+<!-- DEEP:why:1.3 -->
+<p><strong>原理</strong>（为什么这招成立）：无穷小的比较本质是比较趋向 0 的速度，用比值极限把速度差量化成阶数：f 分别是 g 的 k 阶无穷小时，f/g^k 极限是非零常数。等价无穷小是 k=1 且系数为 1 的特例，所以它可以用「比值的极限是否等于 1」来验算，而不必依赖背公式。有界量乘无穷小仍是无穷小，是因为乘不改变「趋于 0」这件事，只改变量级。</p>
+<!-- /DEEP:why:1.3 -->
+
+<!-- DEEP:meth:1.3 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>张宇｜无穷小比阶五条（含 k 阶无穷小）</strong>：① 前提 lim f=0 且 lim g=0：lim f/g=0 则 f 是 g 的高阶无穷小；=C≠0 则同阶；=∞ 则低阶；lim f/g^k=C≠0 则 f 是 g 的 k 阶无穷小；=1 则等价，记 f~g；② 第⑤条当验算公式用：拿不准两个量是否等价，直接算比值极限是否等于 1。（例：检验 x→0 时 ln|x| 是否 ~ |x−1|：算 lim ln|x|/|x−1|≠1，故不等价。）</li>
+<li><strong>通用技巧｜有界量乘无穷小仍为无穷小</strong>：① 无穷小必须指明趋近过程（x→x₀ 还是 x→∞）；常数 0 本身不是无穷小；② 有限个无穷小的和、差、积仍是无穷小；③ 无穷小 × 有界量 = 无穷小：sin(1/x)、arctan x 有界，配上无穷小可直接得 0；④ 把无穷小写成 kx^n 的形式，指数 n 就是阶。（例：lim_{x→0} x·sin(1/x)=0（无穷小乘有界量），不需要夹逼也不需要洛必达。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://www.cnblogs.com/elite-00/articles/17330257.html">https://www.cnblogs.com/elite-00/articles/17330257.html</a>
+- <a href="https://www.saikr.com/a/2765">https://www.saikr.com/a/2765</a></p>
+<!-- /DEEP:meth:1.3 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套2 第3题（2016 数二 (1)，三个无穷小按从低阶到高阶排序）：a₁ = x(cos√x − 1) ~ −x²/2（2 阶）、a₂ = √x·ln(1 + ∛x) ~ x^{1/2 + 1/3} = x^{5/6}（5/6 阶）、a₃ = ∛(x+1) − 1 ~ x/3（1 阶）。从低到高 = a₂、a₃、a₁。<strong>关键一步</strong>：<code>ln(1 + ∛x) ~ ∛x = x^{1/3}</code>，阶要相加。</li>
+<li>套2 第4题（2022 数二 (1)，四个命题判真假）：① 真（比值取平方仍趋于 1）；② 假（取 α = x、β = −x，α² ~ β² 但 α/β → −1）；③ 真（(α − β)/α = 1 − β/α → 0）；④ 真（β/α → 1）。选 ①③④。<strong>关键一步</strong>：判「真假命题」时假命题的<strong>反例要随手给出</strong>，这道题 ② 只差一个负号。</li>
+<li>套3 第2题（2019 数一 (1)，x − tan x 与 x^k 同阶）：<code>tan x = x + x³/3 + o(x³)</code>，故与 x³ 同阶，k = 3。<strong>关键一步</strong>：系数 −1/3 不影响「同阶」，只要比值为非零常数。</li>
+<li>套3 第3题（2014 数三 (3)，p(x) − tan x = o(x³) 求错的选项）：必须 a = 0、b = 1、c = 0、d = 1/3，故 d = 1/6 是错的（1/6 是 sin x 的系数）。<strong>关键一步</strong>：把 tan x 展开后逐项对齐，系数必须<strong>全等</strong>才成立 o(x³)。</li>
+<li>套3 第4题（2020 数二 (1)，四个变限积分里阶最高）：A ~ x³/3（3 阶）、B ~ (2/5)x^{5/2}（5/2 阶）、C ~ x³/3（3 阶）、D ~ (2/5)(x²/2)^{5/2} = 2/(5·2^{5/2})·x⁵（5 阶），最高阶是 D。<strong>关键一步</strong>：D 里上限 <code>1 − cos x ~ x²/2</code> 本身就带阶，两次阶相加才有 5 阶——只换成 t^{3/2} 就完事会漏掉上限的贡献。</li>
+<li>套3 第15题（2013 数三 (15)，1 − cos x·cos 2x·cos 3x 与 a x^n 等价）：拆成 (1 − cos x) + cos x(1 − cos 2x) + cos x cos 2x(1 − cos 3x) ~ x²/2 + 2x² + (9/2)x² = 7x²，故 n = 2、a = 7。<strong>关键一步</strong>：连乘积「−1」拆成一个个「某因子 −1」相加，cos 的系数是常数就保留为 1 的近似值。</li>
+<li>套3 第16题（2015 数一 (15)，f = x + a ln(1+x) + b x sin x 与 k x³ 等价）：展开后要求一次项、二次项系数为零：1 + a = 0、b − a/2 = 0，且 k = a/3，得 a = −1、b = −1/2、k = −1/3。<strong>关键一步</strong>：等价要求<strong>低阶项全部消掉</strong>，不是「差不多」。</li>
+<li>套4 第4题（与 x 等价的无穷小）：只有 ln(1 + x) ~ x；tan x − sin x ~ x³/2、1 − cos x ~ x²/2、e^x − 1 − x ~ x²/2 都不是。</li>
+</ul>
+<!-- DEEP:ex:1.3 -->
+<p><strong>例题</strong>：判断 x→0 时 1−cos x 是 x 的几阶无穷小：(1−cos x)/x²→1/2，故为二阶无穷小，且 1−cos x~x²/2。</p>
+<!-- /DEEP:ex:1.3 -->
+
+<p><strong>易错点</strong>：① 把「阶数大的」当成低阶（阶越大反而越快趋于 0，排「从低到高」时最小的阶在前）；② 变限积分忘记「求导降一阶」；③ 含参数时只让一项系数为零，忘了另一项;④ 比较 <code>α²</code> 与 <code>β²</code> 时想当然地开方（符号会翻）。</p>
+<p><strong>小练</strong>：当 x → 0 时把 <code>x²</code>、<code>x sin x</code>、<code>√(x³)</code>、<code>1 − cos√x</code> 按从低阶到高阶排列。<strong>答案</strong>：√(x³) ~ x^{3/2}（1.5 阶）→ 1 − cos√x ~ x/2（1 阶）→ x sin x ~ x²（2 阶）→ x²（2 阶），故从低到高为 <code>√(x³)</code>、<code>1 − cos√x</code>、<code>x sin x</code>、<code>x²</code>。</p>
+</div></div>
+<div class="topic closed" data-tid="1.4">
+<h2 id="14-1" class="thead"><span class="tid">1.4</span> <span class="tname">1^∞ 型与幂指函数极限</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：见到 <code>[f(x)]^{g(x)}</code> 一律先取对数，把它变成 <code>g(x)·ln f(x)</code> 的乘积型极限。</p>
+<p><strong>为什么</strong>：<code>a^b = e^{b ln a}</code>，而 e 是指数函数的复合，<strong>连续</strong>，所以可以把极限搬进指数：lim a^b = e^{lim b ln a}。取对数这一步把所有「幂」的麻烦都换成「乘」的麻烦。当 f → 1、g → ∞ 时，<code>ln f ~ f − 1</code>（f − 1 是无穷小），于是 lim g·ln f = lim g·(f − 1)——这就是教科书上的「1^∞ 型公式 lim f^g = e^{lim g(f−1)}」的来源，<strong>不用背，现场取对数就行</strong>。</p>
+<p><strong>怎么做</strong>：① 取对数；② 把 <code>ln f</code> 用 <code>ln(1 + u) ~ u</code> 化成 u = f − 1；③ 算 lim g·u（里面照常用等价替换/泰勒）；④ 答案写 e^{该极限}。</p>
+<!-- DEEP:why:1.4 -->
+<p><strong>原理</strong>（为什么这招成立）：幂指函数既不能按幂函数求导也不能按指数函数处理，写成 e^{v ln u} 后它变成复合函数，底数问题转成指数上的乘积问题；1^∞ 型里 ln u=ln(1+u−1)~u−1，于是 u^v=e^{v ln u}=e^{v(u−1)}，只要算 v(u−1) 的极限即可，比算 v ln u 少一步等价替换。</p>
+<!-- /DEEP:why:1.4 -->
+
+<!-- DEEP:meth:1.4 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>张宇｜幂指函数统一改写 u^v=e^{v·ln u}，1^∞ 另有简式</strong>：① 底和指数都含 x 的幂指函数，先写成 e^{v·ln u}，把幂指化为乘积再判型；② ∞^0、0^∞ 走 e^{v·ln u}（化成 0·∞）；1^∞ 可用简式 e^{v(u−1)}，只需求 lim v(u−1)；③ 看到根号先有理化；④ 考研最常出现的三个改写：x=e^{ln x}、u^v=e^{v·ln u}、x^x=e^{x·ln x}。（例：x→0+ 时 x·ln x = ln x/(1/x) 化为 ∞/∞，洛必达得 0，故 x^x=e^{x ln x}→1。）</li>
+<li><strong>武忠祥｜幂指结构一律先写成 e^{…} 再求极限</strong>：① 遇到 (x/(1+x))^x 这类结构，先写 e^{x·ln(x/(1+x))}，把幂指极限变成指数上的极限；② 指数上允许用等价无穷小与洛必达；底数的替换仍要守乘除可换、加减谨慎的规矩；③ 求斜渐近线的截距时，同样用 e^{…}−1 的等价或泰勒处理无穷小。（例：k=lim_{x→+∞}(x/(1+x))^x=e^{lim x·ln(x/(1+x))}=e^{−1}，即曲线 y=x^{1+x}/(1+x)^x 的斜渐近线斜率为 e^{−1}。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://www.cnblogs.com/elite-00/articles/17311504.html">https://www.cnblogs.com/elite-00/articles/17311504.html</a>
+- <a href="https://cloud.tencent.com/developer/article/2113039">https://cloud.tencent.com/developer/article/2113039</a></p>
+<!-- /DEEP:meth:1.4 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套1 第15题（2016 数二 (15)，(cos 2x + 2x sin x)^{1/x⁴}）：底数展开 = 1 + x⁴/3 + o(x⁴)，故 ln(底) ~ x⁴/3，指数极限 1/3，答案 e^{1/3}。<strong>关键一步</strong>：底数必须展到四阶（分母是 x⁴），低阶项正好抵消——这是 1^∞ 里唯一需要动泰勒的地方。</li>
+<li>套1 第16题（2011 数一 (15)，(ln(1+x)/x)^{1/(e^x − 1)}）：ln(底) ~ −x/2，指数极限 −1/2，答案 e^{−1/2}。<strong>关键一步</strong>：<code>ln(1 + x)/x = 1 − x/2 + o(x)</code>，所以 <code>ln(底) ~ −x/2</code>——两次用 ln(1 + u) ~ u。</li>
+<li>套2 第9题（2011 数二 (9)，((1 + 2^x)/2)^{1/x}）：底 − 1 = (2^x − 1)/2 ~ (x ln 2)/2，乘 1/x 得 (ln 2)/2，答案 √2。<strong>关键一步</strong>：<code>2^x − 1 ~ x ln 2</code>。</li>
+<li>套2 第10题（2022 数二 (11)，((1 + e^x)/2)^{cot x}）：cot x = cos x/sin x ~ 1/x，底 − 1 ~ x/2，极限 1/2，答案 √e。</li>
+<li>套2 第11题（2012 数三 (9)，(tan x)^{1/(cos x − sin x)}，x → π/4）：先换元 t = x − π/4，<code>tan x = (1 + t)/(1 − t) = 1 + 2t + o(t)</code>，分母 <code>cos x − sin x = −√2 sin t ~ −√2 t</code>，指数极限 −√2，答案 e^{−√2}。<strong>关键一步</strong>：极限点不是 0 时先平移到 0 再展开。</li>
+<li>套3 第1题（2010 数一 (1)，[x²/((x−a)(x+b))]^x，x → ∞）：分母乘开，<code>x² − (x−a)(x+b) = (a−b)x + ab</code>，括号内 = 1 + ((a−b)x + ab)/((x−a)(x+b))，指数部分 → a − b，答案 e^{a−b}。<strong>关键一步</strong>：x → ∞ 时也是 1^∞，取对数后「括号内 − 1」的分子分母同阶。</li>
+<li>套3 第5题（2018 数二 (1)，(e^x + a x² + b x)^{1/x²} = 1）：底 = 1 + (1+b)x + (1/2 + a)x² + o(x²)，要让 1/x² 次幂趋于 1，必须一次项与二次项系数全为零：b = −1、a = −1/2。<strong>关键一步</strong>：<code>(1 + u)^{1/x²} → 1</code> ⟺ ln(底)/x² → 0 ⟺ 底的低阶项为零。</li>
+<li>套3 第11题（2018 数一 (9)，((1 − tan x)/(1 + tan x))^{1/sin kx} = e）：括号内 ~ 1 − 2x，ln 底 ~ −2x，1/sin kx ~ 1/(kx)，故 −2/k = 1，k = −2。</li>
+<li>套4 第15题（((x+1)/(x−1))^x，x → ∞）：括号内 = 1 + 2/(x − 1)，x·ln(1 + 2/(x−1)) ~ 2x/(x−1) → 2，答案 e²。</li>
+</ul>
+<!-- DEEP:ex:1.4 -->
+<p><strong>例题</strong>：求 lim_{x→0+}(1+x)^{1/x}：写 e^{ln(1+x)/x}，指数上 ln(1+x)~x，得 e¹=e。</p>
+<!-- /DEEP:ex:1.4 -->
+
+<p><strong>易错点</strong>：① 直接把底数的极限 1 和指数的 ∞ 相乘，得到「1^∞ = 1」；② 忘了取对数是<strong>整体</strong>取（对数化后指数部分别忘了乘）；③ 极限点非 0（如 π/4、∞）不换元硬套 −1 型公式；④ 指数是 <code>1/(e^x − 1)</code> 这类，替换时要连分母一起等价（~1/x）。</p>
+<p><strong>小练</strong>：求 lim (x → 0) ((1 + x)/(1 − x))^{1/x}。<strong>答案</strong>：e²（底 − 1 ~ 2x，乘 1/x 得 2）。</p>
+</div></div>
+<div class="topic closed" data-tid="1.5">
+<h2 id="15" class="thead"><span class="tid">1.5</span> <span class="tname">连续性与间断点的分类</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：间断点只可能在<strong>没定义</strong>的点、<strong>分段点</strong>、以及让式子<strong>分母为零/对数发散/指数爆炸</strong>的点；分类看左右极限是否都存在。</p>
+<p><strong>为什么</strong>：连续性只有一条判据——<code>lim f(x) = f(x₀)</code>（三件事：有定义、极限存在、二者相等）。间断点分类是这条判据的二分法：</p>
+<ul>
+<li>左右极限<strong>都存在</strong> → 第一类：相等但 ≠ 函数值（或无定义）叫<strong>可去</strong>，不相等叫<strong>跳跃</strong>；</li>
+<li>至少一侧极限<strong>不存在或无穷</strong> → 第二类：趋向 ∞ 叫<strong>无穷</strong>，来回震荡叫<strong>振荡</strong>（如 sin(1/x)）。</li>
+</ul>
+<p><strong>怎么做</strong>：① 先列出所有候选点；② 对每个候选点算左右极限（用等价替换定阶：分母趋于 0 且分子非零 → 无穷间断）；③ 按上面的二分法归类；④ 问「个数」的题目，<strong>每个候选点都要点名</strong>，别漏。</p>
+<!-- DEEP:why:1.5 -->
+<p><strong>原理</strong>（为什么这招成立）：连续要求函数值、极限值、定义域三件事同时成立，所以间断点只能是这三件事之一出问题的地方——于是先找「候选点」比直接算极限更省事。分类的依据是左右极限这两个单侧极限的存在性与相等性，因为函数在一点附近的走向只有左侧和右侧两条路。</p>
+<!-- /DEEP:why:1.5 -->
+
+<!-- DEEP:meth:1.5 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>张宇｜间断点先找候选点，再判四类</strong>：① 候选点只有两类：分段点（含 |x|、x²、√x² 这类隐含分段），以及无定义点（分母为 0、ln x 中 x≤0）；② 四类判法：可去（左右极限相等但 ≠f(x₀)）、跳跃（左右极限不等）、无穷（至少一侧为 ∞）、振荡（极限不存在且往复摆动）；③ 间断点只讨论点，不讨论区间。（例：sin x 在 x→∞ 时往复摆动，对应点为振荡型间断点。）</li>
+<li><strong>通用技巧｜三个量排列组合：判定顺序固定</strong>：① 对候选点 x₀ 只看三个量：lim_{x→x₀+}f(x)、lim_{x→x₀−}f(x)、f(x₀)；② 顺序是：先看左右极限是否都存在 → 再比是否相等 → 最后与 f(x₀) 比；③ 左右极限都存在为第一类（相等但不等于 f(x₀) 或 x₀ 无定义为可去，不相等为跳跃）；至少一个不存在为第二类（为 ∞ 是无穷，振荡不存在是振荡）。（例：y=1/x 在 x=0 是无穷间断点；y=sin(1/x) 在 x=0 是振荡间断点。）</li>
+<li><strong>通用技巧｜从连续三要素反推间断点</strong>：① 连续三要素：f 在 x₀ 有定义；lim_{x→x₀}f(x) 存在；极限值等于函数值；② 任一条不满足，x₀ 就是间断点——这是求间断点类题最快的切入点；③ 初等函数在其定义区间内连续，故间断点只可能出现在无定义点或分段点。（例：f(x) 在 x=1 无意义，则 x=1 必为间断点，无须再算极限。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://www.cnblogs.com/elite-00/articles/17330257.html">https://www.cnblogs.com/elite-00/articles/17330257.html</a>
+- <a href="https://publish.obsidian.md/gee-math-2/1-1.+%E5%87%BD%E6%95%B0%E7%9A%84%E6%9E%81%E9%99%90%E4%B8%8E%E8%BF%9E%E7%BB%AD/%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%9E%E7%BB%AD%E4%B8%8E%E9%97%B4%E6%96%AD">https://publish.obsidian.md/gee-math-2/1-1.+%E5%87%BD%E6%95%B0%E7%9A%84%E6%9E%81%E9%99%90%E4%B8%8E%E8%BF%9E%E7%BB%AD/%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%9E%E7%BB%AD%E4%B8%8E%E9%97%B4%E6%96%AD</a>
+- <a href="https://www.saikr.com/a/2764">https://www.saikr.com/a/2764</a></p>
+<!-- /DEEP:meth:1.5 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套1 第5题（2017 数一 (1)，连续性求 ab）：x → 0⁺ 时 (1 − cos√x)/(ax) → 1/(2a)，连续性要求 1/(2a) = b，即 ab = 1/2。<strong>关键一步</strong>：√x 也在变，<code>1 − cos√x ~ (√x)²/2 = x/2</code>。</li>
+<li>套2 第1题（2010 数二 (1)，无穷间断点的个数）：约分后 f = sgn(x)·√(x²+1)/(x + 1)（x ≠ 0, ±1）：x → 1 极限 √2/2（可去）、x → 0 左右极限 1 与 −1（跳跃）、只有 x → −1 分母为 0 分子非零（无穷）。共 1 个。<strong>关键一步</strong>：先约分再逐点看——不约分会把 x = 1 误判成无穷。</li>
+<li>套2 第2题（2020 数二 (2)，第二类间断点的个数）：候选 x = −1, 0, 1, 2：x → −1 因 ln|1 + x| → −∞ 而发散；x → 0 极限 −1/(2e)（有限，第一类）；x → 1 因 e^{1/(x−1)} 单侧爆炸而发散；x → 2 分母为 0 分子非零而发散。共 3 个。<strong>关键一步</strong>：<code>e^{1/(x−1)}</code> 只在一侧爆（x → 1⁺ 时指数 → +∞），另一侧 → 0，这属于「极限不存在」→ 第二类。</li>
+<li>套3 第7题（2013 数三 (2)，可去间断点个数）：<code>|x|^x − 1 = e^{x ln|x|} − 1 ~ x ln|x|</code>，x → 0 时 f → 1、x → 1 时 f → 1/2（都可去）；x → −1 时分子 ~ −ln|x| 而分母量级 (x+1)²，发散。可去点 2 个。<strong>关键一步</strong>：<code>e^{x ln|x|} − 1 ~ x ln|x|</code> 是这题的钥匙，ln|x| 只在用来定阶，不必真算。</li>
+<li>套4 第12题（x²sin(1/x)，f(0) = a 求 a）：|x² sin(1/x)| ≤ x² → 0，故 a = 0。<strong>关键一步</strong>：震荡因子 sin(1/x) 用<strong>夹逼</strong>处理，这是「振荡但趋于 0」的标准手法。</li>
+</ul>
+<!-- DEEP:ex:1.5 -->
+<p><strong>例题</strong>：讨论 f(x)=(x²−1)/(x−1) 在 x=1 处的间断类型：x≠1 时 f=x+1，左右极限都是 2 但 f(1) 无定义，故为可去间断点。</p>
+<!-- /DEEP:ex:1.5 -->
+
+<p><strong>易错点</strong>：① 只看「分母为 0」就判无穷，忘了分子可能也趋于 0（要定阶比较）；② ln|1 + x|、ln x 在对数里是发散源，要单独看；③ <code>e^{1/(x−1)}</code> 这类要分左右两侧算，结论常常不同；④ sin(1/x) 型不要判成无穷——它是有界振荡，属第二类但极限不是 ∞。</p>
+<p><strong>小练</strong>：指出 f(x) = (x² − 1)/(x² − 3x + 2) 的间断点并分类。<strong>答案</strong>：约分后 f = (x + 1)/(x − 2)（x ≠ 1, 2）；x = 1 可去（极限 −2），x = 2 是无穷间断点（第二类）。</p>
+</div></div>
+<div class="topic closed" data-tid="1.6">
+<h2 id="16" class="thead"><span class="tid">1.6</span> <span class="tname">数列极限：递推、裂项与夹逼</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：数列求极限三条路——<strong>能递推的用单调有界准则</strong>，<strong>能求和先裂项</strong>，<strong>能放缩的用夹逼</strong>。</p>
+<p><strong>为什么</strong>：函数极限有洛必达、泰勒这些「重型工具」，但数列是离散的，导数用不上；能用的只有<strong>结构</strong>：单调 + 有界 ⇒ 收敛；夹在两个收敛到同一点的数列之间 ⇒ 收敛到同一点。所以做数列题第一步不是算，而是<strong>看结构</strong>。</p>
+<p><strong>怎么做</strong>：</p>
+<ol>
+<li>递推式（x_{n+1} = f(x_n)）：先证有界与单调（用数学归纳法或 f 的性质），再令 lim x_n = A 代入递推式解方程（<strong>先证收敛才能代</strong>）。</li>
+<li>求和式：先看能不能裂项（1/(n(n+1)) = 1/n − 1/(n+1)）或凑成定积分/等比求和，再取极限。</li>
+<li>比较两个数列的「消失速度」：分别找出「至少多慢」和「至多多快」的界，比指数衰减速度。</li>
+</ol>
+<!-- DEEP:why:1.6 -->
+<p><strong>原理</strong>（为什么这招成立）：夹逼定理把「算不出」的数列夹在两个能算出极限的数列之间，所以放缩的分母要「大同小异」——只有各项趋于同一个值时，左右两端才收敛到同一极限；分母大不同时两端极限不同，就必须换成定积分定义（把和式看成黎曼和）。单调有界准则来自实数的完备性：单调且有界的数列必收敛，因此证明的顺序是先有界后单调，最后才敢在递推式两端取极限。</p>
+<!-- /DEEP:why:1.6 -->
+
+<!-- DEEP:meth:1.6 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>通用技巧｜夹逼准则：分母大同小异时抓大头</strong>：① 适用信号：n 项和或积的极限，且各项分母大同小异（趋于一致）——抓大头；② 放缩方式：左端取最小项、右端取最大项，使两端极限相同；③ 分母大不同时夹逼做不了，改用定积分定义。（例：n 项分式之和：左边取最小项、右边取最大项夹住，两端极限相同即可得结果。）</li>
+<li><strong>通用技巧｜单调有界：先猜极限，再证两件事</strong>：① 分析：先猜出极限 A，判断目标是单调增有上界还是单调减有下界；② 证明：一般先证有界（数学归纳法：n=1 成立 → 设 n=k 成立 → 推 n=k+1），再证单调（做差 x_{n+1}−x_n 或做商）；③ 收尾：在递推式两端取极限解得 A，按题意取舍（如只取 A≥0 的根）。（例：x₁=1、x_{n+1}=√(2+x_n)：归纳证上界 x_n&lt;2、证明单调增，故极限存在；两端取极限得 A=√(2+A)，A=2。）</li>
+<li><strong>通用技巧｜递推数列两套流程：单调用单调有界，不单调用先斩后奏</strong>：① 方法一（数列单调）：① 证收敛（单调有界）→ ② 令 lim x_n=A 在递推式两端取极限解 A → ③ 下结论；② 方法二（不单调）——先斩后奏：① 先令 lim x_n=A → ② 由两端取极限解出 A → ③ 再构造 |x_n−A| 证它趋于 0，补证极限存在；③ 单调性三判法：a) 判 x_{n+1}−x_n 符号；b) 数列不变号时判 x_{n+1}/x_n 与 1 的大小；c) 由递推函数 f 的单调性判——f 单增且 x₁≤x₂ 则数列单增，f 单减则数列不单调。（例：若 f 在 I 上单调递增且 x₁≤x₂，则 {x_n} 单调递增；f 单调递减时数列不单调，不能用方法一。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://mundanity.moe/post/Math_I_Notes">https://mundanity.moe/post/Math_I_Notes</a>
+- <a href="https://www.cnblogs.com/0202zc/p/13269846.html">https://www.cnblogs.com/0202zc/p/13269846.html</a></p>
+<!-- /DEEP:meth:1.6 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套3 第6题（2023 数二 (3)，x_{n+1} = sin x_n、y_{n+1} = y_n²，x₁ = y₁ = 1/2）：由 sin u &lt; u 知 {x_n} 递减趋于 0；由 sin x ≥ (2/π)x 得 x_n ≥ (1/2)(2/π)^{n−1}（只按指数衰减）；而 y_n = (1/2)^{2^{n−1}} 是<strong>双指数</strong>衰减，快得多，故 y_n 是 x_n 的高阶无穷小，选 B。<strong>关键一步</strong>：分别给两个数列「下界」和「上界」，比的是衰减速度的量级，不是具体值。</li>
+<li>套3 第12题（2019 数三 (9)，(Σ 1/(k(k+1)))^n，n → ∞）：裂项求和得 1 − 1/(n + 1)，故原式 = (1 − 1/(n+1))^n，n·ln(1 − 1/(n+1)) → −1，极限 1/e。<strong>关键一步</strong>：先裂项把和算成闭形式，再当 1^∞ 型处理。</li>
+</ul>
+<!-- DEEP:ex:1.6 -->
+<p><strong>例题</strong>：x₁=1、x_{n+1}=√(2+x_n)：归纳得 1≤x_n&lt;2（有界），且 x_{n+1}−x_n=(2−x_n)(x_n+1)/(√(2+x_n)+x_n)&gt;0（单调增），故极限存在；设极限为 A，由 A=√(2+A) 与 A≥0 得 A=2。</p>
+<!-- /DEEP:ex:1.6 -->
+
+<p><strong>易错点</strong>：① 没证收敛就令极限为 A 代入（循环论证，考研要扣分）；② 裂项后忘记乘 n 次幂，把 (Σ)^{1/n} 和 (Σ)^n 混了；③ 双指数衰减当成普通指数（要写出 n 次幂里还是 2^{n−1} 次幂）。</p>
+<p><strong>小练</strong>：设 x₁ = 1、x_{n+1} = √(2 + x_n)，求 lim x_n。<strong>答案</strong>：由归纳法知 1 ≤ x_n ≤ 2 且 x_{n+1} ≥ x_n（单调递增），故收敛；令极限为 A，得 A = √(2 + A)，A = 2。</p>
+</div></div>
+<div class="topic closed" data-tid="1.7">
+<h2 id="17" class="thead"><span class="tid">1.7</span> <span class="tname">变限积分函数：求导、极限与平均值</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：<code>F(x) = ∫_a^{u(x)} f(t)dt</code> 的一切都从 <code>F′(x) = f(u(x))·u′(x)</code> 出发；再配单调性、零点定理或「求导降一阶」定阶。</p>
+<p><strong>为什么</strong>：变限积分是<strong>用积分定义的函数</strong>，它天生连着两件工具：微积分基本定理（求导把它变回 f）与定积分中值/交换次序（把积分算成数）。考研题的套路固定：给了变限积分，就求导，然后看它落在哪一章的结论上（单调性 → 第 3 章；定阶 → 1.3；零点 → 3.5）。</p>
+<p><strong>怎么做</strong>：① 求导，注意上限是复合函数（还要乘 u′）；② 求平均值 = (1/(b − a))∫f，遇到「积分里还有积分」用<strong>交换积分次序</strong>（画区域）或直接分部；③ 定阶时用「求导一次降一阶」。</p>
+<!-- DEEP:why:1.7 -->
+<p><strong>原理</strong>（为什么这招成立）：变限积分的导数之所以是「上限代入」，是牛顿-莱布尼茨公式与复合函数求导的组合：F(x)=∫_a^{h(x)}f 先看成 ∫_a^{u}f 与 u=h(x) 的复合，外层导数是 f(u)，再乘 u′=h′(x)；下限贡献一个负号，因为积分上下限互换要变号。被积函数含 x 时不能直接代入，是因为此时 x 不在「上限」而是在被积函数里，必须先把 x 分离出来。</p>
+<!-- /DEEP:why:1.7 -->
+
+<!-- DEEP:meth:1.7 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>通用技巧｜变限积分求导：扔掉积分号，上限代入（链式加负号）</strong>：① 微积分第一基本定理：f 在 [a,b] 连续，则 (∫<em g_x_="g(x)">a^x f(t)dt)′=f(x)，变上限积分是 f 的一个原函数；② 变下限加负号：∫_x^a f=−∫_a^x f，导数为 −f(x)；③ 上下限都是函数：∫</em>f 的导数 = h′(x)f(h(x)) − g′(x)f(g(x))；④ 变限积分参与四则运算（如 x²∫}^{h(x)<em x_0="x→0">1^x f）按乘积求导照常处理。（例：lim</em>∫_0^x e^t·ln(1+t)dt / x² 用洛必达得 lim e^x·ln(1+x)/(2x)=1/2。）</li>
+<li><strong>通用技巧｜被积函数含 x：能分离就提出，不能分离就换元</strong>：① 可分离型：被积函数能写成 g(x)f(t) 时，g(x) 相对 t 是常数，可提到积分号外再求导；② 不可分离型（如 ∫_0^x t f(t−x)dt）：先换元 u=t−x，让积分变量与上限里的 x 分离，再求导；③ 被积函数与上限中的 x 混在一起又不能分离时，绝不能直接上限代入求导。（例：y=∫_a^x (x−t)f(t)dt ⇒ y′=∫_a^x f(t)dt：拆成 x∫_a^x f − ∫_a^x t f 后，xf(x) 与 xf(x) 恰好相消。）</li>
+<li><strong>通用技巧｜变限积分与原函数：有第一类间断点就没有原函数</strong>：① f 连续时 ∫_a^x f(t)dt 就是 f 的一个原函数；② f 在区间上有第一类间断点或无穷间断点，则 f 在该区间上不存在原函数；③ 但变限积分 F(x)=∫_a^x f(t)dt 在 f 的可去、跳跃间断点处仍然连续（有限个点的函数值不影响积分面积）；跳跃间断点处 F 不可导，左右导数分别等于 f 的左右极限。（例：x=π 是 f 的跳跃间断点 ⇒ F(x)=∫_0^x f(t)dt 在该点连续但不可导，可直接秒杀选择填空题。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://www.saikr.com/a/2774">https://www.saikr.com/a/2774</a>
+- <a href="http://baike.linkmax.top/b/a0JGssIPan">http://baike.linkmax.top/b/a0JGssIPan</a></p>
+<!-- /DEEP:meth:1.7 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套3 第9题（2016 数一 (9)，∫₀ˣ t·ln(1 + t sin t)dt /(1 − cos x²)）：被积函数 t ln(1 + t sin t) ~ t·t·t = t³，故分子 ~ x⁴/4；分母 1 − cos x² ~ (x²)²/2 = x⁴/2，比值 1/2。<strong>关键一步</strong>：变限积分的小 x 等价就是「被积函数的小 t 等价再积上去」，阶数自动 +1。</li>
+<li>套2 第16题（2016 数二 (21)(Ⅰ)，求 f 在 [0, 3π/2] 上的平均值）：f(x) = ∫₀ˣ cos t/(2t − 3π)dt，平均值 = (2/(3π))∫₀^{3π/2} f(x)dx，<strong>交换积分次序</strong>后用 <code>2t − 3π = −2(3π/2 − t)</code>，得 (2/(3π))·(−1/2)∫₀^{3π/2} cos t dt = 1/(3π)。<strong>关键一步</strong>：∫∫ 的区域是三角形 0 ≤ t ≤ x ≤ 3π/2，换序后内层变成 (3π/2 − t)，正好约掉分母里的 (3π/2 − t)。</li>
+</ul>
+<!-- DEEP:ex:1.7 -->
+<p><strong>例题</strong>：求 (∫_x^{x²}e^{−t²}dt)′：上下限都是函数，导数 = 2x·e^{−x⁴} − e^{−x²}。</p>
+<!-- /DEEP:ex:1.7 -->
+
+<p><strong>易错点</strong>：① 上限是 x² 时忘记乘 2x；② 下限是变量时符号写反（<code>∫_x^1</code> 求导 = −f(x)）；③ 交换次序时<strong>区间写错</strong>（内层是 t 从 0 到 x，换序后外层是 t 从 0 到 3π/2，内层是 x 从 t 到 3π/2）。</p>
+<p><strong>小练</strong>：设 F(x) = ∫₀ˣ (t² − 1)dt，求 F 的单调区间。<strong>答案</strong>：F′ = x² − 1，故 x &lt; −1 递增、−1 &lt; x &lt; 1 递减、x &gt; 1 递增。</p>
+<hr />
+</div></div>
+</div></section>
+<section class="chapter" data-ch="第 2 章　导数与微分">
+<h1 id="2" class="chead">第 2 章　导数与微分<span class="chev">▾</span></h1>
+<div class="cbody">
+<p>这一章的题目有一个共同点：<strong>看上去是计算，其实是判断</strong>。「在 x = 0 处可不可导」「ξ 的位置趋于多少」这类问题，套公式会错，从定义出发一步就完。</p>
+<div class="topic closed" data-tid="2.1">
+<h2 id="21" class="thead"><span class="tid">2.1</span> <span class="tname">导数定义：凑出差商</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：看到 <code>f(x₀ + α) − f(x₀ + β)</code> 这种「两点函数值相减」，就把它<strong>拆成两个标准差商</strong>，分母各自补成对应的增量。</p>
+<p><strong>为什么</strong>：导数是一个极限，不是一套公式。公式（乘积、复合）本身都是从定义证出来的，所以凡是题目里出现「抽象的 f」「f(0) = 0 但不给具体表达式」，都只能用定义。定义式 <code>f′(x₀) = lim [f(x₀ + Δx) − f(x₀)]/Δx</code> 的关键是<strong>减的那一项必须是 f(x₀)</strong>——题目给了 f(0) = 0，就是为了让你把 0 减掉。</p>
+<p><strong>怎么做</strong>：① 找到「已知函数值」的那个点（通常是 0）；② 把分子拆成若干个 <code>f(某点) − f(已知点)</code>；③ 每一项配一个与该增量相同的分母，凑成 f′；④ 用极限的线性性质相加。</p>
+<!-- DEEP:why:2.1 -->
+<p><strong>原理</strong>（为什么这招成立）：导数是差商的极限，差商要求「同一自变量取两个值、函数值相减、除以自变量之差」，所以分子必须是一动一静，分母必须与那个「动」同阶。把 f(x₀+αh)−f(x₀+βh) 拆成两项，本质是用 f(x₀+αh)−f(x₀) 与 f(x₀)−f(x₀+βh) 两个合法差商分别凑出导数，再按系数相加。若极限点附近差商无意义（分母可取 0），导数定义本身不成立，此时不能谈导数。</p>
+<!-- /DEEP:why:2.1 -->
+
+<!-- DEEP:meth:2.1 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>武忠祥｜导数定义三大易错点：一静一动、双向趋近、上下同阶</strong>：① 用定义求 f′(x₀) 时增量必须一静一动：分子要能写成 f(x₀+□)−f(x₀)，以固定的 x₀ 为静点，只让一个增量动；② 极限过程要双向趋近：□ 可正可负地趋于 0，只谈单侧不是导数；③ 上下同阶：分母必须与 □ 同阶，否则要乘系数配成 f′(x₀)；④ 两个都动的式子（如 f(x₀+αh)−f(x₀+βh)）不能直接当成某点导数，必须拆成两个单动差商。（例：lim_{h→0}[f(x₀+2h)−f(x₀−3h)]/h 须拆成 (2+3)f′(x₀)=5f′(x₀)，前提是 f 在该点可导。）</li>
+<li><strong>武忠祥｜拆项凑定义：把两个动点拆成共享同一定点的两项</strong>：① 遇到 f((x+h)²)−f(x²+h) 这类两个自变量同时带 h 的极限，先拆成 f((x+h)²)−f(x²) + f(x²)−f(x²+h)；② 每项各自配出标准差商：[f((x+h)²)−f(x²)]/h → 2x·f′(x²)；[f(x²)−f(x²+h)]/h → −f′(x²)；③ 凑定义的本质是制造 f(定点+□)−f(定点) 的分子，再让分母与 □ 同阶。（例：设 f 在 (1/2,+∞) 可导，lim_{h→0}[f((x+h)²)−f(x²+h)]/h=1 且 f(1)=1，则合并得 (2x−1)f′(x²)=1，解得 f(x)=√x + ½ln(2√x−1)。）</li>
+<li><strong>通用技巧｜导数定义等价形式的三条件</strong>：① f′(x₀)=lim_{Δx→0}[f(x₀+Δx)−f(x₀)]/Δx 存在，等价于 lim_{□→0}[f(x₀+□)−f(x₀)]/□ 存在；② 分子必须是一动一静；分母与 □ 同阶；□ 可左可右；③ 若 φ(x) 在 x₀ 的任意邻域内可取到 0，则 f(φ(x))−f(x₀) 作分子无意义，此时极限可能不存在。（例：lim_{x→0}[f(φ(x))−f(0)]/φ(x) 看着像导数定义，但 φ 若在 0 附近反复取零值，差商无意义，极限未必存在（选择题常在此设陷阱）。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://www.sina.cn/news/detail/5343830209726614.html">https://www.sina.cn/news/detail/5343830209726614.html</a>
+- <a href="https://cloud.tencent.com/developer/article/2113035">https://cloud.tencent.com/developer/article/2113035</a>
+- <a href="https://www.mundanity.moe/post/Math_I_Notes">https://www.mundanity.moe/post/Math_I_Notes</a></p>
+<!-- /DEEP:meth:2.1 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套1 第3题（2021 数一 (1)，f = (e^x − 1)/x、f(0) = 1，判断在 0 处是否可导）：先看连续（极限 = 1 = f(0)，连续），再算 <code>f′(0) = lim [(e^x − 1)/x − 1]/x = lim (e^x − 1 − x)/x² = 1/2 ≠ 0</code>，选 A。<strong>关键一步</strong>：e^x − 1 − x 是「相消」型，必须用泰勒展开到二阶，不能用等价替换。</li>
+<li>套1 第4题（2011 数二 (2)，lim [x²f(x) − 2f(x³)]/x³）：拆成 <code>x²·[f(x) − f(0)]/x³ − 2[f(x³) − f(0)]/x³</code>，前项 → f′(0)，后项 → 2f′(0)，答案 −f′(0)，选 C。<strong>关键一步</strong>：f(0) = 0 是题眼——减掉 0 才能凑出两个差商；第二项的分母 x³ 正好等于增量 (x³ − 0)。</li>
+<li>套2 第14题（2013 数三 (9)，曲线与 y = x² − x 在 (1, 0) 有公共切线，求 lim n·f(n/(n+2))）：公共切线 ⇒ f(1) = 0、f′(1) = 1；而 <code>n/(n + 2) − 1 = −2/(n + 2)</code>，故原式 = lim [f(1 + Δ) − f(1)]/Δ · n·(−2/(n+2)) = f′(1)·(−2) = −2。<strong>关键一步</strong>：把 <code>n·f(n/(n+2))</code> 看成「以 Δ = −2/(n+2) 为增量的差商除以 Δ，再乘回 n·Δ」。</li>
+</ul>
+<!-- DEEP:ex:2.1 -->
+<p><strong>例题</strong>：f 在 x₀ 可导，求 lim_{h→0}[f(x₀+h)−f(x₀−h)]/h：拆成 [f(x₀+h)−f(x₀)]/h + [f(x₀)−f(x₀−h)]/h，两项分别趋于 f′(x₀)，故极限为 2f′(x₀)。</p>
+<!-- /DEEP:ex:2.1 -->
+
+<p><strong>易错点</strong>：① 存在 f′(0) 就直接对分子求导（f 未必可导，只有一点可导不保证导函数连续）；② 忘记补分母里的常数倍（如 [f(2x) − f(0)]/x = 2·[f(2x) − f(0)]/(2x) → 2f′(0)）；③ 把「可导」当「连续可导」用，随意做洛必达。</p>
+<p><strong>小练</strong>：设 f(x) 在 x = 1 处可导，f(1) = 2，求 lim (h → 0) [f(1 + 3h) − f(1 − h)]/h。<strong>答案</strong>：4f′(1)（拆成 3·[f(1+3h) − f(1)]/(3h) + [f(1−h) − f(1)]/(−h)）。</p>
+</div></div>
+<div class="topic closed" data-tid="2.2">
+<h2 id="22" class="thead"><span class="tid">2.2</span> <span class="tname">分段函数与绝对值型函数的可导性</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：分段点处<strong>只能用左右导数定义</strong>；含 <code>|x − a|</code>、<code>√</code>、<code>ln</code> 的式子先判断它在 a 附近「像 x − a 的一次项还是它的更高次项」。</p>
+<p><strong>为什么</strong>：常见结论 <code>|x|</code> 在 0 处不可导、<code>x|x|</code> 可导，来源都是同一个：<code>|x| = ±x</code> 分左右，左导 −1、右导 +1；而 <code>x|x| = ±x²</code> 左右导数都是 0。<strong>关键不在绝对值，而在「绝对值旁边乘了几次 x」</strong>：乘够一次就把它抹平了。所以这类题不要背结论，算左右导数。</p>
+<p><strong>怎么做</strong>：① 写出左右两侧的表达式（<code>|x| = x</code>（x &gt; 0）或 <code>−x</code>（x &lt; 0））；② 在分段点用定义算 <code>f′₊</code>、<code>f′₋</code>（含 <code>lim_{x→0} x ln x = 0</code>、<code>lim x^k ln x = 0</code> 这类结论）；③ 相等则可导，不等则不可导；④ 「变限积分在间断点是否可导」看被积函数的左右极限。</p>
+<!-- DEEP:why:2.2 -->
+<p><strong>原理</strong>（为什么这招成立）：绝对值在尖点处左右导数反号，乘上系数 f 后能否抵消取决于 f 在该点的值：f(a)≠0 时左右导数仍反号，不可导；f(a)=0 时两边都含因子 f(a)=0，左右导数同为 0，可导。这就是「f(x)|x−a| 在 a 可导等价于 f(a)=0」的推导，也是分段点必须用定义判断而不是套公式的原因。</p>
+<!-- /DEEP:why:2.2 -->
+
+<!-- DEEP:meth:2.2 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>武忠祥｜结论优先：f(x)|x−a| 在 x=a 可导的充要条件是 f(a)=0</strong>：① f(x)|x−a| 在 x=a 处可导 ⟺ f(a)=0；f(a)≠0 时 x=a 是尖点，左右导数反号，不可导；② 可导性阶梯：|x| 在 0 不可导（左右导数 1 与 −1）；x|x| 在 0 可导（左右导数都为 0）；③ x^α·sin(1/x) 型：φ(x)=x³sin(1/x)（x≠0）、φ(0)=0，则 φ′(0)=lim x²sin(1/x)=0 存在（有界乘无穷小）；④ 分段点求导可以用定义，但用结论更快。（例：f(x)=(x+1)|x²−1|：x=1 处 f(1)≠0 不可导；x=−1 处 f(−1)=0 可导。故不可导点只有 x=1。）</li>
+<li><strong>武忠祥｜分段点用定义，含变限积分时用导数极限定理</strong>：① 分段点（含被积函数不连续的点）先按定义写出左、右导数 f′₋(x₀)、f′₊(x₀)；② 当 F(x)=∫<em x_x₀⁻="x→x₀⁻">0^x f(t)dt 时可用导数极限定理：F′₋(x₀)=lim</em>f(x)（要求 f 单侧连续）；③ 由极限唯一性判断：左右导数极限不等 ⇒ 该点不可导；f 不连续时退化回定义法。（例：F(x)=∫_0^x f(t)dt，f 在 x=1 跳跃（左极限 −1、右极限 1），故 F 在 x=1 连续但不可导。）}f(x)，F′₊(x₀)=lim_{x→x₀⁺</li>
+<li><strong>汤家凤｜把「可微与可导等价」的证明与可导的等价定义练成条件反射</strong>：① 基础阶段必须掌握可微与可导等价的证明（Δy=AΔx+o(Δx) 与 f′(x₀)=A 互推），这是理解导数与微分关系的地基；② 把「可导的等价定义」练到能在综合题里直接套用，而不是每次回原始定义硬算；③ 同时记住几个常用高阶导数公式，为后面的高阶导与可导性判断服务。（例：这套要求来自汤家凤基础课笔记的章节小结：导数与微分部分「重要的知识是可微与可导等价的证明，可导的等价定义在综合题中的应用」。）</li>
+<li><strong>张宇｜左右导数相等只对分段点生效</strong>：① 讨论分段函数的导数，只看分段点和无定义点，用「左右导数都存在且相等」判断；② 关键提醒：这条只适用于分段点；非分段点必须用求导公式，否则会把平滑点误判成折角；③ 可导必连续，连续不一定可导；导数为 ∞ 也算不可导。（例：误用示例：把 y=sin x 在 x=π/2 当成折角判不可导是错的——非分段点直接用公式法。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://cloud.tencent.com/developer/article/2113039">https://cloud.tencent.com/developer/article/2113039</a>
+- <a href="https://cloud.tencent.com/developer/article/2113047">https://cloud.tencent.com/developer/article/2113047</a>
+- <a href="https://blog.csdn.net/shizheng_Li/article/details/107595983">https://blog.csdn.net/shizheng_Li/article/details/107595983</a>
+- <a href="https://www.cnblogs.com/elite-00/articles/17347574.html">https://www.cnblogs.com/elite-00/articles/17347574.html</a></p>
+<!-- /DEEP:meth:2.2 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套1 第2题（2018 数一 (1)，四个函数在 0 处不可导的）：<code>cos√|x|</code> 的右导数 = lim (cos√x − 1)/x = −1/2、左导数 = +1/2，不等 ⇒ 不可导；其余三个左右导数都是 0。选 B。<strong>关键一步</strong>：<code>1 − cos√x ~ x/2</code>，符号由 x 的正负决定，左右极限自然不同。</li>
+<li>套2 第5题（2013 数二 (3)，被积函数在 x = π 跳跃，F = ∫₀ˣ f）：F 在跳跃点仍然连续，但 <code>F′₋(π) = f(π⁻) = 0</code>、<code>F′₊(π) = f(π⁺) = 2</code>，左右导数不等 ⇒ 连续但不可导，选 A。<strong>关键一步</strong>：记住这条：<strong>被积函数跳跃 ⇒ 变限积分连续但不可导</strong>（导数等于被积函数在该点单侧的值）。</li>
+<li>套2 第6题（2016 数一 (4)，f = x (x ≤ 0)，f = 1/n (1/(n+1) &lt; x ≤ 1/n)）：左导数 = 1；右导数用夹逼：1 ≤ f(x)/x &lt; (n+1)/n → 1，故 f′₊(0) = 1 = f′₋(0)，可导，选 D。<strong>关键一步</strong>：右导数不是「0 处的值 1/n」，要把 f(x)/x 夹起来。</li>
+<li>套4 第2题（x sin(1/x)，f(0) = 0）：连续（夹逼），但 [f(x) − f(0)]/x = sin(1/x) 在 0 处无极限 ⇒ 连续但不可导。<strong>关键一步</strong>：震荡函数乘 x 就连续；乘 x² 才可导（可导性比连续性高一级）。</li>
+</ul>
+<!-- DEEP:ex:2.2 -->
+<p><strong>例题</strong>：判断 f(x)=x|x| 在 0 处是否可导：f′(0)=lim_{x→0}x|x|/x=lim_{x→0}|x|=0，可导且导数为 0（结论 f(a)=0 的可导情形）。</p>
+<!-- /DEEP:ex:2.2 -->
+
+<p><strong>易错点</strong>：① 把 <code>|x|</code> 的左右导数都算成 1；② 在分段点用「求导公式」而不是定义；③ 忘了 <code>lim_{x→0⁺} x ln x = 0</code>，把 x ln x 判成「无穷」（它其实是 0 阶）；④ 变限积分误判成在跳跃点间断。</p>
+<p><strong>小练</strong>：判断 f(x) = |x|·sin x 在 x = 0 处是否可导。<strong>答案</strong>：可导，f′(0) = 0（左右导数都是 0：|x|sin x = ±x sin x ~ ±x²）。</p>
+</div></div>
+<div class="topic closed" data-tid="2.3">
+<h2 id="23" class="thead"><span class="tid">2.3</span> <span class="tname">隐函数求导（含二阶）</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：方程两边同时对 x 求导，<strong>把 y 看成 x 的函数</strong>，y′ 就自然冒出来；求二阶导时，把一阶导的结果直接代入，不要再解一遍。</p>
+<p><strong>为什么</strong>：隐函数存在定理保证「局部能解出 y = y(x)」，但解不出来。既然解不出来，就<strong>不要解</strong>——对等式两边求导，得到的仍是一个关于 y′ 的<strong>一次方程</strong>，这就是隐函数求导的全部内容。之所以不用解 y，是因为求导是等式保持的运算。</p>
+<p><strong>怎么做</strong>：① 两边对 x 求导（含 y 的项按复合函数乘 y′；含变限积分的项同时用微积分基本定理）；② 把 (x, y) 的具体值代进去解 y′（<strong>先算出该点的 y，再用方程定值</strong>）；③ 求 y″：把 ① 的式子再求一次导，然后把已求出的 y′ 代进结果，最后代数。</p>
+<!-- DEEP:why:2.3 -->
+<p><strong>原理</strong>（为什么这招成立）：隐函数求导的全部依据是把方程看成恒等式：满足方程的每个 x 对应唯一 y，于是 y 是 x 的函数，两边对 x 求导仍相等。含 y 的项按复合函数处理（链式法则），所以 e^y 的导数是 e^y·y′。先定值再求导，是为了把低阶导数值尽早代入，避免最后在含 y、y′ 的复杂式子里回代出错。</p>
+<!-- /DEEP:why:2.3 -->
+
+<!-- DEEP:meth:2.3 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>武忠祥｜隐函数求某点导数值：先定值，再求导</strong>：① 第一步先定值：把 x₀ 代入原方程解出 y₀，后续代入都用这组 (x₀,y₀)；② 第二步两边对 x 求导（含 y 的项按复合函数处理），整理出 y′，代入 (x₀,y₀)；③ 第三步再对两边求一次导（此时 y 与 y′ 都是 x 的函数），解出 y″ 并把已求出的低阶导数值代进去。（例：sin x − ∫_x^y φ(u)du=0，φ(0)=φ′(0)=1：先得 y(0)=0、y′(0)=2，再求一次导得 y″(0)=−3。）</li>
+<li><strong>通用技巧｜二阶导两步法：两边连续求导，低阶导随时回代</strong>：① 两边对 x 求导得到关于 y′ 的方程，解出 y′；② 再对①的式子求导（式中 y 仍看作 x 的函数）解出 y″，并把①中的 y′ 代入化简；③ 求某点二阶导：先在该点求 y′，再代入 y″ 表达式，避免整式回代导致繁琐。（例：由方程确定的函数求 y″(1)：先求 y(1)，再求 y′(1)，最后代入 y″ 表达式——三步分开做比一次性回代少出错。）</li>
+<li><strong>通用技巧｜为什么可以对两边求导（适用条件）</strong>：① F(x,y)=0 是恒等式：每个满足方程的 x 唯一确定 y，即 y 是 x 的函数，此时两边对 x 求导仍成立；② 含 y 的项按复合函数求导：e^y → e^y·y′；xy → y + x·y′；常数项为 0；③ 反例：x=3 这类不构成函数关系的等式不能两边求导（会得到 1=0），因为没有因变量 y 与 x 的映射。（例：把 F(x,y)=0 当恒等式是全部隐函数求导的前提；不满足这个前提的等式求导必出荒谬结果。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://cloud.tencent.com/developer/article/2113035">https://cloud.tencent.com/developer/article/2113035</a>
+- <a href="https://publish.obsidian.md/gee-math-2/1-3.+%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/2.+%E8%AE%A1%E7%AE%97/%E9%9A%90%E5%87%BD%E6%95%B0%E5%AF%BC%E6%95%B0">https://publish.obsidian.md/gee-math-2/1-3.+%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/2.+%E8%AE%A1%E7%AE%97/%E9%9A%90%E5%87%BD%E6%95%B0%E5%AF%BC%E6%95%B0</a>
+- <a href="https://www.cnblogs.com/hmy-666/p/12859008.html">https://www.cnblogs.com/hmy-666/p/12859008.html</a></p>
+<!-- /DEEP:meth:2.3 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套1 第11题（2010 数三 (9)，∫₀^{x+y} e^{−t²}dt = ∫₀ˣ x sin t² dt 求 y′(0)）：x = 0 时左边为 ∫₀^y e^{−t²}dt = 0 ⇒ y(0) = 0；两边求导：<code>e^{−(x+y)²}(1 + y′) = ∫₀ˣ sin t² dt + x sin x²</code>，代入 (0, 0) 得 1 + y′ = 0，y′(0) = −1。<strong>关键一步</strong>：<strong>右端的 x 既在积分号外又在积分上限内</strong>，是乘积型变限积分，求导要用乘积法则（∫₀ˣ sin t²dt 那一项在 x = 0 时为 0）。</li>
+<li>套1 第12题（2012 数二 (9)，x² − y + 1 = e^y 求 y″(0)）：先定值：−y + 1 = e^y ⇒ y(0) = 0；求导 <code>2x − y′ = e^y y′</code> ⇒ y′(0) = 0；再求导 <code>2 − y″ = e^y(y′)² + e^y y″</code> ⇒ 2 = 2y″ ⇒ y″(0) = 1。<strong>关键一步</strong>：<strong>先定点再求导</strong>，否则 e^y 里的 y 没法定值。</li>
+<li>套4 第16题（x² + xy + y² = 3，求 y′(1)）：求导 <code>2x + y + x y′ + 2y y′ = 0</code> ⇒ y′ = −(2x + y)/(x + 2y)，代入 (1, 1) 得 −1。<strong>关键一步</strong>：点 (1, 1) 在曲线上（题目已给），直接代。</li>
+</ul>
+<!-- DEEP:ex:2.3 -->
+<p><strong>例题</strong>：x²+y²=1 确定的 y=y(x)：两边求导得 2x+2y y′=0，即 y′=−x/y；再求一次导得 y″=−(y−x y′)/y²=−1/y³。</p>
+<!-- /DEEP:ex:2.3 -->
+
+<p><strong>易错点</strong>：① 忘记 y 的项要乘 y′（把 y 当常数）；② 求二阶导时重新解一遍方程，越算越乱；③ 不定值直接用「x = 0 时 y = 0」——有些题 y(0) 需要解方程甚至只能取某个分支；④ 乘积型变限积分求导漏掉一项。</p>
+<p><strong>小练</strong>：设 xy + e^y = e，求 y′(0)。<strong>答案</strong>：x = 0 时 e^y = e ⇒ y(0) = 1；求导 <code>y + x y′ + e^y y′ = 0</code>，代入得 1 + e y′ = 0，y′(0) = −1/e。</p>
+</div></div>
+<div class="topic closed" data-tid="2.4">
+<h2 id="24" class="thead"><span class="tid">2.4</span> <span class="tname">参数方程确定的函数求导</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：一阶导 <code>dy/dx = (dy/dt)/(dx/dt)</code>；二阶导<strong>先把 dy/dx 写成 t 的函数再对 t 求导，最后除以 dx/dt</strong>。</p>
+<p><strong>为什么</strong>：参数方程是「用第三个变量描述 x 和 y」，dy/dx 的含义没变，只是要用链式法则转换成对 t 的导数之比：<code>dy/dx = (dy/dt)·(dt/dx) = (dy/dt)/(dx/dt)</code>。二阶导最容易错在「直接对 dy/dx 再求一次 t 的导」——那时得到的是 d²y/(dt dx)，还差一个 dx/dt。</p>
+<p><strong>怎么做</strong>：① 分别求 dx/dt、dy/dt；② 相除得 dy/dx（尽量化简成 t 的简单表达式，能约就约——这是本节最省时间的一步）；③ <code>d²y/dx² = d(dy/dx)/dt ÷ (dx/dt)</code>；④ 代 t 的值（注意切点坐标也要用 t 算）。</p>
+<!-- DEEP:why:2.4 -->
+<p><strong>原理</strong>（为什么这招成立）：参数方程里 x 与 y 都是 t 的函数，dy/dx 实际是两个微分之比，所以二阶导不能直接写 (d²y/dt²)/(d²x/dt²)——必须把 dy/dx 看成 t 的函数再对 x 求导，而「对 x 求导」= 对 t 求导再除以 dx/dt，这就得到分母上出现 (dx/dt)³ 的公式。</p>
+<!-- /DEEP:why:2.4 -->
+
+<!-- DEEP:meth:2.4 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>武忠祥｜参数方程二阶导：代公式，点值用泰勒/跨阶凑定义</strong>：① 一阶 dy/dx=(dy/dt)/(dx/dt)；二阶 d²y/dx² = d/dt(dy/dx) ÷ (dx/dt)；② 求某点二阶导：先分别算出该点的 dx/dt、dy/dt、d²x/dt²、d²y/dt²，再代公式；③ x(t) 的高阶导数值不好逐阶求时，用泰勒展开对比系数：如 (e^t−1)/t = 1 + t/2! + t²/3! + …，直接读出 x′(0)=1/2!、x″(0)=1/3!；④ 参数方程与隐函数混合时，y 用隐函数求导、x 用泰勒展开，各取最快的方法。（例：y 由 e^y sin t − y + 1=0 确定、x=(e^t−1)/t，求 d²y/dx²|_{t=0}：x 的导数用展开读系数，y 的导数用隐函数求导，再代公式。）</li>
+<li><strong>通用技巧｜二阶导公式的记忆与易错点</strong>：① 口诀：二阶导 = 对一阶导再对参数 t 求导，然后除以 dx/dt；② 写法：d²y/dx² = [y″(t)x′(t) − y′(t)x″(t)]/[x′(t)]³；③ 易错：除的是 dx/dt 的三次方（x 是自变量），不是 d²x/dt²，更不能写成 (d²y/dt²)/(d²x/dt²)；④ 前提 x′(t)≠0，否则 dy/dx 无定义。（例：x=t²+1、y=t³−t ⇒ dy/dx=(3t²−1)/(2t)，d²y/dx²=(3t²+1)/(4t³)，t=1 时为 1&gt;0（曲线在此凹凸）。）</li>
+<li><strong>通用技巧｜参数方程求高阶导的两种加速办法</strong>：① 反复套一阶公式（对 t 求导再除以 dx/dt）可得任意阶导；② 参数方程本身是有理化或三角函数型时，先约简再求导，能显著减少计算量；③ 注意 t 的取值范围要与 x、y 的合理范围一致。（例：三角参数式（如 x=t−sin t、y=1−cos t）先化简约分再求导，比直接套公式快很多。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://cloud.tencent.com/developer/article/2113039">https://cloud.tencent.com/developer/article/2113039</a>
+- <a href="https://www.zhihu.com/question/417808601">https://www.zhihu.com/question/417808601</a>
+- <a href="https://blog.csdn.net/qq_52964132/article/details/140129439">https://blog.csdn.net/qq_52964132/article/details/140129439</a></p>
+<!-- /DEEP:meth:2.4 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套2 第12题（2013 数二 (12)，x = arctan t、y = ln√(1 + t²)，求 t = 1 处的法线斜率）：<code>dy/dx = [t/(1 + t²)]/[1/(1 + t²)] = t</code>，故切线斜率 1、法线斜率 −1；切点 (π/4, ½ln 2)，法线 x + y − π/4 − ½ln 2 = 0。<strong>关键一步</strong>：dy/dx = t 之后<strong>先代 t 再求法线斜率</strong>（法线斜率 = −1/k）。</li>
+<li>套2 第13题（2017 数二 (10)，x = t + e^t、y = sin t，求 t = 0 处 d²y/dx²）：<code>dy/dx = cos t/(1 + e^t)</code>；再对 t 求导后除以 (1 + e^t)，得 <code>d²y/dx² = [−sin t(1 + e^t) − e^t cos t]/(1 + e^t)³</code>，代 t = 0 得 −1/8。<strong>关键一步</strong>：二阶导的分母是 (1 + e^t)³——一个来自 dy/dx 自身求导，两个来自再除一次 dx/dt。</li>
+<li>套3 第14题（2021 数一 (12)，x = 2e^t + t + 1、y = 4(t − 1)e^t + t²，求 t = 0 处 d²y/dx²）：<code>dy/dt = 4te^t + 2t = 2t(2e^t + 1)</code>，而 <code>dx/dt = 2e^t + 1</code>，故 <strong>dy/dx = 2t</strong>（漂亮地约掉了），于是 <code>d²y/dx² = 2/(2e^t + 1) = 2/3</code>。<strong>关键一步</strong>：参数方程题先算 dy/dt，看能不能提取出 dx/dt 这个公因子——能约就一步到位。</li>
+</ul>
+<!-- DEEP:ex:2.4 -->
+<p><strong>例题</strong>：x=t−sin t、y=1−cos t：dy/dx=sin t/(1−cos t)，在 t=π/2 处斜率为 1，可用于写该点切线。</p>
+<!-- /DEEP:ex:2.4 -->
+
+<p><strong>易错点</strong>：① 二阶导直接对 dy/dx 求 t 的导，忘了再除 dx/dt；② 参数方程里用 x 表示 y 再求导（做不到）；③ 切点坐标只算 x 不算 y；④ 忘了 dy/dx 里 t 的范围（比如 t = 1 对应 x = π/4）。</p>
+<p><strong>小练</strong>：设 x = t²、y = t³，求 t = 1 处的 dy/dx 与 d²y/dx²。<strong>答案</strong>：dy/dx = 3t/2 = 3/2（t = 1）；d²y/dx² = (3/2)/(2t) = 3/4。</p>
+</div></div>
+<div class="topic closed" data-tid="2.5">
+<h2 id="25" class="thead"><span class="tid">2.5</span> <span class="tname">高阶导数：莱布尼茨公式与幂级数法</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：求 f^(n)(0) 用<strong>莱布尼茨公式</strong>（乘积型）或<strong>展开成幂级数后对齐系数</strong>（和式里含 x^k 时更快）。</p>
+<p><strong>为什么</strong>：莱布尼茨公式 <code>(uv)^(n) = Σ C(n,k) u^(k) v^(n−k)</code> 是乘积法则的 n 次重复。它的价值在于：<strong>多项式的导数从某阶开始全为 0</strong>，所以「多项式 × 好函数」的组合里只剩少数几项。若 f 本身是幂级数形式（如 x²ln(1 − x)），把 x^k 的 n 阶导公式 <code>(x^k)^(n) = k(k−1)…(k−n+1)x^{k−n}</code> 用上，只看 n 次以上的项即可。</p>
+<p><strong>怎么做</strong>：① 判断「谁是多项式、谁是能反复求导的函数」；② 用莱布尼茨，只保留多项式导数非零的那几项；③ 或把函数展开成 <code>Σ a_k x^k</code>，取 k = n 的系数乘 n!（即 f^(n)(0) = n!·a_n）。</p>
+<!-- DEEP:why:2.5 -->
+<p><strong>原理</strong>（为什么这招成立）：莱布尼茨公式是二项式定理在求导上的对应物：每求一次导把一个因子的阶数挪给另一个，组合数来自「哪几次求导分给了 u」。多项式因子求导若干次后为 0，公式自然截断，所以含 xⁿ 因子的乘积只需有限项。求某点高阶导则用泰勒：幂级数里 xⁿ 的系数就是 f⁽ⁿ⁾(0)/n!，比反复求导快得多。</p>
+<!-- /DEEP:why:2.5 -->
+
+<!-- DEEP:meth:2.5 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>武忠祥｜高阶导数题型树：求 f⁽ⁿ⁾(x) 与求 f⁽ⁿ⁾(x₀) 两条主线</strong>：① 求通式 f⁽ⁿ⁾(x) 两条路：① 先求几阶找规律；② 莱布尼茨公式（函数是两个因子相乘时）；② 求点值 f⁽ⁿ⁾(x₀) 两条路：① 泰勒展开对比系数；② 用无穷小阶数与求导阶数比较（阶数≥求导阶数时用泰勒）；③ 关键原理：把 f 展成幂级数后，xⁿ 的系数等于 f⁽ⁿ⁾(0)/n!，求 f⁽ⁿ⁾(0) 就是找出 xⁿ 这一项——小于 n 次的项求 n 阶导为 0，大于 n 次的项求导后仍含 x、代 0 为 0。（例：f(x)=x²ln(1−x)：由 ln(1−x)=Σ−(1/n)xⁿ 得 xⁿ 项系数为 −1/(n−2)，故 f⁽ⁿ⁾(0)=−n!/(n−2)。）</li>
+<li><strong>通用技巧｜莱布尼茨公式：专门解决两函数相乘，多项式因子会自动截断</strong>：① (uv)⁽ⁿ⁾=Σ_{k=0}^{n} C(n,k)·u⁽ⁿ⁻ᵏ⁾·v⁽ᵏ⁾，结构与二项式定理同构，便于记忆；② 把单个函数转化成乘积形式后也能用；其中一个因子是多项式（求导若干次后为 0）时公式自动截断，只剩有限项；③ 实践口径：求 f⁽ⁿ⁾(x) 用莱布尼茨（低阶×高阶组合），求 f⁽ⁿ⁾(x₀) 优先泰勒。（例：y=x²e^x：取 u=e^x（各阶导不变）、v=x²（三阶导为 0），莱布尼茨展开只需三项。）</li>
+<li><strong>通用技巧｜求高阶导的五种手段与「系数×n!」法则</strong>：① 五种手段：直接找规律、公式法、莱布尼茨公式、泰勒或幂级数展开、利用奇偶性；② 要求 f⁽ⁿ⁾(0)：展成幂级数后取 xⁿ 的系数 A，则 f⁽ⁿ⁾(0)=A·n!；③ 适口场景：分母是多次多项式、或含 n! 的函数，尽量往 e^x、sin x、cos x、1/(1−x) 的展开式上凑。（例：1/(1−x)=Σxⁿ ⇒ 要求 f⁽¹⁰⁰⁾(0)，先化成等比级数取 x¹⁰⁰ 项系数再乘 100!。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://cloud.tencent.com/developer/article/2113039">https://cloud.tencent.com/developer/article/2113039</a>
+- <a href="https://kaoyan.xdf.cn/201903/10888235.html">https://kaoyan.xdf.cn/201903/10888235.html</a>
+- <a href="https://www.mundanity.moe/post/Math_I_Notes">https://www.mundanity.moe/post/Math_I_Notes</a></p>
+<!-- /DEEP:meth:2.5 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套3 第13题（2015 数二 (10)，f = x²·2^x，求 f^(n)(0)，n ≥ 2）：由莱布尼茨公式，只有把 x² 求两次导的那一项在 0 处不为零：<code>f^(n)(0) = C(n,2)·2·(ln 2)^{n−2} = n(n − 1)(ln 2)^{n−2}</code>。<strong>关键一步</strong>：C(n, 2)·2! = n(n − 1)——那个 <code>2</code> 是 (x²)″ = 2，别丢。</li>
+</ul>
+<!-- DEEP:ex:2.5 -->
+<p><strong>例题</strong>：求 y=x²e^{2x} 的 y⁽ⁿ⁾(0)：莱布尼茨展开中只有 k=0,1,2 三项非零，y⁽ⁿ⁾(0)=2ⁿ·0 + n2ⁿ⁻¹·0 + C(n,2)2ⁿ⁻²·2 = n(n−1)2ⁿ⁻²。</p>
+<!-- /DEEP:ex:2.5 -->
+
+<p><strong>易错点</strong>：① 忘记组合数 C(n, k)；② 把 (2^x)^(n−2) 的因子 (ln 2)^{n−2} 写成 (ln 2)^n；③ 对 x ≤ 0 也直接用幂级数（要先确认展开式在 0 附近成立）。</p>
+<p><strong>小练</strong>：求 f(x) = x³e^{2x} 的 f^(5)(0)。<strong>答案</strong>：由莱布尼茨，只有 k = 3 项非零：C(5,3)·3!·2^{5−3} = 10·6·4 = 240。</p>
+</div></div>
+<div class="topic closed" data-tid="2.6">
+<h2 id="26" class="thead"><span class="tid">2.6</span> <span class="tname">切线与法线</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：切线斜率 = 该点导数；法线斜率 = <strong>负倒数</strong>（切线水平则法线竖直，反之亦然）。</p>
+<p><strong>为什么</strong>：两条直线垂直 ⟺ k₁k₂ = −1。导数给出的是切线斜率，剩下的是平面几何。参数方程、隐函数给的曲线也一样：先在点处求出 dy/dx。</p>
+<p><strong>怎么做</strong>：① 验证点在曲线上；② 求 dy/dx 并代点得 k；③ 切线 <code>y − y₀ = k(x − x₀)</code>，法线 <code>y − y₀ = −(1/k)(x − x₀)</code>。</p>
+<!-- DEEP:why:2.6 -->
+<p><strong>原理</strong>（为什么这招成立）：切线是割线的极限位置：割线斜率 [f(x₀+Δx)−f(x₀)]/Δx 取极限即 f′(x₀)，所以切线斜率就是该点导数值。法线垂直于切线，斜率之积为 −1；切线水平时法线竖直，这是唯一需要单独处理的情形。两曲线相切要求位置与走向同时一致，因此必须同时满足函数值相等与导数值相等两个方程。</p>
+<!-- /DEEP:why:2.6 -->
+
+<!-- DEEP:meth:2.6 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>通用技巧｜切线法线的点斜式与斜率关系</strong>：① 切线：y−y₀=f′(x₀)(x−x₀)；法线：y−y₀=−(1/f′(x₀))(x−x₀)，两斜率之积为 −1；② f′(x₀)=0 时切线水平，法线是竖直直线 x=x₀，不能套 −1/f′(x₀)；③ 求截距：写出切线后令 x=0 或 y=0 代入即得；截距可正可负也可为 0，别默认取正。（例：先求切点坐标、再求斜率、最后点斜式——三步顺序固定，截距类问题最后一步再令 x=0 或 y=0。）</li>
+<li><strong>武忠祥｜两曲线相切的条件：函数值相同 + 切线斜率相同</strong>：① 两条曲线在一点相切 ⟺ ① 该点函数值相同；② 该点切线斜率相同；② 由这两个等量关系建立方程组求参数；③ 考法固定：题目说「两曲线在某点相切，求参数」，就先列这两个方程。（例：y=f(x) 与给定曲线在 (1,√2) 处相切：由 f(1)=√2 与 f′(1)=斜率相同两式定出参数。）</li>
+<li><strong>通用技巧｜参数方程与隐函数曲线的切线</strong>：① 参数方程：切点由 t₀ 代入得，斜率 k=(dy/dt)/(dx/dt)|_{t₀}，再点斜式；② 隐函数 F(x,y)=0：两边对 x 求导解出 y′，代入切点得斜率；③ 应用最常考切线在坐标轴上的截距。（例：x=t−sin t、y=1−cos t 在 t=3π/2 处：k=sin t/(1−cos t)=−1，切线 y−1=−(x−3π/2−1)，y 轴截距为 3π/2+2。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://320wuyanzu.github.io/PG-Math/2/1.html">https://320wuyanzu.github.io/PG-Math/2/1.html</a>
+- <a href="https://cloud.tencent.com/developer/article/2113035">https://cloud.tencent.com/developer/article/2113035</a>
+- <a href="https://zhaokaifeng.com/4479">https://zhaokaifeng.com/4479</a></p>
+<!-- /DEEP:meth:2.6 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套4 第13题（y = x³ − 3x² 在 (1, −2) 处切线斜率）：y′ = 3x² − 6x，y′(1) = −3。<strong>关键一步</strong>：(1, −2) 在曲线上（1 − 3 = −2），不要漏验。</li>
+</ul>
+<!-- DEEP:ex:2.6 -->
+<p><strong>例题</strong>：求 y=x³−3x 在 x=1 处的切线：y(1)=−2、y′(1)=0，切线为 y=−2（水平），法线为 x=1。</p>
+<!-- /DEEP:ex:2.6 -->
+
+<p><strong>易错点</strong>：① 法线斜率忘记取负倒数；② 点不在曲线上时去代（要用「过该点的切线」另设切点）；③ 切线水平（k = 0）时法线是 x = x₀。</p>
+<p><strong>小练</strong>：求 y = ln x 在 x = 1 处的切线与法线方程。<strong>答案</strong>：切点 (1, 0)，k = 1 ⇒ 切线 y = x − 1，法线 y = −(x − 1)。</p>
+</div></div>
+<div class="topic closed" data-tid="2.7">
+<h2 id="27" class="thead"><span class="tid">2.7</span> <span class="tname">幂指函数求导</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：<code>[u(x)]^{v(x)} = e^{v ln u}</code>，<strong>先写成指数形式再求导</strong>。</p>
+<p><strong>为什么</strong>：幂函数求导要求指数是常数，指数函数求导要求底数是常数，两边都不是常数时哪个公式都不能直接用。统一办法是对数恒等式化成 e 的复合函数，那里链式法则畅通无阻。</p>
+<p><strong>怎么做</strong>：① 写成 e^{v ln u}；② 求导：<code>(e^{v ln u})′ = u^v·(v′ ln u + v·u′/u)</code>；③ 代数得值。</p>
+<!-- DEEP:why:2.7 -->
+<p><strong>原理</strong>（为什么这招成立）：幂指函数 y=u^v 中底数与指数都随 x 变化，直接套 u^v 的形式求导没有现成公式，取对数或写成 e^{v ln u} 就是把「底数问题」转成「指数上的乘积问题」，从而可以用乘积法则与链式法则。两种写法等价，所以对数求导法与自己写 e 的指数求导结果必然一致。</p>
+<!-- /DEEP:why:2.7 -->
+
+<!-- DEEP:meth:2.7 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>通用技巧｜对数求导法三步</strong>：① y=u(x)^{v(x)}（u&gt;0）既不是幂函数也不是指数函数，不能套单一公式；② ① 两边取对数 ln y=v(x)ln u(x)；② 两边对 x 求导，左端为 y′/y，右端用乘积法则；③ 解出 y′ 并把 y=u^v 乘回去。（例：y=x^x：ln y=x ln x ⇒ y′/y=ln x+1 ⇒ y′=x^x(ln x+1)。）</li>
+<li><strong>通用技巧｜化为指数函数：u^v=e^{v ln u}</strong>：① 恒等变形 y=e^{v(x)ln u(x)}，变成复合函数再求导，结果与对数求导法一致；② 防错原则：一切幂指函数先化成指数或取对数，否则会错用幂函数或指数函数的公式；③ 同一变形也用于幂指型极限：0⁰、∞⁰、1^∞ 型一律把幂指搬进指数。（例：y=(1+x)^{sin x} ⇒ y=e^{sin x·ln(1+x)}，y′=(1+x)^{sin x}[cos x·ln(1+x) + sin x/(1+x)]。）</li>
+<li><strong>武忠祥｜幂指形式先写成 e^{…}，再连斜渐近线一起处理</strong>：① 求 (x/(1+x))^x 这类幂指形式的极限，先写 e^{x·ln(x/(1+x))}；② 斜渐近线的 b 用 e^{…}−1 的等价或泰勒处理无穷小；③ 适用条件是底数 u&gt;0（保证对数有意义），底数可能为负时要分段讨论。（例：曲线 y=x^{1+x}/(1+x)^x：k=e^{−1}，b=(2e)^{−1}，斜渐近线 y=e^{−1}x + (2e)^{−1}。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="http://3xyun.cn/15910.html">http://3xyun.cn/15910.html</a>
+- <a href="https://www.cnblogs.com/blknemo/p/11779253.html">https://www.cnblogs.com/blknemo/p/11779253.html</a>
+- <a href="https://cloud.tencent.com/developer/article/2113039">https://cloud.tencent.com/developer/article/2113039</a></p>
+<!-- /DEEP:meth:2.7 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套4 第10题（y = x^x，求 y′(1)）：<code>y′ = x^x(ln x + 1)</code>，y′(1) = 1。<strong>关键一步</strong>：记不住公式就用 <code>y′/y = (v ln u)′</code> 的隐函数求法——<strong>先取对数再求导</strong>，比背公式可靠。</li>
+</ul>
+<!-- DEEP:ex:2.7 -->
+<p><strong>例题</strong>：y=x^{sin x}（x&gt;0）：ln y=sin x·ln x，y′=x^{sin x}(cos x·ln x + sin x/x)。</p>
+<!-- /DEEP:ex:2.7 -->
+
+<p><strong>易错点</strong>：① 同时套幂函数和指数函数的求导公式（多出或少了 ln u 项）；② 求 x^x 在 x = 1 的值时把 ln 1 漏了（ln 1 = 0，所以 y′(1) = 1 而不是 0）。</p>
+<p><strong>小练</strong>：求 y = x^{sin x} 的导数。<strong>答案</strong>：y′ = x^{sin x}(cos x·ln x + sin x/x)。</p>
+<hr />
+</div></div>
+</div></section>
+<section class="chapter" data-ch="第 3 章　微分中值定理与导数的应用">
+<h1 id="3" class="chead">第 3 章　微分中值定理与导数的应用<span class="chev">▾</span></h1>
+<div class="cbody">
+<p>这一章的分值最重（本卷 4 套共 22 题，其中证明题几乎全在这里）。它的逻辑主线只有一条：<strong>中值定理把「函数值的关系」翻译成「导数值的关系」，剩下的都是把结论形式凑成某个函数的导数</strong>。</p>
+<div class="topic closed" data-tid="3.1">
+<h2 id="31" class="thead"><span class="tid">3.1</span> <span class="tname">罗尔定理与辅助函数构造</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：要证「存在 ξ 使某等式成立」，就把等式<strong>移项写成 <code>F′(ξ) = 0</code> 的样子</strong>，那个 F 就是要构造的辅助函数。</p>
+<p><strong>为什么</strong>：罗尔定理说：F 在 [a, b] 连续、(a, b) 可导、且 <strong>F(a) = F(b)</strong>，则存在 ξ 使 F′(ξ) = 0。所以用它的唯一门槛是「两端点函数值相等」。证明题的困难全在<strong>怎么把要证的式子凑成某个 F 的导数</strong>——凑出来了就是找两个相等的 F 值，套定理。</p>
+<p><strong>怎么做</strong>（构造法，按结论形式对号入座）：</p>
+<table>
+<thead>
+<tr>
+<th>要证</th>
+<th>取 F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>f′(ξ) = k</td>
+<td>f(x) − kx</td>
+</tr>
+<tr>
+<td>f′(ξ) + λf(ξ) = 0</td>
+<td>e^{λx}f(x)</td>
+</tr>
+<tr>
+<td>f′(ξ) + g′(ξ)·f(ξ) = 0</td>
+<td>e^{g(x)}f(x)</td>
+</tr>
+<tr>
+<td>f(ξ)f′(ξ) = 0 型 / 出现 ff″ + (f′)²</td>
+<td>f(x)f′(x)</td>
+</tr>
+<tr>
+<td>f′(ξ) = 2ξ</td>
+<td>f(x) − x²</td>
+</tr>
+<tr>
+<td>结论里出现 f 的积分</td>
+<td>∫₀ˣf(t)dt − 某函数</td>
+</tr>
+</tbody>
+</table>
+<!-- DEEP:why:3.1 -->
+<p><strong>原理</strong>（为什么这招成立）：罗尔定理要求端点的函数值相等，而题设往往不直接给，于是要造一个辅助函数把「结论」搬到「条件」上。微分方程法的逻辑是：若待证式是 F′(ξ)=0 的形式，那么 F 就是待证结论的一个原函数，而原函数可以通过解微分方程（或乘积分因子）确定；把结论看成方程、解出 F(x)=C 的通解，F 就得到了。常数 K 值法则是当结论中端点与中值可分离时，用端点差商把 K 定成一个常数，从而让辅助函数在两端取等值。</p>
+<!-- /DEEP:why:3.1 -->
+
+<!-- DEEP:meth:3.1 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>通用技巧｜微分方程法（万能构造法）</strong>：① 把待证结论整体看成一个微分方程，求通解并把通解整理成 F(x)=C 的形式，F(x) 就是辅助函数；② 一阶齐次型 f′+p(x)f=0：通解 f=C·e^{−∫p dx}，即 e^{∫p dx}·f=C，故取 F(x)=e^{∫p dx}f(x)——这就是常说的万能构造法；③ 一阶非齐次型 f′+p f=q：取 F(x)=f(x)e^{∫p dx} − ∫q·e^{∫p dx}dx；④ 二阶情形解出的通解可能给出两个原函数，要挑一个能配合题设（在给定点取等值）的。（例：f 在 [0,1] 可导、f(0)=f(1)=0，证存在 ξ 使 f′(ξ)+f²(ξ)=0：解 y′+y²=0 得 e^{−∫y dx}y=C，构造 F(x)=f(x)e^{∫f dx}，则 F(0)=F(1)=0，罗尔即得 F′(ξ)=0。）</li>
+<li><strong>通用技巧｜常数 K 值法（可分离型）</strong>：① 适用范围：结论由端点 a、b 与中值 ξ 构成，且中值与端点可分离。判别办法：令 b=a 代入待证式，若等式仍成立（成为零式），就可考虑 K 值法；② 第一类：令 K=(f(b)−f(a))/(b−a)，构造 F(x)=[f(x)−f(a)]−(x−a)K，则 F(a)=F(b)=0；③ 第二类：把端点分离成 f(b)−Kb=f(a)−Ka 的形式，构造 F(x)=[f(b)−f(x)]−(b−x)K，则 F(b)−F(a)=0；④ 可分离型也可改走柯西中值定理：从含 a、b 的一侧凑 [F(b)−F(a)]/[G(b)−G(a)]，从含 ξ 的一侧积分还原成 F′(ξ)/G′(ξ)。（例：b&gt;a&gt;0，证 (f(b)−f(a))/(b−a)=ξ²f′(ξ)/(ab)：K 值法与柯西中值定理（取 F(x)=f(x)、G(x)=−1/x）都能做。）</li>
+<li><strong>通用技巧｜题型分解：简单型找等值点，复杂型自建辅助函数</strong>：① 简单型：结论形如 f′(ξ)=0、f′(ξ)=k、f″(ξ)=0，条件基本已给，只需找两个函数值相等的点。找等值点常用：闭区间连续函数性质（介值、零点）、积分中值定理、拉格朗日、极限性质、导数定义；② 复杂型：结论较繁，需自建辅助函数使 F 满足罗尔三条件，一般借助解微分方程的思想；③ 选择口诀：结论不含端点优先罗尔；含端点考虑拉格朗日或柯西；两个中值 ξ、η 的问题一般用拉格朗日加柯西，把相同字母移到等号一侧；④ 出现二阶导数一般要用两次中值定理（先小区间再大区间）。（例：罗尔型题先问自己：题设里哪两个点的函数值已经相等？找不到就自己造（构造辅助函数或用积分中值定理制造等值点）。）</li>
+<li><strong>通用技巧｜辅助函数速记表与多次罗尔</strong>：① f′+f 配 F=f·e^x；f′−f 配 F=f·e^{−x}；f′·f 配 F=f²；f′/f 配 F=ln f，都要广义化到无穷区间、无穷端点值；② 多个等值点用多次罗尔：f(a)=f(b)=f(c) 则存在 ξ₁ 在 (a,b)、ξ₂ 在 (b,c) 使 f′(ξ₁)=f′(ξ₂)=0，再对 f′ 用一次罗尔得 f″(ξ)=0；③ 看到某点导数为零先想费马定理或罗尔定理；考研以简单构造为主，不要沉迷凑复杂辅助函数。（例：2017 数一真题 f(1)=0 证 f′(ξ)=−f(ξ)/ξ：结论即 ξf′(ξ)+f(ξ)=0，正是 x·f(x) 的导数，故令 F(x)=x f(x)，F(0)=F(1)=0。）</li>
+<li><strong>张宇｜证明题第一步：寻找原函数</strong>：① 把中值定理证明题的第一步固定叫寻找原函数——先造出 F(x) 使 F′ 等于待证式；② 推进顺序：寻找原函数 → 证某点导数为零 → 证 n 阶导数等式或不等式在该点成立 → 用泰勒公式；③ 配套动作：先把结论整理成某函数的导数，再让该函数在两点取等值，最后套罗尔定理。（例：见到结论里有 f′+Pf 的形状，先想 e^{∫P dx} 作因子——这就是寻找原函数的具体动作。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://cloud.tencent.com/developer/article/2113076">https://cloud.tencent.com/developer/article/2113076</a>
+- <a href="https://kaoyan.eol.cn/fu_xi/shuxue/201511/t20151123_1340825_1.shtml">https://kaoyan.eol.cn/fu_xi/shuxue/201511/t20151123_1340825_1.shtml</a>
+- <a href="https://publish.obsidian.md/gee-math-2/1-3.+%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/3.+%E5%BA%94%E7%94%A8/2.+%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86%E3%80%81%E5%BE%AE%E5%88%86%E7%AD%89%E5%BC%8F%E4%B8%8E%E5%BE%AE%E5%88%86%E4%B8%8D%E7%AD%89%E5%BC%8F/%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86">https://publish.obsidian.md/gee-math-2/1-3.+%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/3.+%E5%BA%94%E7%94%A8/2.+%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86%E3%80%81%E5%BE%AE%E5%88%86%E7%AD%89%E5%BC%8F%E4%B8%8E%E5%BE%AE%E5%88%86%E4%B8%8D%E7%AD%89%E5%BC%8F/%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86</a>
+- <a href="https://qwdh.net/post/7348.html">https://qwdh.net/post/7348.html</a></p>
+<!-- /DEEP:meth:3.1 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套3 第19题（2013 数一 (18)）：(Ⅰ) 奇函数 ⇒ f(0) = 0，令 F = f(x) − x，则 F(0) = F(1) = 0，罗尔定理给出 f′(ξ) = 1；(Ⅱ) 奇函数的导数 f′ 是偶函数，故 f′(−ξ) = f′(ξ) = 1，再令 G = e^x(f′(x) − 1)，则 G(−ξ) = G(ξ) = 0，对 G 用罗尔定理得 <code>f″(η) + f′(η) = 1</code>。<strong>关键一步</strong>：<code>f′ + f″ − 1 = 0</code> 这种「f′ 与 f″ 各一次」的式子，辅助函数一律取 e^x 乘上括号。</li>
+<li>套3 第20题（2017 数一 (18)）：(Ⅰ) 由 lim f(x)/x &lt; 0 的保号性得 x 充分小时 f(x) &lt; 0，又 f(1) &gt; 0，零点定理得根 ξ；(Ⅱ) 令 F = f(x)f′(x)，则 F′ = f f″ + (f′)²；由 f(0) = 0、f(ξ) = 0 得 F(0) = F(ξ) = 0，罗尔定理给一点；再对 f 在 [0, ξ] 上用罗尔定理得 f′(ξ₁) = 0 ⇒ F(ξ₁) = 0，再对 F 在 [ξ₁, ξ] 上用罗尔又得一点，两点不同 ⇒ 至少两个根。<strong>关键一步</strong>：<strong>要靠两次罗尔取到两个不同的点</strong>——题目问「至少两个根」，就该想到对不同的区间各用一次。</li>
+<li>套4 第5题（罗尔定理的条件与结论）：只有「ξ 处 f′(ξ) = 0」是必然的；<code>f′(ξ) &gt; 0</code>、<code>f(ξ) &gt; 0</code>、<code>f′(ξ) = 0 且 f 单调</code> 都不必然（用 f ≡ 0 或 f = (x − a)(b − x) 即可反驳）。<strong>关键一步</strong>：判「必然」靠定理，判「不必然」靠<strong>举反例</strong>（一条卷子里这类题几乎必有）。</li>
+<li>套4 第20题（求证存在 ξ ∈ (0, 1) 使 f′(ξ) = 2ξ）：把结论移项得 (f(x) − x²)′ = 0，令 F = f(x) − x²，则 F(0) = f(0) = 0、F(1) = f(1) − 1 = 0，罗尔定理即得。<strong>关键一步</strong>：<code>f′(ξ) = 2ξ</code> 看似「导数等于一个含 ξ 的式子」，其实 2ξ 正是 x² 的导数——<strong>把含 ξ 的项搬到左边，看它是谁的导数</strong>。</li>
+</ul>
+<!-- DEEP:ex:3.1 -->
+<p><strong>例题</strong>：f 在 [0,1] 连续、(0,1) 可导、f(0)=f(1)=0，证存在 ξ 使 f′(ξ)=f(ξ)。把结论写成 f′−f=0，解此微分方程得 f=C e^x，故取 F(x)=f(x)e^{−x}，F(0)=F(1)=0，罗尔定理给出 F′(ξ)=e^{−ξ}(f′(ξ)−f(ξ))=0，即在 ξ 处 f′(ξ)=f(ξ)。</p>
+<!-- /DEEP:ex:3.1 -->
+
+<p><strong>易错点</strong>：① 直接把 f 拿去做罗尔（f(a) ≠ f(b)，条件不符）；② 辅助函数取错符号（e^{λx} 与 e^{−λx} 差一个负号就全错）；③ 忘了先说明「F 在闭区间连续、开区间可导」；④ 题目要两个根只用一次罗尔。</p>
+<p><strong>小练</strong>：设 f 在 [0, 1] 上连续、(0, 1) 内可导，f(0) = 0、f(1) = 1，证明存在 ξ ∈ (0, 1) 使 f′(ξ) = 1。<strong>答案</strong>：令 F(x) = f(x) − x，则 F(0) = 0、F(1) = 0，罗尔定理给出 F′(ξ) = 0，即 f′(ξ) = 1。（先算两端的 F 值，是这类题的固定第一步。）</p>
+</div></div>
+<div class="topic closed" data-tid="3.2">
+<h2 id="32" class="thead"><span class="tid">3.2</span> <span class="tname">拉格朗日中值定理与不等式证明</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：出现 <code>f(b) − f(a)</code>、<code>ln(n+1) − ln n</code>、或「区间长度 × 导数值」时用拉格朗日：<code>f(b) − f(a) = f′(ξ)(b − a)</code>，ξ 在区间内部。</p>
+<p><strong>为什么</strong>：拉格朗日定理是「增量 = 平均变化率 × 区间长度」。它的用法有两类：</p>
+<ul>
+<li><strong>数 ξ 的位置</strong>：把 f′(ξ) 解出来（常常 ≈ 某个展开式的比值），再取极限；</li>
+<li><strong>证不等式</strong>：把待证式子整理成 <code>f(b) − f(a)</code> 与 <code>(b − a)</code> 的比，用 f′ 的<strong>单调性</strong>给 f′(ξ) 定界（<code>m(b−a) ≤ f(b) − f(a) ≤ M(b−a)</code>）。</li>
+</ul>
+<!-- DEEP:why:3.2 -->
+<p><strong>原理</strong>（为什么这招成立）：三个中值定理的结构差别在于「用到了几个函数的增量」：罗尔只涉及一个函数且两端值相等；拉格朗日涉及一个函数的增量比；柯西涉及两个函数增量之比。所以整理结论时，只含端点与中值、无导数就考虑介值定理；含一个函数导数用拉格朗日；出现两个函数用柯西。用拉格朗日证不等式的关键是把差商换成某点导数后，用该点导数的界估计范围。</p>
+<!-- /DEEP:why:3.2 -->
+
+<!-- DEEP:meth:3.2 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>通用技巧｜三种中值定理对号入座</strong>：① 结论不含端点优先罗尔；含端点用拉格朗日或柯西；② 整理结论时把一侧写成只含端点、另一侧只含中值：分母是端点相减选拉格朗日；分母不是端点相减（出现两个函数增量比）选柯西；③ 结论中出现两个函数、形式与柯西相似，直接想柯西中值定理；④ 只有介值定理和积分中值定理的中值属于闭区间；拉格朗日是连接 f 与其导数的桥梁。（例：没有思路时，先把 f(b)−f(a)=f′(ξ)(b−a) 写在旁边，再想办法把待证式往这个标准形式上变形。）</li>
+<li><strong>通用技巧｜万能构造法证不等式（乘 e 的因子加单调性）</strong>：① 条件里出现 f′−f（或 f′+af）时，构造 F(x)=f(x)e^{−x}（或 f(x)e^{ax}）；② 求 F′ 的符号得到 F 的单调性，再由端点的值和单调性推出目标不等式；③ 积分不等式同法：如 ∫_0^1|f′−f|dx≥1/e，令 F=f·e^{−x}，再逆用牛顿-莱布尼茨公式把 1/e 写成 F′ 在 [0,1] 上的积分。（例：f(0)=1、f′(x)<f(x)（x>0）：令 F=f(x)e^{−x}，F′=e^{−x}(f′−f)&lt;0，故 F(x)&lt;F(0)=1，即 f(x)&lt;e^x。）</li>
+<li><strong>通用技巧｜把待证式往定理的标准形式靠拢</strong>：① 观察结论中变量是否分离：f(b) 与 f(a) 分离且共用一个法则 f，常把两边同除某量（如 ab）凑出 [f(b)−f(a)]/(b−a) 与 f′(ξ)；② 判型口诀：结论中无导数往介值定理想；有导数且只有一个法则 f 用拉格朗日或罗尔；有两个法则用柯西；③ 出现二阶导数一般用两次中值定理；题目分两问时，第二问务必用第一问的结论。（例：见到结论里同时出现 f 与 g 两个法则，直接定位柯西中值定理，把两个函数分别当作 F 与 G。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://kaoyan.eol.cn/fu_xi/shuxue/201711/t20171124_1569414.shtml">https://kaoyan.eol.cn/fu_xi/shuxue/201711/t20171124_1569414.shtml</a>
+- <a href="https://cloud.tencent.com/developer/article/2113076">https://cloud.tencent.com/developer/article/2113076</a>
+- <a href="https://blog.csdn.net/qq_45858169/article/details/103788477">https://blog.csdn.net/qq_45858169/article/details/103788477</a></p>
+<!-- /DEEP:meth:3.2 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套1 第7题（2014 数二 (5)，由 f(x) = x f′(ξ) 求 lim ξ²/x²）：f′(ξ) = 1/(1 + ξ²)，代入得 ξ² = (x − arctan x)/arctan x，而 <code>x − arctan x ~ x³/3</code>、<code>arctan x ~ x</code>，故比值 → 1/3。<strong>关键一步</strong>：ξ 的具体位置不知道也不要紧，<strong>用等式把 ξ 表达出来</strong>，再对 x 做渐近展开。</li>
+<li>套1 第19题（2011 数一 (18)）：(Ⅰ) 对 ln x 在 [n, n+1] 用拉格朗日：<code>ln(1 + 1/n) = 1/ξ</code>，n &lt; ξ &lt; n+1，故 1/(n+1) &lt; ln(1 + 1/n) &lt; 1/n；(Ⅱ) 由此 a_{n+1} − a_n = 1/(n+1) − ln(1 + 1/n) &lt; 0（递减），且 a_n = Σ1/k − ln n &gt; ln(n+1) − ln n &gt; 0（有下界），由单调有界准则收敛（极限是欧拉常数 γ）。<strong>关键一步</strong>：<strong>先证不等式，再用它证单调性</strong>——这是「不等式题两问」的标准衔接。</li>
+<li>套1 第20题（2015 数二 (21)，切线与 x 轴交点 a &lt; x₀ &lt; b）：x₀ = b − f(b)/f′(b)；由 f(b) &gt; 0、f′(b) &gt; 0 得 x₀ &lt; b；再由 f(b) = f′(ξ)(b − a) 与 f′ 递增（f″ &gt; 0 ⇒ f′(b) &gt; f′(ξ)）得 f(b)/f′(b) &lt; b − a，即 x₀ &gt; a。<strong>关键一步</strong>：两端的界来自<strong>两个不同的来源</strong>——右边用「正负号」，左边用「中值定理 + 单调性」。</li>
+<li>套2 第19题（2020 数一 (19)，|f′| ≥ M 型）：(Ⅰ) 设 M = |f(c)|，在 [0, c] 与 [c, 2] 分别用拉格朗日得 M = |f′(ξ₁)|c = |f′(ξ₂)|(2 − c)，由 c 与 2 − c 中必有一个 ≤ 1 得结论；(Ⅱ) 反证 M &gt; 0，把三种位置逐一推出矛盾（c = 1 时令 G = f(x) − Mx，由 G(0) = G(1) = 0 且 G′ ≤ 0 得 G ≡ 0，与 f(2) = 0 矛盾）。<strong>关键一步</strong>：<strong>「区间长度 ≤ 1」是本题唯一的数量信息来源</strong>，所以要挑长度较小的一侧用中值定理。</li>
+<li>套4 第19题（证明 x − x²/2 &lt; ln(1 + x) &lt; x，x &gt; 0）：右半边令 f = x − ln(1 + x)，f′ = x/(1 + x) &gt; 0 且 f(0) = 0 ⇒ f &gt; 0；左半边<strong>必须换一个辅助函数</strong> g = ln(1 + x) − x + x²/2，g′ = x²/(1 + x) ≥ 0 且 g(0) = 0 ⇒ g &gt; 0。<strong>关键一步</strong>：同一个辅助函数证不出两半边——<strong>每半边各构造一个</strong>，这是本节最常被扣分的地方。</li>
+</ul>
+<!-- DEEP:ex:3.2 -->
+<p><strong>例题</strong>：证 x&gt;0 时 ln(1+x)&lt;x：对 f(t)=ln(1+t) 在 [0,x] 上用拉格朗日得 ln(1+x)=x/(1+ξ)，其中 0&lt;ξ&lt;x，故 x/(1+ξ)&lt;x，即 ln(1+x)&lt;x。
+<!-- /DEEP:ex:3.2 --></p>
+<p><strong>易错点</strong>：① ξ 在 (a, b) 内，不能取到端点（用端点值会把不等式证成等式）；② 证不等式时只用一个辅助函数硬撑两半；③ 忘记说明 f′ 的单调性来自 f″ 的符号；④ 拉格朗日定理用的是「闭区间连续、开区间可导」——分段函数要分段说明。</p>
+<p><strong>小练</strong>：证明当 0 &lt; a &lt; b 时，<code>(b − a)/b &lt; ln(b/a) &lt; (b − a)/a</code>。<strong>答案</strong>：对 ln x 在 [a, b] 用拉格朗日：ln(b/a) = (b − a)/ξ，a &lt; ξ &lt; b ⇒ <code>1/b &lt; 1/ξ &lt; 1/a</code>，乘 (b − a) 即得。</p>
+</div></div>
+<div class="topic closed" data-tid="3.3">
+<h2 id="33" class="thead"><span class="tid">3.3</span> <span class="tname">泰勒公式与积分不等式</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：结论里出现 f″、二阶导的符号、或「函数值 vs 中点/平均值」时用泰勒公式，<strong>在区间中点展开</strong>。</p>
+<p><strong>为什么</strong>：泰勒公式是「用一点的各阶导数还原函数值」，带拉格朗日余项的泰勒是<strong>等式</strong>（不是近似），所以能用来证不等式。选在中点展开，是因为奇次项在以中点为心的区间上积分正好为 0，能自动消掉——这就是中点不等式那类题的固定套路。</p>
+<p><strong>怎么做</strong>：① 选展开中心（中点 (a+b)/2 或极值点）；② 写成带拉格朗日余项的形式；③ 对不等式两侧在 [a, b] 上积分；④ 用 ∫(x − m)dx = 0 消去一次项。</p>
+<!-- DEEP:why:3.3 -->
+<p><strong>原理</strong>（为什么这招成立）：泰勒公式在证明不等式与积分估计中的作用是把函数在某点（通常是中点或端点）展开，用余项给出误差的阶。当结论里同时出现函数与二阶导数，或同时出现积分与导数时，说明信息量不止一阶，必须用泰勒（或两次中值定理）才能把两端联系起来。展开点的选择取决于题设里已知函数值或导数值的点——在哪点已知信息多，就在哪点展开。</p>
+<!-- /DEEP:why:3.3 -->
+
+<!-- DEEP:meth:3.3 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>通用技巧｜积分不等式的两个判定准则</strong>：① 结论中只有积分与被积函数本身，一般用积分中值定理；② 结论中出现积分与被积函数的导数，把变上限积分在某点展成泰勒展开式；③ 积分中值定理的加强版（中值属于开区间）要引用必须先自行证明；④ 泰勒与中值定理是局部近似与区间中值的递进：泰勒是中值定理的高阶推广，拉格朗日是泰勒的一阶特例。（例：∫_0^1|f′−f|dx≥1/e 这类题：先用积分中值定理把左边变成单点值，再构造 e^{−x} 因子走单调性。）</li>
+<li><strong>通用技巧｜泰勒展开的展开点与阶数原则</strong>：① 常用麦克劳林展开必须背熟，它比反复洛必达更快、更好用；② 求极限时展开原则是上下同阶：分子分母展开到同一阶即可，不要多展；③ 分子分母是差函数时，先分别展开再相乘、挑出所需次数；记熟后要广义化，不要局限在 x→0 的形式；④ 泰勒多项式就是去掉佩亚诺余项剩下的多项式；佩亚诺余项适合局部估计，拉格朗日余项能给出具体误差。（例：把 e^x、sin x、cos x、ln(1+x)、(1+x)^α 的展开式背到条件反射，本章大部分证明题都能少走弯路。）</li>
+<li><strong>通用技巧｜辅助多项式法（高阶中值结论）</strong>：① 结论要求 n 阶导数的信息，就构造 n 次辅助多项式，使它在题设已知点处与 f 取相同函数值；② 令 F(x)=f(x)−p_n(x)，则 F 在这些点处为零，反复用罗尔可得 F 的 n 阶导在某点为零，即 f 的 n 阶导等于 p_n 的 n 阶导；③ n 次多项式的 n 阶导数是常数，直接算出即为结论里的值。范围不宽但是很好的兜底方法。（例：f 在 [0,4] 二阶可导、f(0)=0、f(1)=1、f(4)=2，证存在 ξ 使 f″(ξ)=−1/3：令 p₂ 过三点得 p₂(x)=−x²/6+7x/6，则 F=f−p₂ 在 0、1、4 处为零，两次罗尔得 F″(ξ)=0，而 p₂″=−1/3。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://pdf.hanspub.org/ve20210300000_15519057.pdf">https://pdf.hanspub.org/ve20210300000_15519057.pdf</a>
+- <a href="https://publish.obsidian.md/gee-math-2/1-1.+%E5%87%BD%E6%95%B0%E7%9A%84%E6%9E%81%E9%99%90%E4%B8%8E%E8%BF%9E%E7%BB%AD/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F">https://publish.obsidian.md/gee-math-2/1-1.+%E5%87%BD%E6%95%B0%E7%9A%84%E6%9E%81%E9%99%90%E4%B8%8E%E8%BF%9E%E7%BB%AD/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F</a>
+- <a href="https://cloud.tencent.com/developer/article/2113076">https://cloud.tencent.com/developer/article/2113076</a></p>
+<!-- /DEEP:meth:3.3 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套2 第20题（2022 数一 (20)，证明 f″ ≥ 0 ⟺ ∫_a^b f ≥ f((a+b)/2)(b − a)）：必要性：在 m = (a+b)/2 处泰勒展开 <code>f(x) = f(m) + f′(m)(x − m) + ½f″(ξ)(x − m)² ≥ f(m) + f′(m)(x − m)</code>，两边在 [a, b] 积分，<code>∫(x − m)dx = 0</code>，得不等式；充分性：反证，若某点 f″ &lt; 0，由连续性存在小区间使 f″ &lt; 0，在该区间内仿上一步反向即得矛盾。<strong>关键一步</strong>：<strong>中点</strong>是这道题的灵魂——不是随便一点，选它才能让一次项积分为 0。</li>
+</ul>
+<!-- DEEP:ex:3.3 -->
+<p><strong>例题</strong>：f 在 [0,1] 二阶可导、f(0)=f(1)=0、f″(x)&lt;0，证 f(x)&gt;0（x 在 (0,1) 内）：在 x 处泰勒展开到一阶得 f(0)=f(x)−x f′(x)+x²f″(ξ₁)/2、f(1)=f(x)+(1−x)f′(x)+(1−x)²f″(ξ₂)/2，把第一式乘 (1−x)、第二式乘 x 后相加，左边为 (1−x)f(0)+x f(1)=0，右边 f(x) 加上一个含 f″&lt;0 的负项，即得 f(x)&gt;0。</p>
+<!-- /DEEP:ex:3.3 -->
+
+<p><strong>易错点</strong>：① 用泰勒的「皮亚诺余项」（o 型）去证不等式（不等式要求定量信息，必须用拉格朗日余项）；② 展开中心选成端点（一次项消不掉）；③ 只证一个方向（「⟺」要两个方向都写）。</p>
+<p><strong>小练</strong>：设 f″(x) ≥ 0 在 [0, 1] 上成立，证明 f(1/2) ≤ (f(0) + f(1))/2。<strong>答案</strong>：在 1/2 处泰勒展开：f(0) ≥ f(1/2) − f′(1/2)/2、f(1) ≥ f(1/2) + f′(1/2)/2，两式相加即得（这就是凸函数的中点不等式）。</p>
+</div></div>
+<div class="topic closed" data-tid="3.4">
+<h2 id="34" class="thead"><span class="tid">3.4</span> <span class="tname">单调性与极值（含变限积分函数）</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：单调性看 <strong>f′ 的符号</strong>；极值候选点 = 驻点 + <strong>不可导点</strong>（常常被漏掉）；变限积分函数先求导再判。</p>
+<p><strong>为什么</strong>：极值的第一充分条件是「f′ 在 x₀ 两侧变号」，它对<strong>不可导点同样有效</strong>——只要函数在那里连续。所以 x|x|、x ln x 这类在 0 处不可导但取极值的函数，只能靠「两侧符号变化」判定，用 f″ 的第二充分条件会失效（f″ 不存在）。</p>
+<p><strong>怎么做</strong>：① 求 f′，求所有 f′ = 0 的点；② 补上「f 连续但 f′ 不存在」的点（分段点、|x| 型、ln 型）；③ 列表判符号；④ 变限积分函数求导时注意「被积函数里含 x 的项」要用乘积法则，很多题的项刚好相消，化简后再判。</p>
+<!-- DEEP:why:3.4 -->
+<p><strong>原理</strong>（为什么这招成立）：单调性由导数的符号决定，是因为 f(x₂)−f(x₁)=f′(ξ)(x₂−x₁)，差值的正负完全由中点导数的正负决定。极值点必须是「导数变号」的点：导数恒正或恒负的区间内函数严格单调，取不到极值；而导数不存在的点也可能是极值点（尖点处的折返），所以驻点与不可导点都要列入候选。</p>
+<!-- /DEEP:why:3.4 -->
+
+<!-- DEEP:meth:3.4 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>通用技巧｜求单调区间与极值的标准步骤</strong>：① 先求定义域（单调区间必须是定义域的子集）；② 求 f′，解 f′=0 得全部驻点，并找出 f′ 不存在的点；③ 用驻点与不可导点把定义域分段，逐段判断 f′ 的符号：f′&gt;0 增、f′&lt;0 减，个别点 f′=0 不影响单调性；④ 极值点只能从驻点或不可导点中产生，判极大极小要看两侧 f′ 的符号变化，不能只看 f′=0；⑤ 区间不连续时单调区间要分开写、用逗号连接，不能用并集符号。（例：求单调区间的规范答卷：先写定义域，再列分段表（区间、f′ 符号、f 的增减），最后按段写结论且不写并集。）</li>
+<li><strong>通用技巧｜极值最值的分类点比较法</strong>：① 候选点三类：驻点、不可导点、端点；② 分别算出这些点的函数值，逐一比较，最大者为最大值、最小者为最小值；③ 区间上只有一个极大（极小）值点时，可结合实际背景直接断定它就是最大（小）值点。（例：闭区间最值题固定三步：列候选点、算函数值、比较大小；漏掉端点是最常见的错。）</li>
+<li><strong>通用技巧｜变限积分函数求导（本章高频五星考点）</strong>：① 基本原理：f 在 [a,b] 连续，则变上限积分的导数就是 f(x)；② 上下限都是函数时：∫_{g(x)}^{h(x)}f 的导数 = h′(x)f(h(x)) − g′(x)f(g(x))；③ 参与乘积、商等四则运算时按普通求导法则处理，如 x²∫_1^x f 的导数 = 2x∫_1^x f + x²f(x)；④ 常与洛必达、单调性、极值综合出题。（例：f(x)=∫_0^{x²}(3^{2t}+sin t)dt 则 f′(x)=2x(3^{2x²}+sin x²)：上限是 x²，链式因子 2x 不能丢。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://www.mundanity.moe/post/Math_I_Notes">https://www.mundanity.moe/post/Math_I_Notes</a>
+- <a href="https://www.cnblogs.com/isLinXu/p/15327312.html">https://www.cnblogs.com/isLinXu/p/15327312.html</a>
+- <a href="https://m.saikr.com/a/2774">https://m.saikr.com/a/2774</a></p>
+<!-- /DEEP:meth:3.4 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套2 第7题（2019 数一 (2)，f = x|x|（x ≤ 0）、x ln x（x &gt; 0））：f′₊(0) = lim ln x = −∞ ⇒ 不可导；x &lt; 0 时 f′ = −2x &gt; 0（递增）、0 &lt; x &lt; 1/e 时 f′ = 1 + ln x &lt; 0（递减），故 x = 0 是极大值点，选 B。<strong>关键一步</strong>：<strong>不可导点也要当极值候选点</strong>——这题的正确选项是「不可导点且极值点」。</li>
+<li>套2 第17题（2010 数一 (16)，f = ∫₁^{x²}(x² − t)e^{−t²}dt）：把 x² 提出积分号，<code>f′(x) = 2x∫₁^{x²}e^{−t²}dt</code>（含上限的两项相消）；由 f″(0) &lt; 0 得极大值 f(0) = (1 − e^{−1})/2，f″(±1) &gt; 0 得极小值 f(±1) = 0。<strong>关键一步</strong>：<strong>先改写再求导</strong>——把被积函数里的 x 提出积分号，避免用含参积分的一般求导公式；相消是这类题的常态。</li>
+<li>套4 第7题（f = x − ln x）：f′ = (x − 1)/x，定义域 x &gt; 0，故递增区间 (1, +∞)。<strong>关键一步</strong>：先写定义域，再解不等式（本题易错成 (−∞, 0) ∪ (1, +∞)）。</li>
+<li>套4 第17题（f = x³ − 3x + 1 的极大值）：f′ = 3x² − 3 = 0 得 x = ±1，f″(−1) = −6 &lt; 0，极大值 f(−1) = 3。<strong>关键一步</strong>：用 f″ 判别的题要先确认 f″ ≠ 0 处的点，f″ = 0 时回到第一充分条件。</li>
+</ul>
+<!-- DEEP:ex:3.4 -->
+<p><strong>例题</strong>：求 f(x)=x³−3x 的单调区间与极值：f′=3(x²−1)，在 (−∞,−1) 与 (1,+∞) 上 f′&gt;0 单调增，在 (−1,1) 上单调减，故 x=−1 取极大值 2、x=1 取极小值 −2。</p>
+<!-- /DEEP:ex:3.4 -->
+
+<p><strong>易错点</strong>：① 漏掉不可导点；② 变限积分求导忘乘上限导数（2x）；③ 不写定义域，把单调区间写成两段合并的并集；④ 用 f″ 判别时把「极大」和「极小」记反（f″ &lt; 0 是极大）。</p>
+<p><strong>小练</strong>：求 f(x) = (x − 1)²(x + 2) 的极值。<strong>答案</strong>：f′ = 3(x − 1)(x + 1) ⇒ x = 1 处极小值 0，x = −1 处极大值 4。</p>
+</div></div>
+<div class="topic closed" data-tid="3.5">
+<h2 id="35" class="thead"><span class="tid">3.5</span> <span class="tname">方程根的个数</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：把方程写成 <code>g(x) = k</code> 或 <code>F(x) = 0</code>，<strong>用单调性数出每个单调区间上最多一个根</strong>，再用端点（或 ±∞）的符号确认那里确实有根。</p>
+<p><strong>为什么</strong>：零点定理告诉你「变号 ⇒ 有根」，单调性告诉你「单调 ⇒ 至多一根」。两个结论一夹，根的个数就定死了。含参数的问题（求 k 的范围使方程有几个根）本质是「让水平线 y = k 与曲线交几次」，也就是数<strong>极值点的高度把 y 轴分成几段</strong>。</p>
+<p><strong>怎么做</strong>：① 求 f′，列表得出单调区间与极值；② 在每个单调区间上用零点定理（取端点或极限符号）；③ 极值恰好为 0 的「临界情形」要单独说（那是一个重根，不计入「不同根」）。</p>
+<!-- DEEP:why:3.5 -->
+<p><strong>原理</strong>（为什么这招成立）：零点个数问题本质是「单调区间内至多一个根」加上「每个区间内至少一个根」两个方向的计数：单调性给上界（导数不变号就至多一个零点），零点定理给存在性（区间两端异号就至少一个）。所以完整解法是把定义域按驻点与不可导点分段，逐段判两端符号与单调性，最后汇总，并把参数取临界值时根合并的情形单独讨论。</p>
+<!-- /DEEP:why:3.5 -->
+
+<!-- DEEP:meth:3.5 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>通用技巧｜零点定理加单调性确定实根个数</strong>：① 存在性：用零点定理（区间两端函数值异号，或端点与无穷远极限值异号）判定至少有一个根；② 唯一性：用 f′ 的符号确定单调区间，每个单调区间内方程至多一个根；③ 根的个数等于各单调区间内是否有根之和：区间两端（或极限）异号则该区间恰有一根，同号则该区间无根；④ 要把端点值、极值以及 x 趋于正负无穷的极限趋势都算进来，才不漏临界情形。（例：讨论方程 f(x)=0 的根：列表写出 f 在每段上的单调性与两端符号，逐段判「有且仅有」，最后汇总个数。）</li>
+<li><strong>通用技巧｜罗尔定理数零点（求零点个数上界）</strong>：① 核心引理：函数两个零点之间至少有一个导数为零的点，故 n 个零点推出导函数至少 n−1 个零点、二阶导至少 n−2 个零点；② 反证法：假设有 n 个零点，反复求导（必要时乘 e^{−ax} 之类的因子保持零点个数不变）把项数逐次减少；③ 求导到某一步得到显然无解的方程，矛盾即得零点个数的上界。（例：形如 Σc_k e^{a_k x}（各 a_k 互异）的函数至多 n−1 个不同零点：乘 e^{−aₙx} 后反复求导，最后得一个指数等于零的方程无解，与假设矛盾。）</li>
+<li><strong>通用技巧｜用极值最值讨论根的个数</strong>：① 先求单调区间和极值（极大值、极小值）；② 把极值点与 0 比较：极大值小于 0 或极小值大于 0 则无根；极值异号则在相应单调区间内各有一根；③ 再结合 x 趋于正负无穷时 f 的趋势判断多根与临界情形。（例：含参方程根的个数题：先算极值，再让参数在「极值等于 0」的临界值两侧分类讨论，答案写成区间。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://zhaokaifeng.com/20095">https://zhaokaifeng.com/20095</a>
+- <a href="https://www.wbyblog.cn/archives/9.html">https://www.wbyblog.cn/archives/9.html</a>
+- <a href="https://kaoyan.eol.cn/fu_xi/shuxue/201902/t20190227_1646504.shtml">https://kaoyan.eol.cn/fu_xi/shuxue/201902/t20190227_1646504.shtml</a></p>
+<!-- /DEEP:meth:3.5 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套1 第6题（2019 数三 (2)，x⁵ − 5x + k = 0 何时有三个不同实根）：f′ = 5x⁴ − 5 得 x = ±1，极大值 4 + k、极小值 k − 4，且 f(±∞) = ±∞，故三个根 ⟺ 4 + k &gt; 0 且 k − 4 &lt; 0，即 −4 &lt; k &lt; 4。<strong>关键一步</strong>：<strong>端点条件全是严格不等号</strong>——k = 4 时极小值恰为 0，只剩两个不同根（一个是重根）。</li>
+<li>套1 第17题（2015 数二 (19)，求 f 的零点个数）：f′ = √(1 + x²)(2x − 1)，唯一极小值点 x = 1/2；f(1) = 0 给一个零点；再算 f(−1) = ∫₋₁¹√(1 + t²)dt &gt; 0 而 f(0) ≈ −0.07 &lt; 0，故 (−1, 0) 内另有一个零点。共 2 个。<strong>关键一步</strong>：<strong>极小值小于 0 才有两个根</strong>——所以要把 f(0) 的符号算出来（这一步不能靠「显然」）。</li>
+<li>套2 第15题（2011 数一 (17)，k·arctan x − x = 0 的实根个数）：f = k arctan x − x 是奇函数、f(0) = 0；k ≤ 1 时 f′ &lt; 0（严格递减），只有 x = 0 一个根；k &gt; 1 时 f′ 在 (0, √(k−1)) 为正、(√(k−1), +∞) 为负，极大值 f(√(k−1)) &gt; 0 而 f(+∞) = −∞，故正半轴还有一个根，连同奇函数的负根共 3 个。<strong>关键一步</strong>：<strong>利用奇偶性把「半轴」的结论翻倍</strong>——只研究 x &gt; 0，然后用 f(−x) = −f(x)。</li>
+</ul>
+<!-- DEEP:ex:3.5 -->
+<p><strong>例题</strong>：讨论 x³−3x+a=0 的实根个数：由 f=x³−3x 的极值 f(−1)=2、f(1)=−2 知，a&gt;2 或 a&lt;−2 时一根，a=±2 时两根，−2&lt;a&lt;2 时三根。
+<!-- /DEEP:ex:3.5 --></p>
+<p><strong>易错点</strong>：① 只算单调性不验符号（单调只能证明「至多一个」）；② 极值等于 0 的临界情况漏掉；③ 奇函数忘翻倍；④ 用罗尔定理说「有三个根所以有两个驻点」时方向用反。</p>
+<p><strong>小练</strong>：讨论方程 x³ − 3x + a = 0 的实根个数（按 a 分类）。<strong>答案</strong>：f 极大值 f(−1) = 2 + a、极小值 f(1) = a − 2；|a| &lt; 2 时 3 个根，|a| = 2 时 2 个根（含一个二重根），|a| &gt; 2 时 1 个根。</p>
+</div></div>
+<div class="topic closed" data-tid="3.6">
+<h2 id="36" class="thead"><span class="tid">3.6</span> <span class="tname">凹凸性与拐点</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：凹凸看 <strong>f″ 的符号</strong>，拐点是 f″ 变号的点；<strong>f″ = 0 但不变号的地方不是拐点</strong>。</p>
+<p><strong>为什么</strong>：f″ &gt; 0 表示 f′ 递增（切线斜率越来越大），曲线向上弯——这是「凹」（教材上叫凹/凸的约定各不同，判断只认符号变化）。拐点的定义要求<strong>凹凸性改变</strong>，所以光有 f″ = 0 不够，必须检查两侧符号。</p>
+<p><strong>怎么做</strong>：① 求 f″，解 f″ = 0；② 检查每个零点两侧 f″ 是否变号；③ 拐点坐标是 (x₀, f(x₀))，题目再问切线就顺手求 f′(x₀)。</p>
+<!-- DEEP:why:3.6 -->
+<p><strong>原理</strong>（为什么这招成立）：凹凸性由二阶导数符号刻画：二阶导数大于 0 时一阶导数递增，切线斜率越来越大，曲线向上弯（凹）。拐点是凹凸性改变的点，因此必须要求二阶导数在该点两侧异号；二阶导数为 0 只是「可能改变」的必要条件，像 x⁴ 在 0 处两侧都凹，虽然二阶导为 0 却不是拐点。</p>
+<!-- /DEEP:why:3.6 -->
+
+<!-- DEEP:meth:3.6 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>通用技巧｜拐点：二阶导为零是必要条件，不是充分条件</strong>：① 必要条件：f 在 (a,b) 内二阶可导，若该点是拐点，则二阶导在该点为 0；② 不充分！反例 f(x)=x⁴：二阶导在 0 处为 0，但两侧都凸，0 不是拐点；③ 充分条件：二阶导在该点为 0 且两侧异号，则是拐点；两侧同号则不是；④ 二阶导不存在的点也可能是拐点，要看该点两侧凹凸性是否改变。（例：答题时必须写出「两侧二阶导变号」这一步，只写「二阶导等于 0」不给分。）</li>
+<li><strong>通用技巧｜拐点是曲线上的点，不是横坐标</strong>：① 零点、驻点、极值点指的都是横坐标；拐点指曲线上的一个点，即横坐标与函数值配对；② 因此写答案要写成点坐标，只写横坐标不符合定义、会被扣分；③ 拐点又称反曲点，是凹凸弧的分界点，直观上是切线穿越曲线的点。（例：正误对比：写「拐点为 x=1」错；写「拐点为 (1, f(1))」才对。）</li>
+<li><strong>通用技巧｜凹凸性判别与列表求拐点</strong>：① 判别约定：区间中点函数值小于两端平均值则为凹曲线，大于则为凸曲线（同济教材约定）；② 按二阶导判：二阶导大于 0 曲线凹，小于 0 曲线凸；③ 求拐点的列表法：求出二阶导为 0 的点以及二阶导不存在的点，用它们把定义域分段，逐段判断二阶导符号，符号改变的点即为拐点。（例：列表法三列：区间、二阶导符号、凹凸性；符号一变就记一个拐点，最后写成点坐标。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://cloud.tencent.com/developer/article/2456608">https://cloud.tencent.com/developer/article/2456608</a>
+- <a href="https://yunfei99.cn/shenghuo/20065.html">https://yunfei99.cn/shenghuo/20065.html</a>
+- <a href="https://www.cnblogs.com/isLinXu/p/15327312.html">https://www.cnblogs.com/isLinXu/p/15327312.html</a></p>
+<!-- /DEEP:meth:3.6 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套1 第13题（2018 数二 (10)，y = x² + 2ln x 的拐点处切线）：y′ = 2x + 2/x、y″ = 2 − 2/x²，y″ = 0 得 x = 1（左右变号），拐点 (1, 1)，切线斜率 4，切线 y = 4x − 3。<strong>关键一步</strong>：定义域 x &gt; 0——<strong>y″ 的另一个零点 x = −1 不在定义域内，要划掉</strong>。</li>
+<li>套4 第3题（y = x³ − 3x² + 2 的拐点）：y″ = 6x − 6，x = 1 处变号，y(1) = 0，拐点 (1, 0)。<strong>关键一步</strong>：三次函数的拐点横坐标 = 极值点横坐标的中点（1 = (0 + 2)/2），可用来快速检验。</li>
+</ul>
+<!-- DEEP:ex:3.6 -->
+<p><strong>例题</strong>：求 y=x⁴−2x²+1 的拐点：y″=12x²−4，在 x=±1/√3 处变号，拐点为 (1/√3, 4/9) 与 (−1/√3, 4/9)（曲线在两点间凸、两侧凹）。</p>
+<!-- /DEEP:ex:3.6 -->
+
+<p><strong>易错点</strong>：① 把 f″ = 0 的点一律叫拐点；② 忘记定义域（ln x 型）；③ 拐点写成一个数而不是一个点。</p>
+<p><strong>小练</strong>：求 y = x⁴ 的拐点。<strong>答案</strong>：无拐点（y″ = 12x² ≥ 0，x = 0 处不变号）。</p>
+</div></div>
+<div class="topic closed" data-tid="3.7">
+<h2 id="37" class="thead"><span class="tid">3.7</span> <span class="tname">渐近线</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：三种渐近线各查一处——<strong>铅直</strong>：函数发散的点；<strong>水平</strong>：x → ±∞ 时 y 的极限；<strong>斜</strong>：同一方向上「没有水平渐近线」时才算 a = lim y/x、b = lim (y − ax)。</p>
+<p><strong>为什么</strong>：渐近线的定义是「曲线到直线的距离趋于 0」，所以水平渐近线是斜渐近线的<strong>特例</strong>（a = 0）。这就是为什么<strong>同一侧有水平渐近线就不再有斜渐近线</strong>——不是规则命令，而是「距离趋于 0 的直线最多一条」。</p>
+<p><strong>怎么做</strong>：① 找使 y → ∞ 的有限点 → 铅直；② 算 x → ±∞ 的极限 → 水平；③ 若某侧极限不存在（或为 ∞），再算 a、b 得斜渐近线。</p>
+<!-- DEEP:why:3.7 -->
+<p><strong>原理</strong>（为什么这招成立）：渐近线刻画的是曲线在「无穷远或间断点附近」与某条直线的接近程度：垂直渐近线对应函数值发散（间断点），水平渐近线对应函数值趋于常数，斜渐近线对应函数值与某条直线的差趋于 0——后者展开成 f(x)=kx+b+o(1) 就得到 k 与 b。同侧不可能既有水平渐近线又有斜渐近线，因为函数值趋于常数时 f(x)−kx 必发散。</p>
+<!-- /DEEP:why:3.7 -->
+
+<!-- DEEP:meth:3.7 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>通用技巧｜三类渐近线的定义式求法</strong>：① 垂直渐近线：若 f 在 x₀ 一侧或两侧趋于无穷，则 x=x₀ 是垂直渐近线（x₀ 为无穷间断点）；可以有多条；② 水平渐近线：若 x 趋于正无穷或负无穷时 f 趋于常数 A，则 y=A 是水平渐近线，至多两条（两侧各一条）；③ 斜渐近线：先算 k 为 f(x)/x 在无穷远处的极限，再算 b 为 f(x)−kx 的极限，则 y=kx+b 是斜渐近线，也至多两条；④ 求斜渐近线要算两次极限，最容易漏算截距 b；而且 k 存在还不够，必须验证 f(x)−kx 的极限存在（反例：f(x)=x+ln x，k=1 但没有斜渐近线）。（例：同一侧若有水平渐近线，该侧就不必再求斜渐近线——这条把「求渐近线条数」的题变成简单计数。）</li>
+<li><strong>通用技巧｜计算顺序固定：垂直、水平、斜</strong>：① 关键结论：水平渐近线与斜渐近线加起来最多两条，同侧不可能既水平又斜；② 计算顺序固定为垂直渐近线、水平渐近线、斜渐近线；③ 计数类题目按这个顺序清点，避免重复计数。（例：清点条数：先找所有无穷间断点（垂直），再看两侧趋于常数的情况（水平），剩下的侧才去求斜渐近线。）</li>
+<li><strong>通用技巧｜拆项加泰勒展开，直接读出斜渐近线</strong>：① 把 f(x) 展开成 kx+b+O(1/x) 的形式，常数项就是 b，可以避开求两次极限；② 处理 x 趋于无穷时的复杂函数特别快，如 f 能写成 2x−1 加一个趋于 0 的项，则斜渐近线就是 y=2x−1；③ 隐函数求渐近线：先令 x 趋于无穷解出 y 的水平值（水平渐近线），再把 y=kx+b 代入原方程解 b（斜渐近线）。（例：含幂指或根式的函数（如 x^{1+x}/(1+x)^x 一类）先用 e 的指数形式化简，再拆出 kx+b 项，斜渐近线立刻可见。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://pdf.hanspub.org/aam20230800000_75356482.pdf">https://pdf.hanspub.org/aam20230800000_75356482.pdf</a></p>
+<!-- /DEEP:meth:3.7 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套3 第8题（2012 数一 (1)，y = (x² + x)/(x² − 1) 的渐近线条数）：x → 1 时 y → ∞ ⇒ 铅直 x = 1；x → ∞ 时 y → 1 ⇒ 水平 y = 1；这个方向上已有水平渐近线，不再有斜渐近线；x = −1 处 y → 0（不是发散），也不是渐近线。共 2 条，选 C。<strong>关键一步</strong>：<strong>x = −1 是坑</strong>——分母为 0 但分子也为 0（可去间断），不是铅直渐近线。</li>
+</ul>
+<!-- DEEP:ex:3.7 -->
+<p><strong>例题</strong>：求 y=(x²+1)/x 的渐近线：x→0 时 y→∞ 得垂直渐近线 x=0；x→±∞ 时 y=x+1/x → 与 y=x 之差 1/x→0，故斜渐近线为 y=x（无水平渐近线）。</p>
+<!-- /DEEP:ex:3.7 -->
+
+<p><strong>易错点</strong>：① 把「分母为零」的点直接当铅直渐近线（要先看是否可去）；② 同一侧既写水平又写斜；③ 忘了 x → −∞ 也要查一遍。</p>
+<p><strong>小练</strong>：求 y = x + 1/x 的渐近线。<strong>答案</strong>：铅直 x = 0（x → 0 时 y → ∞）、斜渐近线 y = x（a = 1、b → 0）；没有水平渐近线。</p>
+</div></div>
+<div class="topic closed" data-tid="3.8">
+<h2 id="38" class="thead"><span class="tid">3.8</span> <span class="tname">闭区间上的最值</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：闭区间最值 = 比较「所有驻点 + 不可导点 + 两个端点」的函数值，取最大最小。</p>
+<p><strong>为什么</strong>：连续函数在闭区间上必取到最值，而最值点只可能是「内部的可导极值点（驻点）」「内部的不可导点」或「端点」。这是把「无限多」压成「有限多个候选」的定理保证。</p>
+<!-- DEEP:why:3.8 -->
+<p><strong>原理</strong>（为什么这招成立）：闭区间上连续函数必取到最大最小值（最值定理），所以最值只可能在驻点、不可导点或端点取得，这三类点因此构成全部候选。开区间上最值可能取不到（函数在端点附近趋于极值），所以必须改用单调性与极限来讨论。</p>
+<!-- /DEEP:why:3.8 -->
+
+<!-- DEEP:meth:3.8 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>通用技巧｜闭区间上最值的三类点比较法</strong>：① 第一步：在 [a,b] 上找出三类候选点——驻点、不可导点、端点；② 第二步：分别计算这些点处的函数值；③ 第三步：比较大小，最大者即最大值、最小者即最小值；④ 区间必须是闭区间才保证最大值最小值一定取到；开区间要改用极限或单调性讨论。（例：闭区间最值题一律三步走，绝不要只比较驻点；端点值必须算。）</li>
+<li><strong>通用技巧｜唯一极值法与实际应用最值</strong>：① 讨论区间上只有一个极大（极小）值点时，该点可结合实际背景直接判为最大（小）值点；② 实际应用题先做三件事：确定目标函数、写出约束条件、判定所讨论的区间；③ 含参数的闭区间最值要讨论驻点或端点是否落在区间内，分类处理。（例：应用题里出现「唯一驻点」时，可用单调性或实际意义直接断定它是最大（小）值点，不必再算端点。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://www.cnblogs.com/isLinXu/p/15327312.html">https://www.cnblogs.com/isLinXu/p/15327312.html</a>
+- <a href="https://www.mundanity.moe/post/Math_I_Notes">https://www.mundanity.moe/post/Math_I_Notes</a></p>
+<!-- /DEEP:meth:3.8 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套4 第11题（f = x³ − 3x 在 [−2, 2] 上的最大值）：驻点 x = ±1，算 f(−2) = −2、f(−1) = 2、f(1) = −2、f(2) = 2，最大值为 2。<strong>关键一步</strong>：<strong>端点值不能漏</strong>——本题驻点与端点刚好打平，漏掉端点就会以为只有 2 一个来源。</li>
+</ul>
+<!-- DEEP:ex:3.8 -->
+<p><strong>例题</strong>：求 f(x)=x³−3x 在 [−2,2] 上的最值：候选点为驻点 x=±1 与端点 x=±2，函数值分别为 2、−2、−2、2，故最大值为 2、最小值为 −2。</p>
+<!-- /DEEP:ex:3.8 -->
+
+<p><strong>易错点</strong>：① 只算驻点；② 忘记 x = 0 型不可导点；③ 把「最大值」答成「极大值」。</p>
+<p><strong>小练</strong>：求 f(x) = x + 1/x 在 [1/2, 2] 上的最值。<strong>答案</strong>：f′ = 1 − 1/x² = 0 得 x = 1（内部驻点），f(1/2) = 5/2、f(1) = 2、f(2) = 5/2 ⇒ 最大值 5/2、最小值 2。</p>
+</div></div>
+<div class="topic closed" data-tid="3.9">
+<h2 id="39" class="thead"><span class="tid">3.9</span> <span class="tname">参数取值范围：单调性 + 端点极限</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：把参数从方程里<strong>解出来</strong>，让它等于一个不含参数的函数值域。</p>
+<p><strong>为什么</strong>：方程 <code>F(x, k) = 0 在区间内有解</code> ⟺ <code>k = g(x) 在区间内取到</code>（g 是不含 k 的表达式）。于是问题从「解方程」变成「求 g 的值域」——<strong>值域 = 单调区间的两端值（或极限）之间的一切</strong>。</p>
+<p><strong>怎么做</strong>：① 把 k 单独解出来；② 对 g 求导定单调性（通常要用一个次级不等式，如 ln(1 + x) &lt; x 来证明 g′ &lt; 0）；③ 算区间两端的 g 值/极限，值域即所求；④ 端点能否取到要单独说明。</p>
+<!-- DEEP:why:3.9 -->
+<p><strong>原理</strong>（为什么这招成立）：恒成立问题转化为最值问题，是因为「对一切 x 都成立」等价于「不等式在最坏的那个点上也成立」，而最坏点就是最大（最小）值点。分离参数之所以优先，是因为分离后不等式右边是不含参数的函数，参数范围直接等于该函数的最值，不需要按参数分类讨论。</p>
+<!-- /DEEP:why:3.9 -->
+
+<!-- DEEP:meth:3.9 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>通用技巧｜恒成立等价于最值（把参数范围问题转化为值域问题）</strong>：① 对所有 x 有 f(x)<a 恒成立等价于 f(x) 的最大值小于 a；f(x)>a 恒成立等价于 f(x) 的最小值大于 a；② f(x)&lt;g(x) 恒成立：令 F=f−g，只需 F 的最大值小于 0；③ 存在性：存在 x₀ 使 f(x₀)<a 等价于 f 的最小值小于 a；存在 x₀ 使 f(x₀)>a 等价于 f 的最大值大于 a；④ 双变量：对所有 x₁ 存在 x₂ 使 f(x₁)&lt;g(x₂)，等价于 f 的最大值小于 g 的最大值；对任意 x₁、x₂ 都成立则等价于 f 的最大值小于 g 的最小值。（例：所有这类题都归到一句话：参数范围就是某函数的值域，把范围求出来即得答案。）</li>
+<li><strong>通用技巧｜分离参数法（首选）</strong>：① 先把不等式化为参数大于 h(x) 或参数小于 h(x) 的形式，使参数与 x 分离；② 参数大于 h(x) 恒成立等价于参数大于 h(x) 的最大值；参数小于 h(x) 恒成立等价于参数小于 h(x) 的最小值；③ 分离后所得函数不含参，避免了对参数分类讨论，是首选做法；④ 若分离后 h(x) 的最值难求，再退回直接构造函数求最值或数形结合。（例：凡是含参恒成立题，先试分离参数；能分离就别分类讨论，这是等价变形不是技巧性操作。）</li>
+<li><strong>张宇｜把含参问题定位为「最值或值域」题型</strong>：① 含参问题先定位到求某函数的值域，再回到单调性、极值、渐近线去卡出范围的上下界；② 顺序上先做单调性与极值，再看 x 趋于端点或无穷远处函数值的极限，两端合起来即为值域，参数范围随之确定；③ 这套定位与切线法线、单调性极值凹凸拐点、渐近线并列，是微分学应用的核心题型。（例：看到「恒成立」「有两个实根」「至少有一个交点」这类问法，统一翻译成值域问题，再用单调性和端点极限算值域。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://www.cnblogs.com/zhgmaths/p/15754027.html">https://www.cnblogs.com/zhgmaths/p/15754027.html</a>
+- <a href="https://qwdh.net/post/7348.html">https://qwdh.net/post/7348.html</a></p>
+<!-- /DEEP:meth:3.9 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套3 第17题（2017 数三 (18)，1/ln(1 + x) − 1/x = k 在 (0, 1] 内有实根，求 k 的范围）：令 f = 1/ln(1 + x) − 1/x，f′ &lt; 0（用 ln(1 + x) &lt; x 证得分子 g(x) = (1 + x)ln²(1 + x) − x² &lt; 0），故 f 在 (0, 1] 严格递减；又 lim_{x→0⁺} f = 1/2、f(1) = 1/ln 2 − 1，故 k ∈ (1/ln 2 − 1, 1/2)。<strong>关键一步</strong>：<strong>单调性靠一个「次级不等式」撑起来</strong>（ln(1 + x) &lt; x），这是含对数函数判单调的标准配置；两端点分别对应「逼近 0」和「取到 1」，所以是开区间。</li>
+</ul>
+<!-- DEEP:ex:3.9 -->
+<p><strong>例题</strong>：a&gt;x³−3x 对 x 在 [0,2] 恒成立，求 a 的范围：右边最大值在 x=2 取得为 2，故 a&gt;2。</p>
+<!-- /DEEP:ex:3.9 -->
+
+<p><strong>易错点</strong>：① 只用 f′ &lt; 0 就说「k 可取任意值」；② 端点值算错（f(1) = 1/ln 2 − 1 ≈ 0.4427，别和 1/2 = 0.5 混）；③ 端点是开是闭判错；④ 忘记写「k 在此范围内每个值都能取到」（值域定理：连续函数在区间上的像是一个区间）。</p>
+<p><strong>小练</strong>：若方程 x = a·e^{−x}（x &gt; 0）有实根，求 a 的范围。<strong>答案</strong>：a = x e^x，x &gt; 0 时 x e^x &gt; 0 且严格递增、值域 (0, +∞)，故 a &gt; 0。</p>
+<hr />
+</div></div>
+</div></section>
+<section class="chapter" data-ch="第 4 章　不定积分">
+<h1 id="4" class="chead">第 4 章　不定积分<span class="chev">▾</span></h1>
+<div class="cbody">
+<p>本章题量不大但<strong>最容易丢分在「算不完」</strong>。两句总纲：<strong>先看能不能凑微分（换元），再看是不是两类函数的乘积（分部），最后看是不是有理函数（部分分式）</strong>。做题前先给被积函数分类，比盲目试公式快得多。</p>
+<div class="topic closed" data-tid="4.1">
+<h2 id="41" class="thead"><span class="tid">4.1</span> <span class="tname">分部积分</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：被积函数是「多项式 × 超越函数」「反三角/对数 × 其它」时用 <code>∫u dv = uv − ∫v du</code>，选 u 的顺序按 <strong>「反对幂指三」</strong>（反三角、对数、幂函数、指数、三角，排在前面的当 u）。</p>
+<p><strong>为什么</strong>：分部积分是把「难算的积分」换成「另一个积分」。选谁当 u 的原则是<strong>求导后变简单</strong>：反三角、对数求导后变成代数式（变简单），而多项式求导后降次。选对了，第二项就比第一项好算。</p>
+<p><strong>怎么做</strong>：① 按口诀定 u、dv；② 若一次分部后还是乘积型，再分部一次；③ 出现「循环」（如 ∫e^x sin x）就移项解出原积分；④ 结果别忘 + C。</p>
+<!-- DEEP:why:4.1 -->
+<p><strong>原理</strong>（为什么这招成立）：分部积分来自乘积求导公式 (uv)′=u′v+uv′ 的移项积分，作用是把「难积的乘积」换成「容易积的另一半」：∫u dv=uv−∫v du，所以选 u 的原则是求导后变简单（多项式、对数、反三角），选 dv 的原则是容易积分（指数、三角）。循环型出现的原因是 e^{ax} 与 sin bx 各自求导积分都不改变形态，两次分部后回到原积分，于是得到关于自身的方程。</p>
+<!-- /DEEP:why:4.1 -->
+
+<!-- DEEP:meth:4.1 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>张宇｜分部积分的推广公式：表格法</strong>：① 把乘积型积分中的 u 放在表格第一行一直往下求导，dv 对应的函数放在第二行一直往下求原函数；② 上下对应项相乘，符号按正负交替加和，最后一项写成积分形式，符号由交替规则决定；③ 适用条件：其中一部分（通常是多项式）反复求导后变成 0，或求导积分若干次后出现与自身成倍数的循环项；④ 表格法与基本积分公式、凑微分、第二类换元法并列为不定积分计算的第四类方法。（例：∫x²e^x dx：第一行写 x²、2x、2、0，第二行写 e^x 的连续几次原函数，交叉相乘即得，不必反复分部。）</li>
+<li><strong>通用技巧｜表格法的操作步骤与符号规则</strong>：① 第一行写需要求导的因子及其各阶导数，第二行写需要积分的因子及其各次原函数；② 从左上角开始交替标注正负，每行对应项相乘后按符号相加，直到某一列为 0 或出现可回代的循环项；③ u 通常选容易求导的因子，dv 选容易积分的因子；两个因子都不好积分时表格法不会简化，反而更繁琐。（例：表格法本质是分部积分公式的多次展开，用表格把反复分部的符号交替固定下来，减少写错符号的概率。）</li>
+<li><strong>通用技巧｜u 的选择顺序口诀：反对幂指三</strong>：① 顺序为反三角函数、对数函数、幂函数、指数函数、三角函数（指数与三角互换则为反对幂三指）；② 排在前面的取作 u，排在后面的与 dx 一起凑成 dv；③ 两种说法只在指数与三角谁先谁后有差别；当二者同时出现（循环型）时顺序可以互换，因为要做两次分部积分；④ 口诀只是经验总结不是定理，个别题需要灵活换序。（例：∫x³e^{x²}dx 幂函数取 u；∫(ln x−1)/x² dx 对数函数取 u。）</li>
+<li><strong>通用技巧｜循环积分型：两次分部后移项解方程</strong>：① 被积函数为 e^{ax}·sin bx、e^{ax}·cos bx、sin ax·cos bx 这类求导或积分两次又变回自身的组合时，连用两次分部积分；② 第二次分部后等式右边出现原积分的倍数，把原积分移到一边解方程得到结果；③ 只要数次分部后出现的新积分与原积分成倍数关系（如含 sin(a ln bx) 的情形），都用移项办法；④ 含正整数次幂时得到的是递推式而不是方程。（例：∫e^x cos x dx = e^x(sin x + cos x)/2 + C——两次分部后右边出现同一个积分，移项即得。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://www.cnblogs.com/elite-00/articles/17385655.html">https://www.cnblogs.com/elite-00/articles/17385655.html</a>
+- <a href="https://zhuanlan.zhihu.com/p/2738397335">https://zhuanlan.zhihu.com/p/2738397335</a>
+- <a href="https://zhuanlan.zhihu.com/p/518745672">https://zhuanlan.zhihu.com/p/518745672</a>
+- <a href="https://zhuanlan.zhihu.com/p/420792593">https://zhuanlan.zhihu.com/p/420792593</a></p>
+<!-- /DEEP:meth:4.1 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套1 第14题（2018 数三 (10)，∫e^x·arcsin√(1 − e^{2x})dx）：把 e^x dx 凑成 d(e^x)，分部分得 <code>e^x arcsin√(1 − e^{2x}) + ∫e^{2x}/√(1 − e^{2x})dx</code>，而后一个积分令 u = 1 − e^{2x} 直接得 −√(1 − e^{2x})，答案 <code>e^x arcsin√(1 − e^{2x}) − √(1 − e^{2x}) + C</code>。<strong>关键一步</strong>：<strong>先把 e^x dx 凑成 d(e^x)</strong>，让积分号里只留下 arcsin 这一个「需要求导的东西」。</li>
+<li>套2 第18题（2018 数一 (15)，∫e^{2x}·arctan√(e^x − 1)dx）：分部后剩 <code>−¼∫e^{2x}/√(e^x − 1)dx</code>，令 u = √(e^x − 1) 换元得 (2/3)u³ + 2u，答案 <code>½e^{2x}arctan√(e^x − 1) − (1/6)(e^x − 1)^{3/2} − ½√(e^x − 1) + C</code>。<strong>关键一步</strong>：<strong>分部 + 换元连用</strong>——分部把 arctan 处理掉，换元把根式处理掉，一题用两招是这类题的常态。</li>
+<li>套4 第18题（∫x e^{−x}dx）：分部得 −x e^{−x} − e^{−x} + C = −(x + 1)e^{−x} + C。<strong>关键一步</strong>：指数函数的原函数符号最容易错，算完<strong>求导回验</strong>一次（这道题 10 秒就能验）。</li>
+</ul>
+<!-- DEEP:ex:4.1 -->
+<p><strong>例题</strong>：∫x e^x dx：取 u=x、dv=e^x dx，得 x e^x − ∫e^x dx = (x−1)e^x + C。验证：(x−1)e^x 的导数为 x e^x，正确。</p>
+<!-- /DEEP:ex:4.1 -->
+
+<p><strong>易错点</strong>：① u 选反了（把 e^x 当 u，越分部越复杂）；② 忘记 + C；③ 循环型忘记移项解方程；④ 分部后新出现的积分比原来的还难（说明 u、v 选错了）。</p>
+<p><strong>小练</strong>：求 ∫x·ln x dx。<strong>答案</strong>：(x²/2)ln x − x²/4 + C。</p>
+</div></div>
+<div class="topic closed" data-tid="4.2">
+<h2 id="42" class="thead"><span class="tid">4.2</span> <span class="tname">第二类换元：三角代换与根式代换</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：见到 <code>√(a² − x²)</code>、<code>√(a² + x²)</code>、<code>√(x² − a²)</code> 就用三角代换把根号<strong>变成三角函数</strong>（去根号）；代换后<strong>必须回代</strong>到原变量。</p>
+<p><strong>为什么</strong>：根号是计算的最大障碍，而三角恒等式 <code>1 − sin²t = cos²t</code> 正是为消根号准备的。反过来，若被积函数里出现 <code>e^t</code>、<code>arcsin</code> 这类「反过来的」结构，也可以令 x = tan t，把代数式变成指数/三角式（本卷的 2003 数二题就是这一型）。</p>
+<p><strong>怎么做</strong>：① 按根号形式选代换（√(a²−x²): x = a sin t；√(a²+x²): x = a tan t；√(x²−a²): x = a sec t）；② 换元后化简成三角式并积分；③ <strong>回代</strong>：画一个直角三角形或用恒等式把 sin t、tan t 换成 x 的表达式。</p>
+<!-- DEEP:why:4.2 -->
+<p><strong>原理</strong>（为什么这招成立）：三角代换的依据是勾股恒等式能把根号内的平方和差变成完全平方，从而整体开出根号；这等价于用圆或双曲线的参数方程表示曲线。根式代换的依据是反解：把整个根式设为 t 后，x 是 t 的有理函数，dx 也是 t 的有理式，无理积分因此变成有理函数积分，而后者有固定的部分分式流程。</p>
+<!-- /DEEP:why:4.2 -->
+
+<!-- DEEP:meth:4.2 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>通用技巧｜三角代换三型：按根号里的形式对号入座</strong>：① 根号内是 a²−x²，令 x=a sin t，用 1−sin²t=cos²t 去根号；② 根号内是 a²+x²，令 x=a tan t，用 1+tan²t=sec²t 去根号；③ 根号内是 x²−a²，令 x=a sec t，用 sec²t−1=tan²t 去根号；④ 根号内不是简单形式时先配方或提系数；⑤ 必须限定 t 的范围（sin 取 [−π/2,π/2]、tan 取 (−π/2,π/2)、sec 取 [0,π/2) 与 [π,3π/2)），才能保证开根号时去掉绝对值。（例：∫√(1−x²)dx 取 x=sin t，结果为 arcsin x /2 + x√(1−x²)/2 + C。）</li>
+<li><strong>通用技巧｜回代技巧：画直角三角形把 t 换回 x</strong>：① 结果里含有 t 的三角函数时，画直角三角形：由换元关系定出两条边，第三边用勾股定理求出，再直接读出需要的三角函数值；② 结果里只出现 t 本身时，用反三角函数回代，不要用三角形；③ 最后加上任意常数，并把所有 t 都换回 x，不能保留参数 t。（例：∫√(1−x²)dx 中需要 sin 2t，用三角形得 sin 2t=2sin t·cos t=2x√(1−x²)。）</li>
+<li><strong>通用技巧｜三角代换为什么可行：三个勾股恒等式</strong>：① sin²t+cos²t=1 对应处理 1−x²，用 x=sin t；sec²t=1+tan²t 对应处理 1+x²，用 x=tan t；csc²t=1+cot²t 对应处理与 x²−1 有关的根式；② 本质是用圆或双曲线的参数方程替换根式，把无理式化成 t 的三角有理式；③ 三类根式与三类换元一一对应，看到根号内是什么就能直接对号入座；④ 代换后 dx 也要一并换掉，漏掉 dx 是最常见错误。（例：半圆面积 ∫√(1−x²)dx 在 [−1,1] 上经 x=sin t 化为 ∫cos²t dt，得 π/2。）</li>
+<li><strong>武忠祥｜根式代换：把整个根号设为 t，反解 x 再积分</strong>：① 被积函数含 n 次根号时，令 t 等于该根式，反解出 x 与 dx，把根式积分化为有理函数积分；② 含 e^x 的复合根式（如 √(e^x−1)）令 t 为该根式，反解得 x=ln(t²+1)；③ 根号内是一次分式时同样整体换元去根号，换完按有理函数或分部积分处理；④ 第二类换元明确分根式代换与三角代换两条线。（例：∫√(e^x−1)dx：令 t=√(e^x−1)，化为 ∫2t²/(1+t²)dt，再按有理函数处理。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://www.sfu.ca/math-coursenotes/Math%20158%20Course%20Notes/sec_Trig_Sub.html">https://www.sfu.ca/math-coursenotes/Math%20158%20Course%20Notes/sec_Trig_Sub.html</a>
+- <a href="https://zhuanlan.zhihu.com/p/581961575">https://zhuanlan.zhihu.com/p/581961575</a>
+- <a href="https://www.kaoyantools.com/27allnotes/27sxnote/51803.html">https://www.kaoyantools.com/27allnotes/27sxnote/51803.html</a></p>
+<!-- /DEEP:meth:4.2 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套3 第18题（2003 数二 第五题，∫x·e^{arctan x}/(1 + x²)^{3/2}dx）：令 x = tan t，则 dx = sec²t dt、(1 + x²)^{3/2} = sec³t，原式化为 <code>∫e^t·sin t dt</code>（循环型分部积分）= ½e^t(sin t − cos t) + C，回代 sin t = x/√(1 + x²)、cos t = 1/√(1 + x²) 得 <code>(x − 1)e^{arctan x}/(2√(1 + x²)) + C</code>。<strong>关键一步</strong>：<strong>代换的火候在「把式子变简单」而不是「把根号去掉」</strong>——这里 x = tan t 一举把 1 + x²、arctan x 同时变成 t 与 sec t。</li>
+</ul>
+<!-- DEEP:ex:4.2 -->
+<p><strong>例题</strong>：∫dx/(x²√(1+x²))：令 x=tan t，则 dx=sec²t dt、√(1+x²)=sec t，积分化为 ∫sec t/tan²t dt = ∫cos t/sin²t dt = −1/sin t + C = −√(1+x²)/x + C。</p>
+<!-- /DEEP:ex:4.2 -->
+
+<p><strong>易错点</strong>：① 换元后忘记乘 dx 的换算因子（dx = sec²t dt）；② 不回代（答案里留着 t 就是错）；③ 回代时符号搞错（如 cos t = 1/√(1 + x²) 的正负）；④ 循环型分部积分的系数算错（本题常错在 ½）。</p>
+<p><strong>小练</strong>：求 ∫dx/√(1 − x²)。<strong>答案</strong>：arcsin x + C（令 x = sin t 直接得 ∫dt）。</p>
+</div></div>
+<div class="topic closed" data-tid="4.3">
+<h2 id="43" class="thead"><span class="tid">4.3</span> <span class="tname">有理函数的部分分式分解</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：真分式先<strong>因式分解分母</strong>，再按「每个因式对应一项」拆成简单分式，逐项积分。</p>
+<p><strong>为什么</strong>：有理函数没有「万能换元」，但有一张完整的对照表：分解后的每一项都能直接积出来（1/x → ln|x|、1/x² → −1/x、一次不可约二次式 → ln + arctan）。所以问题被彻底转化成<strong>代数运算</strong>——这就是部分分式分解的价值。</p>
+<p><strong>怎么做</strong>：① 假分式先做除法；② 分解因式；③ 按规则设部分分式（单因式 (x − a) 对应 A/(x − a)；重因式 (x − a)² 要 A/(x − a) + B/(x − a)²；不可约二次式 (x² + px + q) 对应 (Ax + B)/(x² + px + q)）；④ 用「代特殊值 + 比较系数」求 A, B…（<strong>最快的是把分母乘过去再代根的值</strong>）。</p>
+<!-- DEEP:why:4.3 -->
+<p><strong>原理</strong>（为什么这招成立）：有理函数的积分之所以能算法化，是因为实系数多项式总能分解成一次因式与不可约二次因式之积，而这两类因式对应的简单分式都有初等原函数（对数、反正切）。所以分解时重因式必须写满次数、二次因式分子必须是一次式，才能保证每一项都能积出来。</p>
+<!-- /DEEP:why:4.3 -->
+
+<!-- DEEP:meth:4.3 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>通用技巧｜先分真假：假分式（分子次数不低于分母）先做多项式除法</strong>：① 真分式：分子次数低于分母次数；假分式：分子次数不低于分母次数；② 假分式用多项式长除法化为多项式加真分式，多项式部分直接逐项积分，只对真分式做部分分式分解；③ 分解的目标是把分母高于二次的分式拆成一批最简单真分式之和，因为基本积分表里只有分母是一次式或二次式这两类公式。（例：∫(x³+1)/(x²+1)dx 先用除法化为 ∫[x + (−x+1)/(x²+1)]dx，再分别积分。）</li>
+<li><strong>通用技巧｜分母因式对应的部分分式形式：重因式写满 m 项</strong>：① 把分母完全分解成一次因式与实数域上不可约二次因式（判别式小于 0）的乘积；② 对 m 重一次因式必须写 C₁/(ax+b) + C₂/(ax+b)² + … + Cₘ/(ax+b)ᵐ 共 m 项，不能只写一项；③ 对不可约二次因式，分子要写成一次式；若是它的 n 次幂，则每一幂次都配一个一次分子；④ 待定系数个数与部分分式的最高次数相同，可作为检查是否漏项的依据。（例：2/(x−2)³ 应写成 C₁/(x−2) + C₂/(x−2)² + C₃/(x−2)³ 三项；含 (x−1)²(x²+x+1) 的分母同时用重因式与不可约二次因式两种形式。）</li>
+<li><strong>通用技巧｜定系数：代特殊值加比较系数（含覆盖法）</strong>：① 两边同乘公分母得到恒等式，再比较同次项系数，或代入使某些项为 0 的特殊 x 值；② 单重一次因式的系数可用覆盖法（把该因式遮住、代 x 取其根）快速求出；③ 重因式与二次因式不能用覆盖法一次求完，需要代入多个 x 值或比较系数解方程组；④ 分解完成后逐项套基本积分表积分，不要漏掉任意常数。（例：∫dx/(x²−3x+2) = ∫[1/(x−2) − 1/(x−1)]dx = ln|(x−2)/(x−1)| + C。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://www.sohu.com/a/649035514_121218254">https://www.sohu.com/a/649035514_121218254</a>
+- <a href="https://www.analyzemath.com/chinese/calculus/Integrals/partial-fraction-decomposition.html">https://www.analyzemath.com/chinese/calculus/Integrals/partial-fraction-decomposition.html</a>
+- <a href="https://www.cnblogs.com/bigmonkey/p/7867645.html">https://www.cnblogs.com/bigmonkey/p/7867645.html</a></p>
+<!-- /DEEP:meth:4.3 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套1 第18题（2019 数二 (16)，∫(3x + 6)/((x − 1)²(x² + x + 1))dx）：分解为 <code>−2/(x − 1) + 3/(x − 1)² + (2x + 1)/(x² + x + 1)</code>，逐项积分得 <code>−2ln|x − 1| − 3/(x − 1) + ln(x² + x + 1) + C</code>。<strong>关键一步</strong>：<strong>重因式 (x − 1)² 要写两项</strong>（A/(x−1) + B/(x−1)²），只写一项一定解不出来；最后一项的分子凑成分母的导数 (2x + 1) 就能直接积成 ln。</li>
+</ul>
+<!-- DEEP:ex:4.3 -->
+<p><strong>例题</strong>：∫(x+1)/(x²−1)dx：先约分（注意 x≠±1）得 ∫1/(x−1)dx = ln|x−1| + C。</p>
+<!-- /DEEP:ex:4.3 -->
+
+<p><strong>易错点</strong>：① 重因式少写一项；② 不可约二次式的分子写成常数（必须是 Ax + B）；③ ln 里忘加绝对值；④ 分解完不验算（把分母乘过去对一下，10 秒的事）。</p>
+<p><strong>小练</strong>：求 ∫dx/(x² − 1)。<strong>答案</strong>：½ln|x − 1| − ½ln|x + 1| + C。</p>
+</div></div>
+<div class="topic closed" data-tid="4.4">
+<h2 id="44" class="thead"><span class="tid">4.4</span> <span class="tname">分段函数的原函数：连续性定常数</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：分段函数的原函数<strong>必须连续</strong>（可导必连续），所以各段的任意常数之间只差一个由连续性方程定出的数。</p>
+<p><strong>为什么</strong>：原函数是可导函数，而可导 ⇒ 连续。所以「分段积分出来的两段」如果不连续，就根本不是同一个函数的原函数。连续性方程恰好把 n 个常数压成 1 个自由常数（真正的任意常数 C 只有一个）。这正是选择题里那四个选项的区别所在：<strong>只有常数配对的才连续</strong>。</p>
+<!-- DEEP:why:4.4 -->
+<p><strong>原理</strong>（为什么这招成立）：分段函数的原函数之所以要用连续性定常数，是因为「原函数」要求在整个区间上可导，而可导必连续，所以各段原函数在分段点必须接得上。每段各有一个任意常数，连续性给出各常数之间的等式，把自由度从 n 个降到 1 个，这才是完整的原函数族。用变上限积分法可以一次性得到连续的那个原函数，本质上是把「连续」这个条件直接构造进表达式里。</p>
+<!-- /DEEP:why:4.4 -->
+
+<!-- DEEP:meth:4.4 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>通用技巧｜分段函数求不定积分：分段求原函数，再用连续性定常数</strong>：① 先把函数写成真正的分段形式（含最大值、最小值、绝对值、取整的先化成分段）；② 逐段求原函数，各段各带一个任意常数；③ 因为原函数一定连续（可导必连续），在分段点令左右极限相等，得到各常数之间的关系式；④ 求出关系后只保留一个独立常数，把其他常数用它的表达式替换，写成连续的分段表达式；只写三个独立常数就停手是最常见的失分点。（例：f(x)=max{1,x²}：三段原函数在 x=−1 与 x=1 处连续，定出常数关系，最终写成只含一个任意常数的连续分段表达式。）</li>
+<li><strong>通用技巧｜变上限积分法：直接得到连续原函数，绕开定常数</strong>：① 若 f 连续，则变上限积分 ∫<em _1="−1">a^x f(t)dt 就是 f 的一个连续原函数，不必再讨论各段常数之间的关系；② 下限 a 取在分段点上（如 0），再把积分按 x 所在的段拆成相邻区间上定积分之和；③ 结果再加一个任意常数就是全部不定积分；此处分段是为了符合 f 的定义，不是把积分区间乱分段。（例：∫max{1,x²}dx 取 G(x)=∫_0^x max{1,t²}dt：当 x&lt;−1 时拆成 ∫_0^{−1}1dt + ∫</em>^x t²dt = x³/3 − 2/3。）</li>
+<li><strong>张宇｜先判断原函数是否存在，再谈定常数</strong>：① 若 f 连续，则区间内必有原函数（变上限积分就是）；② 若 f 含第一类间断点或无穷间断点，则在包含该点的区间内原函数必不存在，不能写原函数符号；③ 若含振荡间断点，可能有原函数，关键是看能否写出原函数的形式。（例：分段点若是跳跃间断点，则该区间没有原函数，题目问「下列哪个是 f 的原函数」可直接排除选项。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://zhaokaifeng.com/20249/">https://zhaokaifeng.com/20249/</a>
+- <a href="https://www.cnblogs.com/elite-00/articles/17385655.html">https://www.cnblogs.com/elite-00/articles/17385655.html</a></p>
+<!-- /DEEP:meth:4.4 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套1 第8题（2016 数一 (2)，f = 2(x − 1)（x &lt; 1）、ln x（x ≥ 1），求一个原函数）：分段积分得 (x − 1)² + C₁ 与 x(ln x − 1) + C₂；在 x = 1 处连续要求 0 + C₁ = −1 + C₂，即 C₂ = C₁ + 1，取 C₁ = 0 得 <code>(x − 1)²</code>（x &lt; 1）与 <code>x(ln x − 1) + 1</code>（x ≥ 1）。<strong>关键一步</strong>：<strong>用连续性把两个常数绑成一个</strong>——逐段求导回验即可确认选项。</li>
+</ul>
+<!-- DEEP:ex:4.4 -->
+<p><strong>例题</strong>：求 f(x)=|x| 的不定积分：x&gt;0 时为 x²/2+C₁，x&lt;0 时为 −x²/2+C₂；在 x=0 处连续要求 C₁=C₂，故 ∫|x|dx = x|x|/2 + C。</p>
+<!-- /DEEP:ex:4.4 -->
+
+<p><strong>易错点</strong>：① 两段各写一个独立的 C（不连续）；② 只在 x &gt; 1 段积分、忘了另一段；③ 忘记验证「在分段点处可导且导数等于 f」。</p>
+<p><strong>小练</strong>：设 f(x) = 1（x &lt; 0）、2（x ≥ 0），求它的一个原函数。<strong>答案</strong>：F(x) = x（x &lt; 0）、2x（x ≥ 0）——注意这样 F 在 0 处左右极限分别是 0⁻、0⁺，连续 ✓（本题两个常数取 0 就刚好连续，因为 ∫₀ˣ 型的原函数天然连续）。</p>
+</div></div>
+<div class="topic closed" data-tid="4.5">
+<h2 id="45" class="thead"><span class="tid">4.5</span> <span class="tname">原函数的性质（奇偶、周期、单调）</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：<strong>奇函数的原函数都是偶函数</strong>（且都满足 F(0) = 0 的那个是唯一的偶原函数）；<strong>偶函数的原函数中只有一个奇函数</strong>；周期函数的原函数<strong>不一定</strong>周期。</p>
+<p><strong>为什么</strong>：由 F(x) = ∫₀ˣ f(t)dt + C 直接看：f 为奇函数时 ∫₀^{−x} f = −∫₀ˣf(−u)du = ∫₀ˣ f(u)du（用了 f(−u) = −f(u)），恰是偶函数的形式；f 为偶函数时 ∫₀^{−x} f = −∫₀ˣf(u)du，只有当 C = 0 时才得到奇函数。周期性最容易错：原函数只有在「f 在一个周期上的积分为 0」时才是周期函数。</p>
+<!-- DEEP:why:4.5 -->
+<p><strong>原理</strong>（为什么这招成立）：原函数的奇偶性由积分区间关于原点对称时的抵消效应决定：奇函数在对称区间上积分为 0，所以它的原函数在关于原点对称的点处取值相同（偶函数）；偶函数在对称区间上的积分不为 0，只有从 0 开始积（即加常数使过原点）才可能成为奇函数。周期性则要求一个周期上的积分为 0，否则原函数每过一个周期就整体平移，不再是周期函数。</p>
+<!-- /DEEP:why:4.5 -->
+
+<!-- DEEP:meth:4.5 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>通用技巧｜原函数的奇偶性：奇函数的原函数都是偶函数</strong>：① 连续的奇函数的一切原函数都是偶函数；② 连续的偶函数的原函数中仅有一个是奇函数，就是过原点那个，即 ∫_0^x f(t)dt；其余原函数都在它基础上加常数，因而不再奇；③ 对偶函数求原函数时不能直接断定结果是奇函数，必须加条件原函数在原点为 0；④ 配套结论：可导的偶函数其导函数是奇函数，可导的奇函数其导函数是偶函数。（例：反例：f(x)=cos x 是偶函数，但它的原函数 sin x+1 不是奇函数；只有 sin x（即从 0 积到 x 那个）才是奇函数。）</li>
+<li><strong>通用技巧｜原函数的周期性：必须先用「一个周期上积分为 0」作条件</strong>：① 可导的以 T 为周期的函数，其导函数也以 T 为周期；② 连续函数 f 以 T 为周期时，只有当 f 在一个周期上的积分为 0，f 的一切原函数才都以 T 为周期；积分不为 0 时，原函数中没有周期函数；③ 所以「周期函数的原函数是周期函数」这句话是错的，条件是附加的；④ 常用反例：f(x)=1 是周期函数，但它一个周期上的积分不为 0，原函数 x+C 不是周期函数。（例：f(x)=sin x 在一个周期上积分为 0，故原函数 −cos x+C 是周期函数；f(x)=1 与 F(x)=x 则是反例。）</li>
+<li><strong>通用技巧｜原函数族：任意两个原函数只相差常数</strong>：① 若 f 在区间 I 上有原函数 F，则 f 的全体原函数为 F(x)+C，任意两个原函数之差为常数；② 用不同方法算出两个形式不同的结果时，二者之差必为常数，可用来检验答案或判断是否属于同一原函数族；③ 判断原函数单调性要回到其导数即 f 的符号上，不能沿用 f 的单调性；④ 求出的原函数一定连续、处处可导，否则它不可能是任何函数的原函数。（例：∫sin x cos x dx 写成 sin²x/2 + C₁ 或 −cos²x/2 + C₂ 都对，两者相差 1/2，属于同一原函数族。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://www.sohu.com/a/310607761_120115175">https://www.sohu.com/a/310607761_120115175</a>
+- <a href="https://zqq.name/docs/math/calculus/%E5%87%BD%E6%95%B0%E4%B8%8E%E6%9E%81%E9%99%90/%E5%87%BD%E6%95%B0%E7%9A%84%E5%9B%9B%E5%A4%A7%E6%80%A7%E8%B4%A8/">https://zqq.name/docs/math/calculus/%E5%87%BD%E6%95%B0%E4%B8%8E%E6%9E%81%E9%99%90/%E5%87%BD%E6%95%B0%E7%9A%84%E5%9B%9B%E5%A4%A7%E6%80%A7%E8%B4%A8/</a>
+- <a href="https://zhuanlan.zhihu.com/p/111585201">https://zhuanlan.zhihu.com/p/111585201</a></p>
+<!-- /DEEP:meth:4.5 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套2 第8题（2005 数一 (8)，原函数性质中「M ⟺ N」成立的）：F 为偶函数 ⟺ f 为奇函数（选 D）；「F 为奇函数 ⟺ f 为偶函数」不成立（要 C = 0）；周期性：f = 1 + cos x 是周期函数，但 F = x + sin x 不是周期函数；单调性：f 单调不能推出 F 单调（F′ = f 只说明 F 的增减与 f 的符号有关）。<strong>关键一步</strong>：<strong>奇偶性可以「带常数」地记</strong>，周期性必须要额外条件（一周期积分为 0），这是本题 4 个选项的分水岭。</li>
+</ul>
+<!-- DEEP:ex:4.5 -->
+<p><strong>例题</strong>：f(x)=x 是奇函数，其原函数 x²/2+C 都是偶函数；f(x)=x² 是偶函数，只有 ∫_0^x t²dt = x³/3 是奇函数，x³/3+1 就不是。</p>
+<!-- /DEEP:ex:4.5 -->
+
+<p><strong>易错点</strong>：① 认为「偶函数的原函数一定奇」（多了任意常数）；② 认为「周期函数的原函数一定周期」（反例 f = 1）；③ 把 f 的单调性与 F 的单调性混为一谈。</p>
+<p><strong>小练</strong>：设 f 为连续奇函数，判断 F(x) = ∫₀ˣ f(t)dt 的奇偶性。<strong>答案</strong>：偶函数（且 F(0) = 0）。</p>
+</div></div>
+<div class="topic closed" data-tid="4.6">
+<h2 id="46" class="thead"><span class="tid">4.6</span> <span class="tname">基本积分表、凑微分与换元</span><span class="chev">▾</span></h2>
+<div class="tbody">
+<p><strong>一句话</strong>：先把被积式<strong>凑成某个基本积分表里的形式</strong>（凑微分），再代公式。</p>
+<p><strong>为什么</strong>：不定积分 90% 的工作是「识别」，而不是「技巧」。基本积分表只有二十来条，但题干可以千变万化——所有的变化都靠换元 <code>u = u(x)</code> 把它拉回表内。所以看到陌生的式子，第一反应是<strong>问「它像表里的哪一条」</strong>。</p>
+<!-- DEEP:why:4.6 -->
+<p><strong>原理</strong>（为什么这招成立）：凑微分的依据是微分形式不变性：∫f(g(x))g′(x)dx=∫f(u)du，只要被积表达式里能认出「某个函数的导数乘以 dx」这个整体，就能整体换元。存在 g′(x)dx=dg(x) 是唯一的判别标准，所以「凑不成基本公式」意味着没认出导数因子，应换另一部分去凑或改用其他方法。</p>
+<!-- /DEEP:why:4.6 -->
+
+<!-- DEEP:meth:4.6 -->
+<p><strong>名师方法</strong>（公开讲义与题解的通行讲法，出处见下）</p>
+<ul>
+<li><strong>通用技巧｜凑微分（第一类换元）的常见结构</strong>：① 核心动作：被积表达式里若出现 g′(x)dx，就把它凑成 dg(x)，令 u=g(x)，化为 ∫f(u)du 再套基本积分表；② 常见结构一：f(ax+b)dx 与 f(xⁿ)xⁿ⁻¹dx 型；③ 常见结构二：f(sin x)cos x dx、f(cos x)sin x dx、f(tan x)sec²x dx 型；④ 常见结构三：f(e^x)e^x dx、f(ln x)(1/x)dx、f(1/x)(1/x²)dx 型；⑤ 凑不成基本积分公式里的形式，说明方向不对，应换另一部分去凑。（例：∫(1/x²)sin(2/x)dx = −∫sin(2/x)d(1/x) = (1/2)cos(2/x) + C。）</li>
+<li><strong>通用技巧｜基本积分表必须背到条件反射（含绝对值与定义域）</strong>：① 必背：幂函数、指数函数、正余弦、正割正切与反三角的十余个基本公式，注意对数要加绝对值；② 常考补充：分母为二次式的反正切型、根式为平方和的取对数型、正割与余割的积分公式；③ 凑微分、第二类换元、分部积分的目的都是把新积分化归到这张表上的某一项。（例：考试口径是「基本积分公式直接套」：拿到一个积分先想它像表里的哪一条，再想怎么凑成那一条。）</li>
+<li><strong>武忠祥｜不定积分方法选用顺序：基本公式、凑微分、换元、分部、有理函数</strong>：① 先看能否直接拆项套基本积分表；② 不行就找 g′(x) 凑微分（第一类换元）；含根式且凑不出来用第二类换元（根式代换或三角代换）；③ 被积函数是两类函数相乘时用分部积分，u 按反对幂指三的优先顺序选取；若被积函数中只有反三角函数或只有对数函数，直接分部积分；④ 有理函数用部分分式分解；三角有理式优先用倍角公式与凑微分，必要时再用万能代换。（例：∫x²e^{−2x}dx 走分部、∫ln x dx 直接分部（u 取对数）、∫dx/(x²−3x+2) 走部分分式——三条路对应三类被积函数。）</li>
+</ul>
+<p><strong>出处</strong>
+- <a href="https://zhuanlan.zhihu.com/p/111585201">https://zhuanlan.zhihu.com/p/111585201</a>
+- <a href="https://www.sina.cn/news/detail/5306399266705073.html">https://www.sina.cn/news/detail/5306399266705073.html</a>
+- <a href="https://www.kaoyantools.com/27allnotes/27sxnote/51803.html">https://www.kaoyantools.com/27allnotes/27sxnote/51803.html</a></p>
+<!-- /DEEP:meth:4.6 -->
+
+<p><strong>本卷真题</strong></p>
+<ul>
+<li>套4 第6题（设 F 是 f 的一个原函数，求 ∫f(2x)dx）：令 u = 2x 得 ½F(2x) + C。<strong>关键一步</strong>：<strong>变的是 dx 的换算</strong>——∫f(ax)dx = (1/a)F(ax) + C，别丢那个 1/a（本题选项里就有 F(2x) 与 ½F(2x) 两个）。</li>
+<li>套4 第14题（f′(x) = 1/(1 + x²)、f(1) = 0，求 f(0)）：f = arctan x + C，由 f(1) = π/4 + C = 0 得 C = −π/4，f(0) = −π/4。<strong>关键一步</strong>：<strong>先求原函数再定常数</strong>，这里用的是反三角函数而不是 ln 型（1 + x² 不可再分解——与 4.3 的那道题刚好对比）。</li>
+</ul>
+<!-- DEEP:ex:4.6 -->
+<p><strong>例题</strong>：∫tan x dx = ∫sin x/cos x dx：认出 (cos x)′=−sin x，凑成 −∫d(cos x)/cos x = −ln|cos x| + C。</p>
+<!-- /DEEP:ex:4.6 -->
+
+<p><strong>易错点</strong>：① 忘记 1/a 因子；② 定常数时把 f(1) 的条件代到 f′ 里；③ 把 1/(1 + x²) 当成 1/(x² − 1) 型去做部分分式（它不可分解）。</p>
+<p><strong>小练</strong>：求 ∫cos 3x dx。<strong>答案</strong>：(1/3)sin 3x + C。</p>
+<hr />
+</div></div>
+</div></section>
+<section class="chapter" data-ch="附录 A　逐题索引">
+<h1 id="a" class="chead">附录 A　逐题索引<span class="chev">▾</span></h1>
+<div class="cbody">
+<p>（下表由 <code>build_notes.py</code> 从题库自动生成，与自测页保持同步；<strong>关键一步</strong>见对应考点的讲解。）</p>
+<!-- BEGIN:INDEX -->
+
+<p>把答案遮起来自测一遍，再回看对应考点讲解。四套卷的作答入口：<a href="quiz.html">四套卷自测 →</a>（同目录）。</p>
+<table>
+<thead>
+<tr>
+<th>题号</th>
+<th>出处</th>
+<th>考点</th>
+<th>参考答案 / 判分方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>套1 第1题</td>
+<td>2013 数一 (1)</td>
+<td>1.2 泰勒展开定阶：什么时候不能用等价替换</td>
+<td>D</td>
+</tr>
+<tr>
+<td>套1 第2题</td>
+<td>2018 数一 (1)（同题亦见 2018 数二、数三）</td>
+<td>2.2 分段函数与绝对值型函数的可导性</td>
+<td>B</td>
+</tr>
+<tr>
+<td>套1 第3题</td>
+<td>2021 数一 (1)</td>
+<td>2.1 导数定义：凑出差商</td>
+<td>A</td>
+</tr>
+<tr>
+<td>套1 第4题</td>
+<td>2011 数二 (2)</td>
+<td>2.1 导数定义：凑出差商</td>
+<td>C</td>
+</tr>
+<tr>
+<td>套1 第5题</td>
+<td>2017 数一 (1)</td>
+<td>1.5 连续性与间断点的分类</td>
+<td>A</td>
+</tr>
+<tr>
+<td>套1 第6题</td>
+<td>2019 数三 (2)</td>
+<td>3.5 方程根的个数</td>
+<td>B</td>
+</tr>
+<tr>
+<td>套1 第7题</td>
+<td>2014 数二 (5)</td>
+<td>3.2 拉格朗日中值定理与不等式证明</td>
+<td>D</td>
+</tr>
+<tr>
+<td>套1 第8题</td>
+<td>2016 数一 (2)</td>
+<td>4.4 分段函数的原函数：连续性定常数</td>
+<td>C</td>
+</tr>
+<tr>
+<td>套1 第9题</td>
+<td>2015 数一 (9)</td>
+<td>1.1 基本极限、等价替换与四则运算</td>
+<td>-1/2</td>
+</tr>
+<tr>
+<td>套1 第10题</td>
+<td>2018 数二 (9)</td>
+<td>1.2 泰勒展开定阶：什么时候不能用等价替换</td>
+<td>1</td>
+</tr>
+<tr>
+<td>套1 第11题</td>
+<td>2010 数三 (9)</td>
+<td>2.3 隐函数求导（含二阶）</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>套1 第12题</td>
+<td>2012 数二 (9)</td>
+<td>2.3 隐函数求导（含二阶）</td>
+<td>1</td>
+</tr>
+<tr>
+<td>套1 第13题</td>
+<td>2018 数二 (10)</td>
+<td>3.6 凹凸性与拐点</td>
+<td>y = 4x − 3</td>
+</tr>
+<tr>
+<td>套1 第14题</td>
+<td>2018 数三 (10)</td>
+<td>4.1 分部积分</td>
+<td>e^x·arcsin√(1 − e^{2x}) − √(1 − e^{2x}) + C</td>
+</tr>
+<tr>
+<td>套1 第15题</td>
+<td>2016 数二 (15)</td>
+<td>1.4 1^∞ 型与幂指函数极限</td>
+<td>e^(1/3)</td>
+</tr>
+<tr>
+<td>套1 第16题</td>
+<td>2011 数一 (15)</td>
+<td>1.4 1^∞ 型与幂指函数极限</td>
+<td>e^(−1/2)</td>
+</tr>
+<tr>
+<td>套1 第17题</td>
+<td>2015 数二 (19)</td>
+<td>3.5 方程根的个数</td>
+<td>2</td>
+</tr>
+<tr>
+<td>套1 第18题</td>
+<td>2019 数二 (16)</td>
+<td>4.3 有理函数的部分分式分解</td>
+<td>−2ln／x − 1／ − 3/(x − 1) + ln(x² + x + 1) + C</td>
+</tr>
+<tr>
+<td>套1 第19题</td>
+<td>2011 数一 (18)</td>
+<td>3.2 拉格朗日中值定理与不等式证明</td>
+<td>见解析</td>
+</tr>
+<tr>
+<td>套1 第20题</td>
+<td>2015 数二 (21)</td>
+<td>3.2 拉格朗日中值定理与不等式证明</td>
+<td>见解析</td>
+</tr>
+<tr>
+<td>套2 第1题</td>
+<td>2010 数二 (1)</td>
+<td>1.5 连续性与间断点的分类</td>
+<td>B</td>
+</tr>
+<tr>
+<td>套2 第2题</td>
+<td>2020 数二 (2)</td>
+<td>1.5 连续性与间断点的分类</td>
+<td>C</td>
+</tr>
+<tr>
+<td>套2 第3题</td>
+<td>2016 数二 (1)</td>
+<td>1.3 无穷小的比较与阶</td>
+<td>A</td>
+</tr>
+<tr>
+<td>套2 第4题</td>
+<td>2022 数二 (1)</td>
+<td>1.3 无穷小的比较与阶</td>
+<td>C</td>
+</tr>
+<tr>
+<td>套2 第5题</td>
+<td>2013 数二 (3)</td>
+<td>2.2 分段函数与绝对值型函数的可导性</td>
+<td>A</td>
+</tr>
+<tr>
+<td>套2 第6题</td>
+<td>2016 数一 (4)</td>
+<td>2.2 分段函数与绝对值型函数的可导性</td>
+<td>D</td>
+</tr>
+<tr>
+<td>套2 第7题</td>
+<td>2019 数一 (2)</td>
+<td>3.4 单调性与极值（含变限积分函数）</td>
+<td>B</td>
+</tr>
+<tr>
+<td>套2 第8题</td>
+<td>2005 数一 (8)</td>
+<td>4.5 原函数的性质（奇偶、周期、单调）</td>
+<td>D</td>
+</tr>
+<tr>
+<td>套2 第9题</td>
+<td>2011 数二 (9)</td>
+<td>1.4 1^∞ 型与幂指函数极限</td>
+<td>√2</td>
+</tr>
+<tr>
+<td>套2 第10题</td>
+<td>2022 数二 (11)</td>
+<td>1.4 1^∞ 型与幂指函数极限</td>
+<td>√e</td>
+</tr>
+<tr>
+<td>套2 第11题</td>
+<td>2012 数三 (9)</td>
+<td>1.4 1^∞ 型与幂指函数极限</td>
+<td>e^(−√2)</td>
+</tr>
+<tr>
+<td>套2 第12题</td>
+<td>2013 数二 (12)</td>
+<td>2.4 参数方程确定的函数求导</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>套2 第13题</td>
+<td>2017 数二 (10)</td>
+<td>2.4 参数方程确定的函数求导</td>
+<td>-1/8</td>
+</tr>
+<tr>
+<td>套2 第14题</td>
+<td>2013 数三 (9)</td>
+<td>2.1 导数定义：凑出差商</td>
+<td>-2</td>
+</tr>
+<tr>
+<td>套2 第15题</td>
+<td>2011 数一 (17)</td>
+<td>3.5 方程根的个数</td>
+<td>k ≤ 1 时 1 个；k &gt; 1 时 3 个</td>
+</tr>
+<tr>
+<td>套2 第16题</td>
+<td>2016 数二 (21) (Ⅰ)</td>
+<td>1.7 变限积分函数：求导、极限与平均值</td>
+<td>1/(3π)</td>
+</tr>
+<tr>
+<td>套2 第17题</td>
+<td>2010 数一 (16)</td>
+<td>3.4 单调性与极值（含变限积分函数）</td>
+<td>极大值 f(0) = (1 − e⁻¹)/2，极小值 f(±1) = 0</td>
+</tr>
+<tr>
+<td>套2 第18题</td>
+<td>2018 数一 (15)（同题亦为 2018 数二 (15)）</td>
+<td>4.1 分部积分</td>
+<td>½e^{2x}arctan√(e^x − 1) − (1/6)(e^x − 1)^{3/2} − ½√(e^x − 1) + C</td>
+</tr>
+<tr>
+<td>套2 第19题</td>
+<td>2020 数一 (19)</td>
+<td>3.2 拉格朗日中值定理与不等式证明</td>
+<td>见解析</td>
+</tr>
+<tr>
+<td>套2 第20题</td>
+<td>2022 数一 (20)</td>
+<td>3.3 泰勒公式与积分不等式</td>
+<td>见解析</td>
+</tr>
+<tr>
+<td>套3 第1题</td>
+<td>2010 数一 (1)</td>
+<td>1.4 1^∞ 型与幂指函数极限</td>
+<td>C</td>
+</tr>
+<tr>
+<td>套3 第2题</td>
+<td>2019 数一 (1)</td>
+<td>1.3 无穷小的比较与阶</td>
+<td>C</td>
+</tr>
+<tr>
+<td>套3 第3题</td>
+<td>2014 数三 (3)</td>
+<td>1.3 无穷小的比较与阶</td>
+<td>D</td>
+</tr>
+<tr>
+<td>套3 第4题</td>
+<td>2020 数二 (1)</td>
+<td>1.3 无穷小的比较与阶</td>
+<td>D</td>
+</tr>
+<tr>
+<td>套3 第5题</td>
+<td>2018 数二 (1)</td>
+<td>1.4 1^∞ 型与幂指函数极限</td>
+<td>B</td>
+</tr>
+<tr>
+<td>套3 第6题</td>
+<td>2023 数二 (3)</td>
+<td>1.6 数列极限：递推、裂项与夹逼</td>
+<td>B</td>
+</tr>
+<tr>
+<td>套3 第7题</td>
+<td>2013 数三 (2)</td>
+<td>1.5 连续性与间断点的分类</td>
+<td>C</td>
+</tr>
+<tr>
+<td>套3 第8题</td>
+<td>2012 数一 (1)</td>
+<td>3.7 渐近线</td>
+<td>C</td>
+</tr>
+<tr>
+<td>套3 第9题</td>
+<td>2016 数一 (9)</td>
+<td>1.7 变限积分函数：求导、极限与平均值</td>
+<td>1/2</td>
+</tr>
+<tr>
+<td>套3 第10题</td>
+<td>2016 数三 (9)</td>
+<td>1.1 基本极限、等价替换与四则运算</td>
+<td>6</td>
+</tr>
+<tr>
+<td>套3 第11题</td>
+<td>2018 数一 (9)</td>
+<td>1.4 1^∞ 型与幂指函数极限</td>
+<td>-2</td>
+</tr>
+<tr>
+<td>套3 第12题</td>
+<td>2019 数三 (9)</td>
+<td>1.6 数列极限：递推、裂项与夹逼</td>
+<td>1/e</td>
+</tr>
+<tr>
+<td>套3 第13题</td>
+<td>2015 数二 (10)</td>
+<td>2.5 高阶导数：莱布尼茨公式与幂级数法</td>
+<td>n(n − 1)(ln 2)^(n−2)</td>
+</tr>
+<tr>
+<td>套3 第14题</td>
+<td>2021 数一 (12)</td>
+<td>2.4 参数方程确定的函数求导</td>
+<td>2/3</td>
+</tr>
+<tr>
+<td>套3 第15题</td>
+<td>2013 数三 (15)</td>
+<td>1.3 无穷小的比较与阶</td>
+<td>a = 7，n = 2</td>
+</tr>
+<tr>
+<td>套3 第16题</td>
+<td>2015 数一 (15)</td>
+<td>1.3 无穷小的比较与阶</td>
+<td>a = −1，b = −1/2，k = −1/3</td>
+</tr>
+<tr>
+<td>套3 第17题</td>
+<td>2017 数三 (18)</td>
+<td>3.9 参数取值范围：单调性 + 端点极限</td>
+<td>1/ln 2 − 1 &lt; k &lt; 1/2</td>
+</tr>
+<tr>
+<td>套3 第18题</td>
+<td>2003 数二 第五题</td>
+<td>4.2 第二类换元：三角代换与根式代换</td>
+<td>(x − 1)e^{arctan x}/(2√(1+x²)) + C</td>
+</tr>
+<tr>
+<td>套3 第19题</td>
+<td>2013 数一 (18)</td>
+<td>3.1 罗尔定理与辅助函数构造</td>
+<td>见解析</td>
+</tr>
+<tr>
+<td>套3 第20题</td>
+<td>2017 数一 (18)</td>
+<td>3.1 罗尔定理与辅助函数构造</td>
+<td>见解析</td>
+</tr>
+<tr>
+<td>套4 第1题</td>
+<td>自编（真题风格）</td>
+<td>1.1 基本极限、等价替换与四则运算</td>
+<td>1/2</td>
+</tr>
+<tr>
+<td>套4 第2题</td>
+<td>自编（真题风格）</td>
+<td>2.2 分段函数与绝对值型函数的可导性</td>
+<td>B</td>
+</tr>
+<tr>
+<td>套4 第3题</td>
+<td>自编（真题风格）</td>
+<td>3.6 凹凸性与拐点</td>
+<td>A</td>
+</tr>
+<tr>
+<td>套4 第4题</td>
+<td>自编（真题风格）</td>
+<td>1.3 无穷小的比较与阶</td>
+<td>C</td>
+</tr>
+<tr>
+<td>套4 第5题</td>
+<td>自编（真题风格）</td>
+<td>3.1 罗尔定理与辅助函数构造</td>
+<td>A</td>
+</tr>
+<tr>
+<td>套4 第6题</td>
+<td>自编（真题风格）</td>
+<td>4.6 基本积分表、凑微分与换元</td>
+<td>C</td>
+</tr>
+<tr>
+<td>套4 第7题</td>
+<td>自编（真题风格）</td>
+<td>3.4 单调性与极值（含变限积分函数）</td>
+<td>B</td>
+</tr>
+<tr>
+<td>套4 第8题</td>
+<td>自编（真题风格）</td>
+<td>1.1 基本极限、等价替换与四则运算</td>
+<td>C</td>
+</tr>
+<tr>
+<td>套4 第9题</td>
+<td>自编（真题风格）</td>
+<td>1.2 泰勒展开定阶：什么时候不能用等价替换</td>
+<td>1/2</td>
+</tr>
+<tr>
+<td>套4 第10题</td>
+<td>自编（真题风格）</td>
+<td>2.7 幂指函数求导</td>
+<td>1</td>
+</tr>
+<tr>
+<td>套4 第11题</td>
+<td>自编（真题风格）</td>
+<td>3.8 闭区间上的最值</td>
+<td>2</td>
+</tr>
+<tr>
+<td>套4 第12题</td>
+<td>自编（真题风格）</td>
+<td>1.5 连续性与间断点的分类</td>
+<td>0</td>
+</tr>
+<tr>
+<td>套4 第13题</td>
+<td>自编（真题风格）</td>
+<td>2.6 切线与法线</td>
+<td>-3</td>
+</tr>
+<tr>
+<td>套4 第14题</td>
+<td>自编（真题风格）</td>
+<td>4.6 基本积分表、凑微分与换元</td>
+<td>-π/4</td>
+</tr>
+<tr>
+<td>套4 第15题</td>
+<td>自编（真题风格）</td>
+<td>1.4 1^∞ 型与幂指函数极限</td>
+<td>e²</td>
+</tr>
+<tr>
+<td>套4 第16题</td>
+<td>自编（真题风格）</td>
+<td>2.3 隐函数求导（含二阶）</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>套4 第17题</td>
+<td>自编（真题风格）</td>
+<td>3.4 单调性与极值（含变限积分函数）</td>
+<td>3</td>
+</tr>
+<tr>
+<td>套4 第18题</td>
+<td>自编（真题风格）</td>
+<td>4.1 分部积分</td>
+<td>−(x + 1)e^(−x) + C</td>
+</tr>
+<tr>
+<td>套4 第19题</td>
+<td>自编（真题风格）</td>
+<td>3.2 拉格朗日中值定理与不等式证明</td>
+<td>见解析</td>
+</tr>
+<tr>
+<td>套4 第20题</td>
+<td>自编（真题风格）</td>
+<td>3.1 罗尔定理与辅助函数构造</td>
+<td>见解析</td>
+</tr>
+</tbody>
+</table>
+<!-- END:INDEX -->
+
+<hr />
+</div></section>
+<section class="chapter" data-ch="附录 B　辅助函数与定理选择清单">
+<h1 id="b" class="chead">附录 B　辅助函数与定理选择清单<span class="chev">▾</span></h1>
+<div class="cbody">
+<table>
+<thead>
+<tr>
+<th>要证的结论形态</th>
+<th>构造的辅助函数</th>
+<th>用哪个定理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>f′(ξ) = 0，且已知 f(a) = f(b)</td>
+<td>直接用 f</td>
+<td>罗尔</td>
+</tr>
+<tr>
+<td>f′(ξ) = k</td>
+<td>f(x) − kx</td>
+<td>罗尔</td>
+</tr>
+<tr>
+<td>f′(ξ) = 2ξ、f′(ξ) = g′(ξ)</td>
+<td>f(x) − g(x)</td>
+<td>罗尔</td>
+</tr>
+<tr>
+<td>f′(ξ) + λf(ξ) = 0</td>
+<td>e^{λx}f(x)</td>
+<td>罗尔</td>
+</tr>
+<tr>
+<td>f′(ξ) + g′(ξ)f(ξ) = 0</td>
+<td>e^{g(x)}f(x)</td>
+<td>罗尔</td>
+</tr>
+<tr>
+<td>f(ξ)f″(ξ) + [f′(ξ)]² = 0</td>
+<td>f(x)f′(x)</td>
+<td>罗尔</td>
+</tr>
+<tr>
+<td>出现 ln(b/a)、(b − a) 的比较</td>
+<td>无（直接对 ln x 等用）</td>
+<td>拉格朗日</td>
+</tr>
+<tr>
+<td>出现「区间长度 × 导数值」</td>
+<td>无</td>
+<td>拉格朗日</td>
+</tr>
+<tr>
+<td>结论含 f″ 符号 / 中点 / 平均值</td>
+<td>在区间中点写泰勒</td>
+<td>泰勒（拉格朗日余项）</td>
+</tr>
+<tr>
+<td>f 与 ∫f 的不等式</td>
+<td>F(x) = ∫_aˣ f(t)dt − 某函数，用 F′ 的符号</td>
+<td>单调性</td>
+</tr>
+<tr>
+<td>至少两个根 / 两个 ξ</td>
+<td>对<strong>不同区间</strong>各用一次罗尔</td>
+<td>罗尔 ×2</td>
+</tr>
+</tbody>
+</table>
+<p>用法：<strong>先把要证的式子写成「某个函数的导数 = 0」</strong>，再查这张表；查不到就回到「移项、乘一个 e 的幂、除以一个正函数」这三招去凑。</p>
+</div></section>
+<section class="chapter" data-ch="附录 C　考前 20 分钟易错清单">
+<h1 id="c-20" class="chead">附录 C　考前 20 分钟易错清单<span class="chev">▾</span></h1>
+<div class="cbody">
+<p><strong>极限与连续</strong></p>
+<ol>
+<li>加减位置<strong>不能</strong>等价替换；相消就展开到第一个不抵消的阶。</li>
+<li>变限积分「求导降一阶」；上限带函数要乘它的导数。</li>
+<li>1^∞ 一律<strong>取对数</strong>：lim g(f − 1) 就是指数上的极限。</li>
+<li>间断点先<strong>约分</strong>再逐点判；<code>e^{1/x}</code> 型要分左右两侧。</li>
+<li>比较阶时：<strong>阶小 = 趋于 0 慢 = 低阶</strong>，排序题别再数反。</li>
+<li>x → ∞ 也是 1^∞ 现场；极限点不是 0 就先换元平移到 0。</li>
+</ol>
+<p><strong>导数与微分</strong></p>
+<ol start="7">
+<li>抽象函数、分段点：<strong>一律用定义</strong>凑差商（减掉 f(x₀)）。</li>
+<li>绝对值型看「旁边乘了几次 x」；不可导点也可能是极值点。</li>
+<li>参数方程二阶导 = 对 t 求导后再<strong>除以 dx/dt</strong>。</li>
+<li>隐函数<strong>先定值再求导</strong>；二阶导直接代一阶的结果。</li>
+<li>乘法项里的变限积分求导要带乘积法则。</li>
+</ol>
+<p><strong>中值定理与应用</strong></p>
+<ol start="12">
+<li>罗尔定理先<strong>算两端函数值</strong>（相等才能用）。</li>
+<li>证不等式：两半边常常要<strong>换辅助函数</strong>；用 f′ 的单调性给界。</li>
+<li>极值候选 = 驻点 <strong>+ 不可导点</strong>；闭区间最值别漏端点。</li>
+<li>根的个数：单调性管「至多」，端点符号管「有」；临界情形（极值 = 0）单独说。</li>
+<li>渐近线：同一侧有水平就<strong>没有</strong>斜；分母为 0 但分子也为 0 的点不是铅直渐近线。</li>
+<li>求参数范围：把 k 解出来 → 求值域 → 端点开闭单独判。</li>
+</ol>
+<p><strong>不定积分</strong></p>
+<ol start="18">
+<li>先分类（凑微分 / 分部 / 换元 / 部分分式），再动笔。</li>
+<li>分部：「反对幂指三」，u 选求导后变简单的。</li>
+<li>三角代换后<strong>必须回代</strong>；代换时别忘 dx 的换算因子。</li>
+<li>部分分式：重因式写两项，不可约二次式分子写 Ax + B。</li>
+<li>分段函数的原函数要<strong>连续</strong>（常数互相绑住）；tan 型答案求导<strong>回验</strong>一遍。</li>
+<li>不定积分结果别忘 <strong>+ C</strong>。</li>
+</ol>
+<p><strong>通用</strong></p>
+<ol start="24">
+<li>每个答案回头做一次<strong>量纲/特值检验</strong>（代一个具体数、看符号、看单调方向）。</li>
+<li>计算题写清「解」「由…得」的步骤；证明题写清「由…定理，存在 ξ ∈ (a, b)」——<strong>得分点就在这些字上</strong>。</li>
+</ol>
+</div></section>
+<section class="chapter" data-ch="附录 D　名师方法索引（含出处）">
+<h1 id="d" class="chead">附录 D　名师方法索引（含出处）<span class="chev">▾</span></h1>
+<div class="cbody">
+<p>下面是本讲义各考点引用的全部名师方法，按考点编号排列，方便按「我想看某位老师的讲法」或「这个考点的所有招法」两种方式检索。方法名按公开讲义、题解里的通行叫法书写，出处逐条给出可打开的链接。</p>
+<!-- BEGIN:METHODS -->
+
+<p>下面的表格按考点编号排列，列出本讲义引用的全部名师方法及其出处链接。方法名按公开讲义、题解里的通行叫法书写；出处逐条可打开，便于自行核对。</p>
+<table>
+<thead>
+<tr>
+<th>考点</th>
+<th>老师</th>
+<th>招牌方法</th>
+<th>关键要点</th>
+<th>出处</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.1 基本极限、等价替换与四则运算</td>
+<td>武忠祥</td>
+<td>先定型，再选法</td>
+<td>求极限的第一步不是算，而是判断型：0/0、∞/∞、0·∞、∞−∞、1^∞、0^0、∞^0 七种未定式里属于哪一种。；型定了工具就定了：0·∞ 化为 0/0 或 ∞/∞；∞−∞ 通分或倒代换 u=1/x；1^∞、0^0、∞^0 一律化为 e^{v·ln u}。</td>
+<td><a href="https://cloud.tencent.com/developer/article/2113035">cloud.tencent.com</a></td>
+</tr>
+<tr>
+<td>1.1 基本极限、等价替换与四则运算</td>
+<td>武忠祥</td>
+<td>加减位置不能替换时，创造条件（+t−t）</td>
+<td>加减位置能不能用等价替换，先看被换的两项是不是等价量：替换后比值极限为 1（或 −1）就不许换。；口诀是「有条件要上，没有条件创造条件也要上」：人为 +t−t、+1−1，把和差结构配成能用等价替换的因式形式。</td>
+<td><a href="https://cloud.tencent.com/developer/article/2113035">cloud.tencent.com</a></td>
+</tr>
+<tr>
+<td>1.1 基本极限、等价替换与四则运算</td>
+<td>通用技巧</td>
+<td>加减法可用等价无穷小的充要条件（比值判据）</td>
+<td>乘除位置无条件可用：α~α′、β~β′ 则 αβ~α′β′、α/β~α′/β′。；加减位置：α−β~α′−β′ 的充要条件是 lim(α/β)=c≠1；α+β~α′+β′ 的充要条件是 lim(α/β)=c≠−1。</td>
+<td><a href="https://www.saikr.com/a/2765">www.saikr.com</a></td>
+</tr>
+<tr>
+<td>1.2 泰勒展开定阶：什么时候不能用等价替换</td>
+<td>张宇</td>
+<td>泰勒定阶两条原则：A/B 型上下同阶、A−B 型幂次最低</td>
+<td>A/B 型（分式）：分子分母展开到相同的阶——分母是 x^k 就展到 x^k。；A−B 型（相减）：展到两项系数第一次不相等的那个最低次幂为止，这就是幂次最低。</td>
+<td><a href="https://www.cnblogs.com/elite-00/articles/17330257.html">www.cnblogs.com</a></td>
+</tr>
+<tr>
+<td>1.2 泰勒展开定阶：什么时候不能用等价替换</td>
+<td>武忠祥</td>
+<td>先看精度是否统一，再看要不要泰勒</td>
+<td>凡出现和差结构（arcsin x−sin x、arctan x−tan x 一类），等价替换必然互相抵消，只能上泰勒。；先试 ±1 配凑：能配成因式形式就用等价替换，配不成再展开。</td>
+<td><a href="https://www.kaoyantools.com/26allnotes/26sxnote/25356.html">www.kaoyantools.com</a></td>
+</tr>
+<tr>
+<td>1.2 泰勒展开定阶：什么时候不能用等价替换</td>
+<td>通用技巧</td>
+<td>幂次最低原则的完整算例</td>
+<td>相减型求 (A−B)/x^n 时，A、B 各展到系数第一次不相等的那一阶再相减。；只展到系数相同的那一阶会全部抵消，得到 0 的错误结果。</td>
+<td><a href="https://publish.obsidian.md/gee-math-2/1-1.+%E5%87%BD%E6%95%B0%E7%9A%84%E6%9E%81%E9%99%90%E4%B8%8E%E8%BF%9E%E7%BB%AD/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F">publish.obsidian.md</a></td>
+</tr>
+<tr>
+<td>1.3 无穷小的比较与阶</td>
+<td>张宇</td>
+<td>无穷小比阶五条（含 k 阶无穷小）</td>
+<td>前提 lim f=0 且 lim g=0：lim f/g=0 则 f 是 g 的高阶无穷小；=C≠0 则同阶；=∞ 则低阶；lim f/g^k=C≠0 则 f 是 g 的 k 阶无穷小；=1 则等价，记 f~g。；第⑤条当验算公式用：拿不准两个量是否等价，直接算比值极限是否等于 1。</td>
+<td><a href="https://www.cnblogs.com/elite-00/articles/17330257.html">www.cnblogs.com</a></td>
+</tr>
+<tr>
+<td>1.3 无穷小的比较与阶</td>
+<td>通用技巧</td>
+<td>有界量乘无穷小仍为无穷小</td>
+<td>无穷小必须指明趋近过程（x→x₀ 还是 x→∞）；常数 0 本身不是无穷小。；有限个无穷小的和、差、积仍是无穷小。</td>
+<td><a href="https://www.saikr.com/a/2765">www.saikr.com</a></td>
+</tr>
+<tr>
+<td>1.4 1^∞ 型与幂指函数极限</td>
+<td>张宇</td>
+<td>幂指函数统一改写 u^v=e^{v·ln u}，1^∞ 另有简式</td>
+<td>底和指数都含 x 的幂指函数，先写成 e^{v·ln u}，把幂指化为乘积再判型。；∞^0、0^∞ 走 e^{v·ln u}（化成 0·∞）；1^∞ 可用简式 e^{v(u−1)}，只需求 lim v(u−1)。</td>
+<td><a href="https://www.cnblogs.com/elite-00/articles/17311504.html">www.cnblogs.com</a></td>
+</tr>
+<tr>
+<td>1.4 1^∞ 型与幂指函数极限</td>
+<td>武忠祥</td>
+<td>幂指结构一律先写成 e^{…} 再求极限</td>
+<td>遇到 (x/(1+x))^x 这类结构，先写 e^{x·ln(x/(1+x))}，把幂指极限变成指数上的极限。；指数上允许用等价无穷小与洛必达；底数的替换仍要守乘除可换、加减谨慎的规矩。</td>
+<td><a href="https://cloud.tencent.com/developer/article/2113039">cloud.tencent.com</a></td>
+</tr>
+<tr>
+<td>1.5 连续性与间断点的分类</td>
+<td>张宇</td>
+<td>间断点先找候选点，再判四类</td>
+<td>候选点只有两类：分段点（含 ／x／、x²、√x² 这类隐含分段），以及无定义点（分母为 0、ln x 中 x≤0）。；四类判法：可去（左右极限相等但 ≠f(x₀)）、跳跃（左右极限不等）、无穷（至少一侧为 ∞）、振荡（极限不存在且往复摆动）。</td>
+<td><a href="https://www.cnblogs.com/elite-00/articles/17330257.html">www.cnblogs.com</a></td>
+</tr>
+<tr>
+<td>1.5 连续性与间断点的分类</td>
+<td>通用技巧</td>
+<td>三个量排列组合：判定顺序固定</td>
+<td>对候选点 x₀ 只看三个量：lim_{x→x₀+}f(x)、lim_{x→x₀−}f(x)、f(x₀)。；顺序是：先看左右极限是否都存在 → 再比是否相等 → 最后与 f(x₀) 比。</td>
+<td><a href="https://publish.obsidian.md/gee-math-2/1-1.+%E5%87%BD%E6%95%B0%E7%9A%84%E6%9E%81%E9%99%90%E4%B8%8E%E8%BF%9E%E7%BB%AD/%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%9E%E7%BB%AD%E4%B8%8E%E9%97%B4%E6%96%AD">publish.obsidian.md</a></td>
+</tr>
+<tr>
+<td>1.5 连续性与间断点的分类</td>
+<td>通用技巧</td>
+<td>从连续三要素反推间断点</td>
+<td>连续三要素：f 在 x₀ 有定义；lim_{x→x₀}f(x) 存在；极限值等于函数值。；任一条不满足，x₀ 就是间断点——这是求间断点类题最快的切入点。</td>
+<td><a href="https://www.saikr.com/a/2764">www.saikr.com</a></td>
+</tr>
+<tr>
+<td>1.6 数列极限：递推、裂项与夹逼</td>
+<td>通用技巧</td>
+<td>夹逼准则：分母大同小异时抓大头</td>
+<td>适用信号：n 项和或积的极限，且各项分母大同小异（趋于一致）——抓大头。；放缩方式：左端取最小项、右端取最大项，使两端极限相同。</td>
+<td><a href="https://mundanity.moe/post/Math_I_Notes">mundanity.moe</a></td>
+</tr>
+<tr>
+<td>1.6 数列极限：递推、裂项与夹逼</td>
+<td>通用技巧</td>
+<td>单调有界：先猜极限，再证两件事</td>
+<td>分析：先猜出极限 A，判断目标是单调增有上界还是单调减有下界。；证明：一般先证有界（数学归纳法：n=1 成立 → 设 n=k 成立 → 推 n=k+1），再证单调（做差 x_{n+1}−x_n 或做商）。</td>
+<td><a href="https://mundanity.moe/post/Math_I_Notes">mundanity.moe</a></td>
+</tr>
+<tr>
+<td>1.6 数列极限：递推、裂项与夹逼</td>
+<td>通用技巧</td>
+<td>递推数列两套流程：单调用单调有界，不单调用先斩后奏</td>
+<td>方法一（数列单调）：① 证收敛（单调有界）→ ② 令 lim x_n=A 在递推式两端取极限解 A → ③ 下结论。；方法二（不单调）——先斩后奏：① 先令 lim x_n=A → ② 由两端取极限解出 A → ③ 再构造 ／x_n−A／ 证它趋于 0，补证极限存在。</td>
+<td><a href="https://www.cnblogs.com/0202zc/p/13269846.html">www.cnblogs.com</a></td>
+</tr>
+<tr>
+<td>1.7 变限积分函数：求导、极限与平均值</td>
+<td>通用技巧</td>
+<td>变限积分求导：扔掉积分号，上限代入（链式加负号）</td>
+<td>微积分第一基本定理：f 在 [a,b] 连续，则 (∫_a^x f(t)dt)′=f(x)，变上限积分是 f 的一个原函数。；变下限加负号：∫_x^a f=−∫_a^x f，导数为 −f(x)。</td>
+<td><a href="https://www.saikr.com/a/2774">www.saikr.com</a></td>
+</tr>
+<tr>
+<td>1.7 变限积分函数：求导、极限与平均值</td>
+<td>通用技巧</td>
+<td>被积函数含 x：能分离就提出，不能分离就换元</td>
+<td>可分离型：被积函数能写成 g(x)f(t) 时，g(x) 相对 t 是常数，可提到积分号外再求导。；不可分离型（如 ∫_0^x t f(t−x)dt）：先换元 u=t−x，让积分变量与上限里的 x 分离，再求导。</td>
+<td><a href="https://www.saikr.com/a/2774">www.saikr.com</a></td>
+</tr>
+<tr>
+<td>1.7 变限积分函数：求导、极限与平均值</td>
+<td>通用技巧</td>
+<td>变限积分与原函数：有第一类间断点就没有原函数</td>
+<td>f 连续时 ∫_a^x f(t)dt 就是 f 的一个原函数。；f 在区间上有第一类间断点或无穷间断点，则 f 在该区间上不存在原函数。</td>
+<td><a href="http://baike.linkmax.top/b/a0JGssIPan">baike.linkmax.top</a></td>
+</tr>
+<tr>
+<td>2.1 导数定义：凑出差商</td>
+<td>武忠祥</td>
+<td>导数定义三大易错点：一静一动、双向趋近、上下同阶</td>
+<td>用定义求 f′(x₀) 时增量必须一静一动：分子要能写成 f(x₀+□)−f(x₀)，以固定的 x₀ 为静点，只让一个增量动。；极限过程要双向趋近：□ 可正可负地趋于 0，只谈单侧不是导数。</td>
+<td><a href="https://www.sina.cn/news/detail/5343830209726614.html">www.sina.cn</a></td>
+</tr>
+<tr>
+<td>2.1 导数定义：凑出差商</td>
+<td>武忠祥</td>
+<td>拆项凑定义：把两个动点拆成共享同一定点的两项</td>
+<td>遇到 f((x+h)²)−f(x²+h) 这类两个自变量同时带 h 的极限，先拆成 f((x+h)²)−f(x²) + f(x²)−f(x²+h)。；每项各自配出标准差商：[f((x+h)²)−f(x²)]/h → 2x·f′(x²)；[f(x²)−f(x²+h)]/h → −f′(x²)。</td>
+<td><a href="https://cloud.tencent.com/developer/article/2113035">cloud.tencent.com</a></td>
+</tr>
+<tr>
+<td>2.1 导数定义：凑出差商</td>
+<td>通用技巧</td>
+<td>导数定义等价形式的三条件</td>
+<td>f′(x₀)=lim_{Δx→0}[f(x₀+Δx)−f(x₀)]/Δx 存在，等价于 lim_{□→0}[f(x₀+□)−f(x₀)]/□ 存在。；分子必须是一动一静；分母与 □ 同阶；□ 可左可右。</td>
+<td><a href="https://www.mundanity.moe/post/Math_I_Notes">www.mundanity.moe</a></td>
+</tr>
+<tr>
+<td>2.2 分段函数与绝对值型函数的可导性</td>
+<td>武忠祥</td>
+<td>结论优先：f(x)／x−a／ 在 x=a 可导的充要条件是 f(a)=0</td>
+<td>f(x)／x−a／ 在 x=a 处可导 ⟺ f(a)=0；f(a)≠0 时 x=a 是尖点，左右导数反号，不可导。；可导性阶梯：／x／ 在 0 不可导（左右导数 1 与 −1）；x／x／ 在 0 可导（左右导数都为 0）。</td>
+<td><a href="https://cloud.tencent.com/developer/article/2113039">cloud.tencent.com</a></td>
+</tr>
+<tr>
+<td>2.2 分段函数与绝对值型函数的可导性</td>
+<td>武忠祥</td>
+<td>分段点用定义，含变限积分时用导数极限定理</td>
+<td>分段点（含被积函数不连续的点）先按定义写出左、右导数 f′₋(x₀)、f′₊(x₀)。；当 F(x)=∫<em x_x₀⁻="x→x₀⁻">0^x f(t)dt 时可用导数极限定理：F′₋(x₀)=lim</em>f(x)（要求 f 单侧连续）。}f(x)，F′₊(x₀)=lim_{x→x₀⁺</td>
+<td><a href="https://cloud.tencent.com/developer/article/2113047">cloud.tencent.com</a></td>
+</tr>
+<tr>
+<td>2.2 分段函数与绝对值型函数的可导性</td>
+<td>汤家凤</td>
+<td>把「可微与可导等价」的证明与可导的等价定义练成条件反射</td>
+<td>基础阶段必须掌握可微与可导等价的证明（Δy=AΔx+o(Δx) 与 f′(x₀)=A 互推），这是理解导数与微分关系的地基。；把「可导的等价定义」练到能在综合题里直接套用，而不是每次回原始定义硬算。</td>
+<td><a href="https://blog.csdn.net/shizheng_Li/article/details/107595983">blog.csdn.net</a></td>
+</tr>
+<tr>
+<td>2.2 分段函数与绝对值型函数的可导性</td>
+<td>张宇</td>
+<td>左右导数相等只对分段点生效</td>
+<td>讨论分段函数的导数，只看分段点和无定义点，用「左右导数都存在且相等」判断。；关键提醒：这条只适用于分段点；非分段点必须用求导公式，否则会把平滑点误判成折角。</td>
+<td><a href="https://www.cnblogs.com/elite-00/articles/17347574.html">www.cnblogs.com</a></td>
+</tr>
+<tr>
+<td>2.3 隐函数求导（含二阶）</td>
+<td>武忠祥</td>
+<td>隐函数求某点导数值：先定值，再求导</td>
+<td>第一步先定值：把 x₀ 代入原方程解出 y₀，后续代入都用这组 (x₀,y₀)。；第二步两边对 x 求导（含 y 的项按复合函数处理），整理出 y′，代入 (x₀,y₀)。</td>
+<td><a href="https://cloud.tencent.com/developer/article/2113035">cloud.tencent.com</a></td>
+</tr>
+<tr>
+<td>2.3 隐函数求导（含二阶）</td>
+<td>通用技巧</td>
+<td>二阶导两步法：两边连续求导，低阶导随时回代</td>
+<td>两边对 x 求导得到关于 y′ 的方程，解出 y′。；再对①的式子求导（式中 y 仍看作 x 的函数）解出 y″，并把①中的 y′ 代入化简。</td>
+<td><a href="https://publish.obsidian.md/gee-math-2/1-3.+%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/2.+%E8%AE%A1%E7%AE%97/%E9%9A%90%E5%87%BD%E6%95%B0%E5%AF%BC%E6%95%B0">publish.obsidian.md</a></td>
+</tr>
+<tr>
+<td>2.3 隐函数求导（含二阶）</td>
+<td>通用技巧</td>
+<td>为什么可以对两边求导（适用条件）</td>
+<td>F(x,y)=0 是恒等式：每个满足方程的 x 唯一确定 y，即 y 是 x 的函数，此时两边对 x 求导仍成立。；含 y 的项按复合函数求导：e^y → e^y·y′；xy → y + x·y′；常数项为 0。</td>
+<td><a href="https://www.cnblogs.com/hmy-666/p/12859008.html">www.cnblogs.com</a></td>
+</tr>
+<tr>
+<td>2.4 参数方程确定的函数求导</td>
+<td>武忠祥</td>
+<td>参数方程二阶导：代公式，点值用泰勒/跨阶凑定义</td>
+<td>一阶 dy/dx=(dy/dt)/(dx/dt)；二阶 d²y/dx² = d/dt(dy/dx) ÷ (dx/dt)。；求某点二阶导：先分别算出该点的 dx/dt、dy/dt、d²x/dt²、d²y/dt²，再代公式。</td>
+<td><a href="https://cloud.tencent.com/developer/article/2113039">cloud.tencent.com</a></td>
+</tr>
+<tr>
+<td>2.4 参数方程确定的函数求导</td>
+<td>通用技巧</td>
+<td>二阶导公式的记忆与易错点</td>
+<td>口诀：二阶导 = 对一阶导再对参数 t 求导，然后除以 dx/dt。；写法：d²y/dx² = [y″(t)x′(t) − y′(t)x″(t)]/[x′(t)]³。</td>
+<td><a href="https://www.zhihu.com/question/417808601">www.zhihu.com</a></td>
+</tr>
+<tr>
+<td>2.4 参数方程确定的函数求导</td>
+<td>通用技巧</td>
+<td>参数方程求高阶导的两种加速办法</td>
+<td>反复套一阶公式（对 t 求导再除以 dx/dt）可得任意阶导。；参数方程本身是有理化或三角函数型时，先约简再求导，能显著减少计算量。</td>
+<td><a href="https://blog.csdn.net/qq_52964132/article/details/140129439">blog.csdn.net</a></td>
+</tr>
+<tr>
+<td>2.5 高阶导数：莱布尼茨公式与幂级数法</td>
+<td>武忠祥</td>
+<td>高阶导数题型树：求 f⁽ⁿ⁾(x) 与求 f⁽ⁿ⁾(x₀) 两条主线</td>
+<td>求通式 f⁽ⁿ⁾(x) 两条路：① 先求几阶找规律；② 莱布尼茨公式（函数是两个因子相乘时）。；求点值 f⁽ⁿ⁾(x₀) 两条路：① 泰勒展开对比系数；② 用无穷小阶数与求导阶数比较（阶数≥求导阶数时用泰勒）。</td>
+<td><a href="https://cloud.tencent.com/developer/article/2113039">cloud.tencent.com</a></td>
+</tr>
+<tr>
+<td>2.5 高阶导数：莱布尼茨公式与幂级数法</td>
+<td>通用技巧</td>
+<td>莱布尼茨公式：专门解决两函数相乘，多项式因子会自动截断</td>
+<td>(uv)⁽ⁿ⁾=Σ_{k=0}^{n} C(n,k)·u⁽ⁿ⁻ᵏ⁾·v⁽ᵏ⁾，结构与二项式定理同构，便于记忆。；把单个函数转化成乘积形式后也能用；其中一个因子是多项式（求导若干次后为 0）时公式自动截断，只剩有限项。</td>
+<td><a href="https://kaoyan.xdf.cn/201903/10888235.html">kaoyan.xdf.cn</a></td>
+</tr>
+<tr>
+<td>2.5 高阶导数：莱布尼茨公式与幂级数法</td>
+<td>通用技巧</td>
+<td>求高阶导的五种手段与「系数×n!」法则</td>
+<td>五种手段：直接找规律、公式法、莱布尼茨公式、泰勒或幂级数展开、利用奇偶性。；要求 f⁽ⁿ⁾(0)：展成幂级数后取 xⁿ 的系数 A，则 f⁽ⁿ⁾(0)=A·n!。</td>
+<td><a href="https://www.mundanity.moe/post/Math_I_Notes">www.mundanity.moe</a></td>
+</tr>
+<tr>
+<td>2.6 切线与法线</td>
+<td>通用技巧</td>
+<td>切线法线的点斜式与斜率关系</td>
+<td>切线：y−y₀=f′(x₀)(x−x₀)；法线：y−y₀=−(1/f′(x₀))(x−x₀)，两斜率之积为 −1。；f′(x₀)=0 时切线水平，法线是竖直直线 x=x₀，不能套 −1/f′(x₀)。</td>
+<td><a href="https://320wuyanzu.github.io/PG-Math/2/1.html">320wuyanzu.github.io</a></td>
+</tr>
+<tr>
+<td>2.6 切线与法线</td>
+<td>武忠祥</td>
+<td>两曲线相切的条件：函数值相同 + 切线斜率相同</td>
+<td>两条曲线在一点相切 ⟺ ① 该点函数值相同；② 该点切线斜率相同。；由这两个等量关系建立方程组求参数。</td>
+<td><a href="https://cloud.tencent.com/developer/article/2113035">cloud.tencent.com</a></td>
+</tr>
+<tr>
+<td>2.6 切线与法线</td>
+<td>通用技巧</td>
+<td>参数方程与隐函数曲线的切线</td>
+<td>参数方程：切点由 t₀ 代入得，斜率 k=(dy/dt)/(dx/dt)／_{t₀}，再点斜式。；隐函数 F(x,y)=0：两边对 x 求导解出 y′，代入切点得斜率。</td>
+<td><a href="https://zhaokaifeng.com/4479">zhaokaifeng.com</a></td>
+</tr>
+<tr>
+<td>2.7 幂指函数求导</td>
+<td>通用技巧</td>
+<td>对数求导法三步</td>
+<td>y=u(x)^{v(x)}（u&gt;0）既不是幂函数也不是指数函数，不能套单一公式。；① 两边取对数 ln y=v(x)ln u(x)；② 两边对 x 求导，左端为 y′/y，右端用乘积法则；③ 解出 y′ 并把 y=u^v 乘回去。</td>
+<td><a href="http://3xyun.cn/15910.html">3xyun.cn</a></td>
+</tr>
+<tr>
+<td>2.7 幂指函数求导</td>
+<td>通用技巧</td>
+<td>化为指数函数：u^v=e^{v ln u}</td>
+<td>恒等变形 y=e^{v(x)ln u(x)}，变成复合函数再求导，结果与对数求导法一致。；防错原则：一切幂指函数先化成指数或取对数，否则会错用幂函数或指数函数的公式。</td>
+<td><a href="https://www.cnblogs.com/blknemo/p/11779253.html">www.cnblogs.com</a></td>
+</tr>
+<tr>
+<td>2.7 幂指函数求导</td>
+<td>武忠祥</td>
+<td>幂指形式先写成 e^{…}，再连斜渐近线一起处理</td>
+<td>求 (x/(1+x))^x 这类幂指形式的极限，先写 e^{x·ln(x/(1+x))}。；斜渐近线的 b 用 e^{…}−1 的等价或泰勒处理无穷小。</td>
+<td><a href="https://cloud.tencent.com/developer/article/2113039">cloud.tencent.com</a></td>
+</tr>
+<tr>
+<td>3.1 罗尔定理与辅助函数构造</td>
+<td>通用技巧</td>
+<td>微分方程法（万能构造法）</td>
+<td>把待证结论整体看成一个微分方程，求通解并把通解整理成 F(x)=C 的形式，F(x) 就是辅助函数。；一阶齐次型 f′+p(x)f=0：通解 f=C·e^{−∫p dx}，即 e^{∫p dx}·f=C，故取 F(x)=e^{∫p dx}f(x)——这就是常说的万能构造法。</td>
+<td><a href="https://cloud.tencent.com/developer/article/2113076">cloud.tencent.com</a></td>
+</tr>
+<tr>
+<td>3.1 罗尔定理与辅助函数构造</td>
+<td>通用技巧</td>
+<td>常数 K 值法（可分离型）</td>
+<td>适用范围：结论由端点 a、b 与中值 ξ 构成，且中值与端点可分离。判别办法：令 b=a 代入待证式，若等式仍成立（成为零式），就可考虑 K 值法。；第一类：令 K=(f(b)−f(a))/(b−a)，构造 F(x)=[f(x)−f(a)]−(x−a)K，则 F(a)=F(b)=0。</td>
+<td><a href="https://cloud.tencent.com/developer/article/2113076">cloud.tencent.com</a></td>
+</tr>
+<tr>
+<td>3.1 罗尔定理与辅助函数构造</td>
+<td>通用技巧</td>
+<td>题型分解：简单型找等值点，复杂型自建辅助函数</td>
+<td>简单型：结论形如 f′(ξ)=0、f′(ξ)=k、f″(ξ)=0，条件基本已给，只需找两个函数值相等的点。找等值点常用：闭区间连续函数性质（介值、零点）、积分中值定理、拉格朗日、极限性质、导数定义。；复杂型：结论较繁，需自建辅助函数使 F 满足罗尔三条件，一般借助解微分方程的思想。</td>
+<td><a href="https://kaoyan.eol.cn/fu_xi/shuxue/201511/t20151123_1340825_1.shtml">kaoyan.eol.cn</a></td>
+</tr>
+<tr>
+<td>3.1 罗尔定理与辅助函数构造</td>
+<td>通用技巧</td>
+<td>辅助函数速记表与多次罗尔</td>
+<td>f′+f 配 F=f·e^x；f′−f 配 F=f·e^{−x}；f′·f 配 F=f²；f′/f 配 F=ln f，都要广义化到无穷区间、无穷端点值。；多个等值点用多次罗尔：f(a)=f(b)=f(c) 则存在 ξ₁ 在 (a,b)、ξ₂ 在 (b,c) 使 f′(ξ₁)=f′(ξ₂)=0，再对 f′ 用一次罗尔得 f″(ξ)=0。</td>
+<td><a href="https://publish.obsidian.md/gee-math-2/1-3.+%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/3.+%E5%BA%94%E7%94%A8/2.+%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86%E3%80%81%E5%BE%AE%E5%88%86%E7%AD%89%E5%BC%8F%E4%B8%8E%E5%BE%AE%E5%88%86%E4%B8%8D%E7%AD%89%E5%BC%8F/%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86">publish.obsidian.md</a></td>
+</tr>
+<tr>
+<td>3.1 罗尔定理与辅助函数构造</td>
+<td>张宇</td>
+<td>证明题第一步：寻找原函数</td>
+<td>把中值定理证明题的第一步固定叫寻找原函数——先造出 F(x) 使 F′ 等于待证式。；推进顺序：寻找原函数 → 证某点导数为零 → 证 n 阶导数等式或不等式在该点成立 → 用泰勒公式。</td>
+<td><a href="https://qwdh.net/post/7348.html">qwdh.net</a></td>
+</tr>
+<tr>
+<td>3.2 拉格朗日中值定理与不等式证明</td>
+<td>通用技巧</td>
+<td>三种中值定理对号入座</td>
+<td>结论不含端点优先罗尔；含端点用拉格朗日或柯西。；整理结论时把一侧写成只含端点、另一侧只含中值：分母是端点相减选拉格朗日；分母不是端点相减（出现两个函数增量比）选柯西。</td>
+<td><a href="https://kaoyan.eol.cn/fu_xi/shuxue/201711/t20171124_1569414.shtml">kaoyan.eol.cn</a></td>
+</tr>
+<tr>
+<td>3.2 拉格朗日中值定理与不等式证明</td>
+<td>通用技巧</td>
+<td>万能构造法证不等式（乘 e 的因子加单调性）</td>
+<td>条件里出现 f′−f（或 f′+af）时，构造 F(x)=f(x)e^{−x}（或 f(x)e^{ax}）。；求 F′ 的符号得到 F 的单调性，再由端点的值和单调性推出目标不等式。</td>
+<td><a href="https://cloud.tencent.com/developer/article/2113076">cloud.tencent.com</a></td>
+</tr>
+<tr>
+<td>3.2 拉格朗日中值定理与不等式证明</td>
+<td>通用技巧</td>
+<td>把待证式往定理的标准形式靠拢</td>
+<td>观察结论中变量是否分离：f(b) 与 f(a) 分离且共用一个法则 f，常把两边同除某量（如 ab）凑出 [f(b)−f(a)]/(b−a) 与 f′(ξ)。；判型口诀：结论中无导数往介值定理想；有导数且只有一个法则 f 用拉格朗日或罗尔；有两个法则用柯西。</td>
+<td><a href="https://blog.csdn.net/qq_45858169/article/details/103788477">blog.csdn.net</a></td>
+</tr>
+<tr>
+<td>3.3 泰勒公式与积分不等式</td>
+<td>通用技巧</td>
+<td>积分不等式的两个判定准则</td>
+<td>结论中只有积分与被积函数本身，一般用积分中值定理。；结论中出现积分与被积函数的导数，把变上限积分在某点展成泰勒展开式。</td>
+<td><a href="https://pdf.hanspub.org/ve20210300000_15519057.pdf">pdf.hanspub.org</a></td>
+</tr>
+<tr>
+<td>3.3 泰勒公式与积分不等式</td>
+<td>通用技巧</td>
+<td>泰勒展开的展开点与阶数原则</td>
+<td>常用麦克劳林展开必须背熟，它比反复洛必达更快、更好用。；求极限时展开原则是上下同阶：分子分母展开到同一阶即可，不要多展。</td>
+<td><a href="https://publish.obsidian.md/gee-math-2/1-1.+%E5%87%BD%E6%95%B0%E7%9A%84%E6%9E%81%E9%99%90%E4%B8%8E%E8%BF%9E%E7%BB%AD/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F">publish.obsidian.md</a></td>
+</tr>
+<tr>
+<td>3.3 泰勒公式与积分不等式</td>
+<td>通用技巧</td>
+<td>辅助多项式法（高阶中值结论）</td>
+<td>结论要求 n 阶导数的信息，就构造 n 次辅助多项式，使它在题设已知点处与 f 取相同函数值。；令 F(x)=f(x)−p_n(x)，则 F 在这些点处为零，反复用罗尔可得 F 的 n 阶导在某点为零，即 f 的 n 阶导等于 p_n 的 n 阶导。</td>
+<td><a href="https://cloud.tencent.com/developer/article/2113076">cloud.tencent.com</a></td>
+</tr>
+<tr>
+<td>3.4 单调性与极值（含变限积分函数）</td>
+<td>通用技巧</td>
+<td>求单调区间与极值的标准步骤</td>
+<td>先求定义域（单调区间必须是定义域的子集）。；求 f′，解 f′=0 得全部驻点，并找出 f′ 不存在的点。</td>
+<td><a href="https://www.mundanity.moe/post/Math_I_Notes">www.mundanity.moe</a></td>
+</tr>
+<tr>
+<td>3.4 单调性与极值（含变限积分函数）</td>
+<td>通用技巧</td>
+<td>极值最值的分类点比较法</td>
+<td>候选点三类：驻点、不可导点、端点。；分别算出这些点的函数值，逐一比较，最大者为最大值、最小者为最小值。</td>
+<td><a href="https://www.cnblogs.com/isLinXu/p/15327312.html">www.cnblogs.com</a></td>
+</tr>
+<tr>
+<td>3.4 单调性与极值（含变限积分函数）</td>
+<td>通用技巧</td>
+<td>变限积分函数求导（本章高频五星考点）</td>
+<td>基本原理：f 在 [a,b] 连续，则变上限积分的导数就是 f(x)。；上下限都是函数时：∫_{g(x)}^{h(x)}f 的导数 = h′(x)f(h(x)) − g′(x)f(g(x))。</td>
+<td><a href="https://m.saikr.com/a/2774">m.saikr.com</a></td>
+</tr>
+<tr>
+<td>3.5 方程根的个数</td>
+<td>通用技巧</td>
+<td>零点定理加单调性确定实根个数</td>
+<td>存在性：用零点定理（区间两端函数值异号，或端点与无穷远极限值异号）判定至少有一个根。；唯一性：用 f′ 的符号确定单调区间，每个单调区间内方程至多一个根。</td>
+<td><a href="https://zhaokaifeng.com/20095">zhaokaifeng.com</a></td>
+</tr>
+<tr>
+<td>3.5 方程根的个数</td>
+<td>通用技巧</td>
+<td>罗尔定理数零点（求零点个数上界）</td>
+<td>核心引理：函数两个零点之间至少有一个导数为零的点，故 n 个零点推出导函数至少 n−1 个零点、二阶导至少 n−2 个零点。；反证法：假设有 n 个零点，反复求导（必要时乘 e^{−ax} 之类的因子保持零点个数不变）把项数逐次减少。</td>
+<td><a href="https://www.wbyblog.cn/archives/9.html">www.wbyblog.cn</a></td>
+</tr>
+<tr>
+<td>3.5 方程根的个数</td>
+<td>通用技巧</td>
+<td>用极值最值讨论根的个数</td>
+<td>先求单调区间和极值（极大值、极小值）。；把极值点与 0 比较：极大值小于 0 或极小值大于 0 则无根；极值异号则在相应单调区间内各有一根。</td>
+<td><a href="https://kaoyan.eol.cn/fu_xi/shuxue/201902/t20190227_1646504.shtml">kaoyan.eol.cn</a></td>
+</tr>
+<tr>
+<td>3.6 凹凸性与拐点</td>
+<td>通用技巧</td>
+<td>拐点：二阶导为零是必要条件，不是充分条件</td>
+<td>必要条件：f 在 (a,b) 内二阶可导，若该点是拐点，则二阶导在该点为 0。；不充分！反例 f(x)=x⁴：二阶导在 0 处为 0，但两侧都凸，0 不是拐点。</td>
+<td><a href="https://cloud.tencent.com/developer/article/2456608">cloud.tencent.com</a></td>
+</tr>
+<tr>
+<td>3.6 凹凸性与拐点</td>
+<td>通用技巧</td>
+<td>拐点是曲线上的点，不是横坐标</td>
+<td>零点、驻点、极值点指的都是横坐标；拐点指曲线上的一个点，即横坐标与函数值配对。；因此写答案要写成点坐标，只写横坐标不符合定义、会被扣分。</td>
+<td><a href="https://yunfei99.cn/shenghuo/20065.html">yunfei99.cn</a></td>
+</tr>
+<tr>
+<td>3.6 凹凸性与拐点</td>
+<td>通用技巧</td>
+<td>凹凸性判别与列表求拐点</td>
+<td>判别约定：区间中点函数值小于两端平均值则为凹曲线，大于则为凸曲线（同济教材约定）。；按二阶导判：二阶导大于 0 曲线凹，小于 0 曲线凸。</td>
+<td><a href="https://www.cnblogs.com/isLinXu/p/15327312.html">www.cnblogs.com</a></td>
+</tr>
+<tr>
+<td>3.7 渐近线</td>
+<td>通用技巧</td>
+<td>三类渐近线的定义式求法</td>
+<td>垂直渐近线：若 f 在 x₀ 一侧或两侧趋于无穷，则 x=x₀ 是垂直渐近线（x₀ 为无穷间断点）；可以有多条。；水平渐近线：若 x 趋于正无穷或负无穷时 f 趋于常数 A，则 y=A 是水平渐近线，至多两条（两侧各一条）。</td>
+<td><a href="https://pdf.hanspub.org/aam20230800000_75356482.pdf">pdf.hanspub.org</a></td>
+</tr>
+<tr>
+<td>3.7 渐近线</td>
+<td>通用技巧</td>
+<td>计算顺序固定：垂直、水平、斜</td>
+<td>关键结论：水平渐近线与斜渐近线加起来最多两条，同侧不可能既水平又斜。；计算顺序固定为垂直渐近线、水平渐近线、斜渐近线。</td>
+<td><a href="https://pdf.hanspub.org/aam20230800000_75356482.pdf">pdf.hanspub.org</a></td>
+</tr>
+<tr>
+<td>3.7 渐近线</td>
+<td>通用技巧</td>
+<td>拆项加泰勒展开，直接读出斜渐近线</td>
+<td>把 f(x) 展开成 kx+b+O(1/x) 的形式，常数项就是 b，可以避开求两次极限。；处理 x 趋于无穷时的复杂函数特别快，如 f 能写成 2x−1 加一个趋于 0 的项，则斜渐近线就是 y=2x−1。</td>
+<td><a href="https://pdf.hanspub.org/aam20230800000_75356482.pdf">pdf.hanspub.org</a></td>
+</tr>
+<tr>
+<td>3.8 闭区间上的最值</td>
+<td>通用技巧</td>
+<td>闭区间上最值的三类点比较法</td>
+<td>第一步：在 [a,b] 上找出三类候选点——驻点、不可导点、端点。；第二步：分别计算这些点处的函数值。</td>
+<td><a href="https://www.cnblogs.com/isLinXu/p/15327312.html">www.cnblogs.com</a></td>
+</tr>
+<tr>
+<td>3.8 闭区间上的最值</td>
+<td>通用技巧</td>
+<td>唯一极值法与实际应用最值</td>
+<td>讨论区间上只有一个极大（极小）值点时，该点可结合实际背景直接判为最大（小）值点。；实际应用题先做三件事：确定目标函数、写出约束条件、判定所讨论的区间。</td>
+<td><a href="https://www.mundanity.moe/post/Math_I_Notes">www.mundanity.moe</a></td>
+</tr>
+<tr>
+<td>3.9 参数取值范围：单调性 + 端点极限</td>
+<td>通用技巧</td>
+<td>恒成立等价于最值（把参数范围问题转化为值域问题）</td>
+<td>对所有 x 有 f(x)<a 恒成立等价于 f(x) 的最大值小于 a；f(x)>a 恒成立等价于 f(x) 的最小值大于 a。；f(x)&lt;g(x) 恒成立：令 F=f−g，只需 F 的最大值小于 0。</td>
+<td><a href="https://www.cnblogs.com/zhgmaths/p/15754027.html">www.cnblogs.com</a></td>
+</tr>
+<tr>
+<td>3.9 参数取值范围：单调性 + 端点极限</td>
+<td>通用技巧</td>
+<td>分离参数法（首选）</td>
+<td>先把不等式化为参数大于 h(x) 或参数小于 h(x) 的形式，使参数与 x 分离。；参数大于 h(x) 恒成立等价于参数大于 h(x) 的最大值；参数小于 h(x) 恒成立等价于参数小于 h(x) 的最小值。</td>
+<td><a href="https://www.cnblogs.com/zhgmaths/p/15754027.html">www.cnblogs.com</a></td>
+</tr>
+<tr>
+<td>3.9 参数取值范围：单调性 + 端点极限</td>
+<td>张宇</td>
+<td>把含参问题定位为「最值或值域」题型</td>
+<td>含参问题先定位到求某函数的值域，再回到单调性、极值、渐近线去卡出范围的上下界。；顺序上先做单调性与极值，再看 x 趋于端点或无穷远处函数值的极限，两端合起来即为值域，参数范围随之确定。</td>
+<td><a href="https://qwdh.net/post/7348.html">qwdh.net</a></td>
+</tr>
+<tr>
+<td>4.1 分部积分</td>
+<td>张宇</td>
+<td>分部积分的推广公式：表格法</td>
+<td>把乘积型积分中的 u 放在表格第一行一直往下求导，dv 对应的函数放在第二行一直往下求原函数。；上下对应项相乘，符号按正负交替加和，最后一项写成积分形式，符号由交替规则决定。</td>
+<td><a href="https://www.cnblogs.com/elite-00/articles/17385655.html">www.cnblogs.com</a></td>
+</tr>
+<tr>
+<td>4.1 分部积分</td>
+<td>通用技巧</td>
+<td>表格法的操作步骤与符号规则</td>
+<td>第一行写需要求导的因子及其各阶导数，第二行写需要积分的因子及其各次原函数。；从左上角开始交替标注正负，每行对应项相乘后按符号相加，直到某一列为 0 或出现可回代的循环项。</td>
+<td><a href="https://zhuanlan.zhihu.com/p/2738397335">zhuanlan.zhihu.com</a></td>
+</tr>
+<tr>
+<td>4.1 分部积分</td>
+<td>通用技巧</td>
+<td>u 的选择顺序口诀：反对幂指三</td>
+<td>顺序为反三角函数、对数函数、幂函数、指数函数、三角函数（指数与三角互换则为反对幂三指）。；排在前面的取作 u，排在后面的与 dx 一起凑成 dv。</td>
+<td><a href="https://zhuanlan.zhihu.com/p/518745672">zhuanlan.zhihu.com</a></td>
+</tr>
+<tr>
+<td>4.1 分部积分</td>
+<td>通用技巧</td>
+<td>循环积分型：两次分部后移项解方程</td>
+<td>被积函数为 e^{ax}·sin bx、e^{ax}·cos bx、sin ax·cos bx 这类求导或积分两次又变回自身的组合时，连用两次分部积分。；第二次分部后等式右边出现原积分的倍数，把原积分移到一边解方程得到结果。</td>
+<td><a href="https://zhuanlan.zhihu.com/p/420792593">zhuanlan.zhihu.com</a></td>
+</tr>
+<tr>
+<td>4.2 第二类换元：三角代换与根式代换</td>
+<td>通用技巧</td>
+<td>三角代换三型：按根号里的形式对号入座</td>
+<td>根号内是 a²−x²，令 x=a sin t，用 1−sin²t=cos²t 去根号。；根号内是 a²+x²，令 x=a tan t，用 1+tan²t=sec²t 去根号。</td>
+<td><a href="https://www.sfu.ca/math-coursenotes/Math%20158%20Course%20Notes/sec_Trig_Sub.html">www.sfu.ca</a></td>
+</tr>
+<tr>
+<td>4.2 第二类换元：三角代换与根式代换</td>
+<td>通用技巧</td>
+<td>回代技巧：画直角三角形把 t 换回 x</td>
+<td>结果里含有 t 的三角函数时，画直角三角形：由换元关系定出两条边，第三边用勾股定理求出，再直接读出需要的三角函数值。；结果里只出现 t 本身时，用反三角函数回代，不要用三角形。</td>
+<td><a href="https://www.sfu.ca/math-coursenotes/Math%20158%20Course%20Notes/sec_Trig_Sub.html">www.sfu.ca</a></td>
+</tr>
+<tr>
+<td>4.2 第二类换元：三角代换与根式代换</td>
+<td>通用技巧</td>
+<td>三角代换为什么可行：三个勾股恒等式</td>
+<td>sin²t+cos²t=1 对应处理 1−x²，用 x=sin t；sec²t=1+tan²t 对应处理 1+x²，用 x=tan t；csc²t=1+cot²t 对应处理与 x²−1 有关的根式。；本质是用圆或双曲线的参数方程替换根式，把无理式化成 t 的三角有理式。</td>
+<td><a href="https://zhuanlan.zhihu.com/p/581961575">zhuanlan.zhihu.com</a></td>
+</tr>
+<tr>
+<td>4.2 第二类换元：三角代换与根式代换</td>
+<td>武忠祥</td>
+<td>根式代换：把整个根号设为 t，反解 x 再积分</td>
+<td>被积函数含 n 次根号时，令 t 等于该根式，反解出 x 与 dx，把根式积分化为有理函数积分。；含 e^x 的复合根式（如 √(e^x−1)）令 t 为该根式，反解得 x=ln(t²+1)。</td>
+<td><a href="https://www.kaoyantools.com/27allnotes/27sxnote/51803.html">www.kaoyantools.com</a></td>
+</tr>
+<tr>
+<td>4.3 有理函数的部分分式分解</td>
+<td>通用技巧</td>
+<td>先分真假：假分式（分子次数不低于分母）先做多项式除法</td>
+<td>真分式：分子次数低于分母次数；假分式：分子次数不低于分母次数。；假分式用多项式长除法化为多项式加真分式，多项式部分直接逐项积分，只对真分式做部分分式分解。</td>
+<td><a href="https://www.sohu.com/a/649035514_121218254">www.sohu.com</a></td>
+</tr>
+<tr>
+<td>4.3 有理函数的部分分式分解</td>
+<td>通用技巧</td>
+<td>分母因式对应的部分分式形式：重因式写满 m 项</td>
+<td>把分母完全分解成一次因式与实数域上不可约二次因式（判别式小于 0）的乘积。；对 m 重一次因式必须写 C₁/(ax+b) + C₂/(ax+b)² + … + Cₘ/(ax+b)ᵐ 共 m 项，不能只写一项。</td>
+<td><a href="https://www.analyzemath.com/chinese/calculus/Integrals/partial-fraction-decomposition.html">www.analyzemath.com</a></td>
+</tr>
+<tr>
+<td>4.3 有理函数的部分分式分解</td>
+<td>通用技巧</td>
+<td>定系数：代特殊值加比较系数（含覆盖法）</td>
+<td>两边同乘公分母得到恒等式，再比较同次项系数，或代入使某些项为 0 的特殊 x 值。；单重一次因式的系数可用覆盖法（把该因式遮住、代 x 取其根）快速求出。</td>
+<td><a href="https://www.cnblogs.com/bigmonkey/p/7867645.html">www.cnblogs.com</a></td>
+</tr>
+<tr>
+<td>4.4 分段函数的原函数：连续性定常数</td>
+<td>通用技巧</td>
+<td>分段函数求不定积分：分段求原函数，再用连续性定常数</td>
+<td>先把函数写成真正的分段形式（含最大值、最小值、绝对值、取整的先化成分段）。；逐段求原函数，各段各带一个任意常数。</td>
+<td><a href="https://zhaokaifeng.com/20249/">zhaokaifeng.com</a></td>
+</tr>
+<tr>
+<td>4.4 分段函数的原函数：连续性定常数</td>
+<td>通用技巧</td>
+<td>变上限积分法：直接得到连续原函数，绕开定常数</td>
+<td>若 f 连续，则变上限积分 ∫_a^x f(t)dt 就是 f 的一个连续原函数，不必再讨论各段常数之间的关系。；下限 a 取在分段点上（如 0），再把积分按 x 所在的段拆成相邻区间上定积分之和。</td>
+<td><a href="https://zhaokaifeng.com/20249/">zhaokaifeng.com</a></td>
+</tr>
+<tr>
+<td>4.4 分段函数的原函数：连续性定常数</td>
+<td>张宇</td>
+<td>先判断原函数是否存在，再谈定常数</td>
+<td>若 f 连续，则区间内必有原函数（变上限积分就是）。；若 f 含第一类间断点或无穷间断点，则在包含该点的区间内原函数必不存在，不能写原函数符号。</td>
+<td><a href="https://www.cnblogs.com/elite-00/articles/17385655.html">www.cnblogs.com</a></td>
+</tr>
+<tr>
+<td>4.5 原函数的性质（奇偶、周期、单调）</td>
+<td>通用技巧</td>
+<td>原函数的奇偶性：奇函数的原函数都是偶函数</td>
+<td>连续的奇函数的一切原函数都是偶函数。；连续的偶函数的原函数中仅有一个是奇函数，就是过原点那个，即 ∫_0^x f(t)dt；其余原函数都在它基础上加常数，因而不再奇。</td>
+<td><a href="https://www.sohu.com/a/310607761_120115175">www.sohu.com</a></td>
+</tr>
+<tr>
+<td>4.5 原函数的性质（奇偶、周期、单调）</td>
+<td>通用技巧</td>
+<td>原函数的周期性：必须先用「一个周期上积分为 0」作条件</td>
+<td>可导的以 T 为周期的函数，其导函数也以 T 为周期。；连续函数 f 以 T 为周期时，只有当 f 在一个周期上的积分为 0，f 的一切原函数才都以 T 为周期；积分不为 0 时，原函数中没有周期函数。</td>
+<td><a href="https://zqq.name/docs/math/calculus/%E5%87%BD%E6%95%B0%E4%B8%8E%E6%9E%81%E9%99%90/%E5%87%BD%E6%95%B0%E7%9A%84%E5%9B%9B%E5%A4%A7%E6%80%A7%E8%B4%A8/">zqq.name</a></td>
+</tr>
+<tr>
+<td>4.5 原函数的性质（奇偶、周期、单调）</td>
+<td>通用技巧</td>
+<td>原函数族：任意两个原函数只相差常数</td>
+<td>若 f 在区间 I 上有原函数 F，则 f 的全体原函数为 F(x)+C，任意两个原函数之差为常数。；用不同方法算出两个形式不同的结果时，二者之差必为常数，可用来检验答案或判断是否属于同一原函数族。</td>
+<td><a href="https://zhuanlan.zhihu.com/p/111585201">zhuanlan.zhihu.com</a></td>
+</tr>
+<tr>
+<td>4.6 基本积分表、凑微分与换元</td>
+<td>通用技巧</td>
+<td>凑微分（第一类换元）的常见结构</td>
+<td>核心动作：被积表达式里若出现 g′(x)dx，就把它凑成 dg(x)，令 u=g(x)，化为 ∫f(u)du 再套基本积分表。；常见结构一：f(ax+b)dx 与 f(xⁿ)xⁿ⁻¹dx 型。</td>
+<td><a href="https://zhuanlan.zhihu.com/p/111585201">zhuanlan.zhihu.com</a></td>
+</tr>
+<tr>
+<td>4.6 基本积分表、凑微分与换元</td>
+<td>通用技巧</td>
+<td>基本积分表必须背到条件反射（含绝对值与定义域）</td>
+<td>必背：幂函数、指数函数、正余弦、正割正切与反三角的十余个基本公式，注意对数要加绝对值。；常考补充：分母为二次式的反正切型、根式为平方和的取对数型、正割与余割的积分公式。</td>
+<td><a href="https://www.sina.cn/news/detail/5306399266705073.html">www.sina.cn</a></td>
+</tr>
+<tr>
+<td>4.6 基本积分表、凑微分与换元</td>
+<td>武忠祥</td>
+<td>不定积分方法选用顺序：基本公式、凑微分、换元、分部、有理函数</td>
+<td>先看能否直接拆项套基本积分表。；不行就找 g′(x) 凑微分（第一类换元）；含根式且凑不出来用第二类换元（根式代换或三角代换）。</td>
+<td><a href="https://www.kaoyantools.com/27allnotes/27sxnote/51803.html">www.kaoyantools.com</a></td>
+</tr>
+</tbody>
+</table>
+<!-- END:METHODS -->
+</div></section>
+<div class="hint" style="margin-top:14px">讲义由 复习讲义.md 生成 · 题目取自《微积分（上）期中自测》四套卷 · 答案均由 sympy/mpmath 独立复算</div>
+</div>
+<script>
+var chapters = [].slice.call(document.querySelectorAll('section.chapter'));
+function shutChapter(sec, s){ sec.classList.toggle('shut', s); }
+function closeTopic(tp, s){ tp.classList.toggle('closed', s); }
+document.querySelectorAll('h1.chead').forEach(function(h){
+  h.addEventListener('click', function(){
+    var sec = h.parentNode; shutChapter(sec, !sec.classList.contains('shut'));
+  });
+});
+document.querySelectorAll('h2.thead').forEach(function(h){
+  h.addEventListener('click', function(){
+    var tp = h.parentNode; closeTopic(tp, !tp.classList.contains('closed'));
+  });
+});
+function topics(){ return [].slice.call(document.querySelectorAll('.topic')); }
+function realTopics(){ return topics().filter(function(t){ return t.getAttribute('data-tid'); }); }
+document.getElementById('bOpen').addEventListener('click', function(){
+  topics().forEach(function(t){ closeTopic(t, false); });
+  chapters.forEach(function(s){ shutChapter(s, false); });
+  document.getElementById('toc').classList.remove('shut');
+});
+document.getElementById('bShut').addEventListener('click', function(){
+  topics().forEach(function(t){ closeTopic(t, true); });
+  chapters.forEach(function(s){ shutChapter(s, false); });
+  document.getElementById('toc').classList.remove('shut');
+});
+document.getElementById('bToc').addEventListener('click', function(){
+  document.getElementById('toc').classList.toggle('shut');
+});
+function applyFilter(){
+  var s = document.getElementById('q').value.trim().toLowerCase();
+  var hits = 0;
+  chapters.forEach(function(sec){
+    var vis = 0;
+    [].slice.call(sec.querySelectorAll('.topic')).forEach(function(tp){
+      var ok = !s || tp.textContent.toLowerCase().indexOf(s) >= 0;
+      tp.classList.toggle('hide', !ok);
+      if(ok) vis++;
+    });
+    if(s){ /* 搜索时自动展开命中的章与考点 */
+      [].slice.call(sec.querySelectorAll('.topic')).forEach(function(tp){
+        if(!tp.classList.contains('hide')) closeTopic(tp, false);
+      });
+      shutChapter(sec, vis === 0 && sec.textContent.toLowerCase().indexOf(s) < 0);
+    } else {
+      shutChapter(sec, false);
+    }
+    if(sec.classList.contains('hide')) /* noop */;
+    sec.classList.toggle('hide', s && vis === 0 && sec.textContent.toLowerCase().indexOf(s) < 0);
+    [].slice.call(sec.querySelectorAll('.topic')).forEach(function(tp){
+      if(!tp.classList.contains('hide') && tp.getAttribute('data-tid')) hits++;
+    });
+  });
+  document.getElementById('cnt').textContent = s ? ('匹配考点 ' + hits + ' 个')
+                                                  : ('共 ' + realTopics().length + ' 个考点');
+}
+document.getElementById('q').addEventListener('input', applyFilter);
+document.getElementById('cnt').textContent = '共 ' + realTopics().length + ' 个考点';
+</script></body></html>

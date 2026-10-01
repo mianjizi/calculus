@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>微积分（上）期中自测 · 四套卷</title>
+<style>
+
+  :root { --ok:#2e9e5b; --bad:#d9534f; --warn:#c98a00; }
+  #wrap { color: var(--foreground); font-size: 14px; line-height: 1.7; }
+  .hdr { font-size: 16px; font-weight: 600; }
+  .sub { color: var(--muted-foreground); font-size: 12.5px; }
+  .tabs { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 2px; }
+  .tab { font:inherit; color:var(--foreground); background:var(--card); border:1px solid var(--border);
+         border-radius:6px; padding:3px 12px; cursor:pointer; }
+  .tab.on { border-color: var(--accent); font-weight:600; }
+  .tab .sc { color: var(--muted-foreground); font-size:12px; }
+  .bar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:8px 0 4px; }
+  button { font:inherit; color: var(--foreground); background: var(--card); border:1px solid var(--border);
+           border-radius:6px; padding:4px 10px; cursor:pointer; }
+  button:hover { border-color: var(--accent); }
+  button.primary { border-color: var(--accent); font-weight:600; }
+  button.mini { font-size:12px; padding:1px 7px; border-radius:5px; }
+  #clock { font-variant-numeric: tabular-nums; font-weight:600; }
+  .sec { margin-top:16px; border-top:1px solid var(--border); padding-top:10px; }
+  .secTitle { font-weight:600; }
+  .q { margin:12px 0 14px; }
+  .qno { font-weight:600; }
+  .pts { color: var(--muted-foreground); font-size:12px; }
+  .tag { font-size:11.5px; border:1px solid var(--border); border-radius:4px; padding:0 5px; color: var(--muted-foreground); }
+  .src { font-size:11.5px; color: var(--muted-foreground); border-bottom:1px dotted var(--border); }
+  .opts { margin:4px 0 0 2px; }
+  .opt { display:block; margin:1px 0; cursor:pointer; }
+  .opt input { margin-right:6px; }
+  input.ans { font: inherit; background: transparent; color: var(--foreground); border:1px solid var(--border);
+              border-radius:5px; padding:2px 8px; min-width:170px; }
+  textarea.work { width:100%; box-sizing:border-box; min-height:64px; font:13px/1.6 inherit; background:transparent;
+                  color: var(--foreground); border:1px solid var(--border); border-radius:6px; padding:6px 8px; margin-top:6px; }
+  .rubric { margin:6px 0 0; }
+  .rubric label { display:block; font-size:13px; }
+  .feedback { margin-top:6px; font-size:13px; }
+  .mark-ok { color: var(--ok); font-weight:600; }
+  .mark-bad { color: var(--bad); font-weight:600; }
+  .mark-part { color: var(--warn); font-weight:600; }
+  .sol { margin-top:4px; border-left:2px solid var(--border); padding:2px 0 2px 10px; color: var(--muted-foreground); font-size:13px; }
+  .sol b { color: var(--foreground); }
+  .hidden { display:none; }
+  #report { margin:12px 0 0; }
+  .card { border:1px solid var(--border); border-radius:8px; padding:10px 12px; background: var(--card); }
+  .big { font-size:26px; font-weight:700; }
+  table { border-collapse: collapse; font-size:13px; margin-top:6px; }
+  th, td { border:1px solid var(--border); padding:3px 9px; text-align:left; }
+  th { color: var(--muted-foreground); font-weight:600; }
+  .hint { color: var(--muted-foreground); font-size:12.5px; }
+  a.jump { color: var(--accent); }
+
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div class="hdr">微积分（上）期中自测 · 四套卷</div>
+  <div class="sub">同济《高等数学》上册 第 1–4 章 · 每套 100 分 / 限时 90 分钟 · 选择 8×4、填空 6×4、计算 4×6、证明 2×10</div>
+  <div class="sub">范围：范围：第 1 章 函数与极限、第 2 章 导数与微分、第 3 章 微分中值定理与导数应用、第 4 章 不定积分</div>
+
+  <div class="tabs" id="tabs"></div>
+  <div class="hint" id="sum"></div>
+
+  <div class="bar">
+    <button id="btnStart" class="primary">开始计时</button>
+    <span>剩余 <span id="clock">90:00</span></span>
+    <button id="btnSubmit" class="primary">提交并判分</button>
+    <button id="btnReset">重做本套</button>
+    <button id="btnAll">显示全部解析</button>
+  </div>
+  <div class="sub" id="pname"></div>
+  <div class="hint">答案格式：分数写 1/2，幂写 e^2 或 e²，不定积分的 +C 可省略；大小写与空格不敏感。判分与你的写法不一致时，点该题的“改判”。<span id="status"></span></div>
+
+  <div id="report"></div>
+  <div id="qs"></div>
+  <div class="hint" style="margin-top:10px">配套讲解：<a href="notes.html">复习讲义（29 考点 · 名师方法 · 逐题索引）</a></div>
+<div id="notes"><div class="sec"><div class="secTitle">说明</div><div class="hint">· 第一、二、三套的题目取自历年考研数学真题（以 2010–2024 为主，第三套含一道 2003 年经典积分题）；题干文字与选项顺序在本卷中作了调整，分值按本卷配比重排。每道题的方框标注是原真题的年份/卷种/题号。</div><div class="hint">· 题号系按公开真题汇编（真题 PDF 与权威解析）逐章核录；拼卷后又抽查了 2016 数二 (1)、2020 数二 (1)、2020 数二 (2)、2012 数一 (1)、2024 数二 (1) 等题与原文一致。若个别题号与官方试卷有出入，以题干内容为准。</div><div class="hint">· 第四套是自编热身卷（真题风格，非真题）。</div><div class="hint">· 选择、填空、计算题填最终结果即自动判分；答案较长或要求过程的题（不定积分、根与区间个数、证明题）改为按得分点自评。判分与你的写法不一致时，点该题的「改判」。</div><div class="hint">· 得分点是我按考研评分习惯拆的，不是官方评分标准；证明题的得分以你自己对照解析的判定为准。</div></div><div class="sec"><div class="secTitle">题目来源与核对</div><div class="hint">· 全部题目的答案已逐条复算（本机脚本 verify_math.py，共 95 项检查）：极限用 sympy 求值，隐函数与参数方程用数值隐式求导核对，方程根的个数用数值扫描，全部不定积分逐项求导验证。</div><div class="hint">· 真题原文与解析来源（整理时使用，均为公开汇编或真题页）：lvjr 考研数学真题及解析 PDF（Math1Solution.pdf、Math2Solution.pdf、Math3Solution.pdf）；GitHub 上 TsekaLuk/Kaoyan-Math1-Papers 与 Kaoyan-Math2-Papers 的真题及解析文本；中国教育在线 kaoyan.eol.cn、新东方在线、233 网校、zhaokaifeng.com、ziliaoku.com 等真题页；2011 年数三真题 PDF（math.mnnu.edu.cn）、2022 年数二真题 PDF（edu.xaiu.edu.cn）。</div><div class="hint">· 年份/卷种/题号整理自上述公开汇编；真题题干与选项为原题内容。若与官方试卷有个别出入，以官方试卷为准。第四套为本机自编。</div></div></div>
+</div>
+<script>
+var PAPERS = [{"id": "p1", "name": "第一套 · 真题基础", "note": "真题原题（选项顺序与分值有调整）：极限与阶、连续与可导、隐函数与参数方程、中值定理入门。", "qs": [{"n": 1, "t": "choice", "ch": "1", "pts": 4, "src": "2013 数一 (1)", "stem": "已知极限 lim\u003csub>x→0\u003c/sub> (x − arctan x)/x\u003csup>k\u003c/sup> = c，其中 k、c 为常数且 c ≠ 0，则（  ）", "opts": ["k = 2，c = −1/2", "k = 2，c = 1/2", "k = 3，c = −1/3", "k = 3，c = 1/3"], "a": 3, "key": "D", "sol": "arctan x = x − x³/3 + O(x⁵)，故 x − arctan x = x³/3 + O(x⁵)，与 x³ 同阶、系数 1/3，即 k = 3、c = 1/3。\u003cbr>复算：lim (x − arctan x)/x³ = 1/3，lim (x − arctan x)/x² = 0。"}, {"n": 2, "t": "choice", "ch": "2", "pts": 4, "src": "2018 数一 (1)（同题亦见 2018 数二、数三）", "stem": "下列函数中，在 x = 0 处不可导的是（  ）", "opts": ["f(x) = |x|·sin|x|", "f(x) = cos√|x|", "f(x) = |x|·sin√|x|", "f(x) = cos|x|"], "a": 1, "key": "B", "sol": "用定义算左右导数：|x|sin|x| 与 |x|sin√|x| 在 0 处的左右导数都是 0；cos|x| = cos x 可导（导数为 0）；只有 cos√|x| 的右导数 = lim\u003csub>x→0⁺\u003c/sub>(cos√x − 1)/x = −1/2，左导数 = lim\u003csub>x→0⁻\u003c/sub>(cos√(−x) − 1)/x = 1/2，左右不等，故不可导。\u003cbr>复算：−1/2 与 1/2。"}, {"n": 3, "t": "choice", "ch": "2", "pts": 4, "src": "2021 数一 (1)", "stem": "设 f(x) = (e\u003csup>x\u003c/sup> − 1)/x（x ≠ 0），f(0) = 1，则 f(x) 在 x = 0 处（  ）", "opts": ["可导，且导数不为 0", "连续且取极大值", "连续且取极小值", "可导，且导数为 0"], "a": 0, "key": "A", "sol": "lim\u003csub>x→0\u003c/sub>(e\u003csup>x\u003c/sup> − 1)/x = 1 = f(0)，故连续；f′(0) = lim\u003csub>x→0\u003c/sub>[(e\u003csup>x\u003c/sup> − 1)/x − 1]/x = lim\u003csub>x→0\u003c/sub>(e\u003csup>x\u003c/sup> − 1 − x)/x² = 1/2 ≠ 0，故可导且导数不为 0。\u003cbr>复算：该极限为 1/2。"}, {"n": 4, "t": "choice", "ch": "2", "pts": 4, "src": "2011 数二 (2)", "stem": "设 f(x) 在 x = 0 处可导，且 f(0) = 0，则 lim\u003csub>x→0\u003c/sub> [x²f(x) − 2f(x³)]/x³ =（  ）", "opts": ["−2f′(0)", "0", "−f′(0)", "f′(0)"], "a": 2, "key": "C", "sol": "x²f(x)/x³ = f(x)/x → f′(0)；2f(x³)/x³ = 2[f(x³) − f(0)]/x³ → 2f′(0)；两者相减得 −f′(0)。\u003cbr>复算：取 f = sin x 得 −1。"}, {"n": 5, "t": "choice", "ch": "1", "pts": 4, "src": "2017 数一 (1)", "stem": "若函数 f(x) = (1 − cos√x)/(ax)（x &gt; 0），f(x) = b（x ≤ 0）在 x = 0 处连续，则（  ）", "opts": ["ab = 1/2", "ab = −1/2", "ab = 0", "ab = 2"], "a": 0, "key": "A", "sol": "1 − cos√x ~ (√x)²/2 = x/2，故 x → 0⁺ 时 (1 − cos√x)/(ax) → 1/(2a)；连续性要求 1/(2a) = b，即 ab = 1/2。\u003cbr>复算：该极限比值为 1/2。"}, {"n": 6, "t": "choice", "ch": "3", "pts": 4, "src": "2019 数三 (2)", "stem": "已知方程 x⁵ − 5x + k = 0 有三个不同的实根，则 k 的取值范围是（  ）", "opts": ["(−4, 0)", "(−4, 4)", "(−∞, −4)", "(4, +∞)"], "a": 1, "key": "B", "sol": "f′(x) = 5x⁴ − 5 = 0 得 x = ±1；x = −1 处取极大值 4 + k，x = 1 处取极小值 k − 4，且 f(−∞) = −∞、f(+∞) = +∞，故三个不同实根 ⟺ 4 + k &gt; 0 且 k − 4 &lt; 0，即 −4 &lt; k &lt; 4。\u003cbr>复算：k = 0 时三个根；k = 4 时 x = 1 为切触根、只剩两个不同根；k = 4.1 时只剩一个根。"}, {"n": 7, "t": "choice", "ch": "3", "pts": 4, "src": "2014 数二 (5)", "stem": "设 f(x) = arctan x，若 f(x) = x·f′(ξ)，则 lim\u003csub>x→0\u003c/sub> ξ²/x² =（  ）", "opts": ["1", "2/3", "1/2", "1/3"], "a": 3, "key": "D", "sol": "f′(ξ) = 1/(1 + ξ²)，由 arctan x = x/(1 + ξ²) 得 ξ² = (x − arctan x)/arctan x；又 x − arctan x ~ x³/3、arctan x ~ x，故 ξ²/x² → 1/3。\u003cbr>复算：1/3。"}, {"n": 8, "t": "choice", "ch": "4", "pts": 4, "src": "2016 数一 (2)", "stem": "设 f(x) = 2(x − 1)（x &lt; 1），f(x) = ln x（x ≥ 1），则 f(x) 的一个原函数是（  ）", "opts": ["F(x) = (x − 1)²（x &lt; 1）；x(ln x − 1)（x ≥ 1）", "F(x) = (x − 1)²（x &lt; 1）；x(ln x + 1) − 1（x ≥ 1）", "F(x) = (x − 1)²（x &lt; 1）；x(ln x − 1) + 1（x ≥ 1）", "F(x) = (x − 1)²（x &lt; 1）；x(ln x + 1) + 1（x ≥ 1）"], "a": 2, "key": "C", "sol": "分段积分：∫2(x − 1)dx = (x − 1)² + C₁，∫ln x dx = x(ln x − 1) + C₂。原函数必须在 x = 1 处连续：左边 0 + C₁，右边 −1 + C₂，故 C₂ = C₁ + 1；取 C₁ = 0 得 C₂ = 1，即 (x − 1)² 与 x(ln x − 1) + 1。逐段求导都等于 f(x)。"}, {"n": 9, "t": "fill", "ch": "1", "pts": 4, "src": "2015 数一 (9)", "stem": "lim\u003csub>x→0\u003c/sub> (ln cos x)/x² = ＿＿＿", "accept": ["-1/2", "-0.5"], "key": "-1/2", "sol": "ln cos x = ln(1 + (cos x − 1)) ~ cos x − 1 ~ −x²/2，故极限为 −1/2。\u003cbr>复算：−1/2。"}, {"n": 10, "t": "fill", "ch": "1", "pts": 4, "src": "2018 数二 (9)", "stem": "lim\u003csub>x→+∞\u003c/sub> x²[arctan(x + 1) − arctan x] = ＿＿＿", "accept": ["1"], "key": "1", "sol": "arctan(x + 1) − arctan x = arctan(1/(1 + x(x + 1))) ~ 1/(x² + x + 1)，乘以 x² 得极限 1。\u003cbr>复算：1。"}, {"n": 11, "t": "fill", "ch": "2", "pts": 4, "src": "2010 数三 (9)", "stem": "设可导函数 y = y(x) 由方程 ∫\u003csub>0\u003c/sub>\u003csup>x+y\u003c/sup>e\u003csup>−t²\u003c/sup>dt = ∫\u003csub>0\u003c/sub>\u003csup>x\u003c/sup>x·sin t² dt 确定，则 dy/dx|\u003csub>x=0\u003c/sub> = ＿＿＿", "accept": ["-1", "−1"], "key": "-1", "sol": "x = 0 时左端为 ∫\u003csub>0\u003c/sub>\u003csup>y\u003c/sup>e\u003csup>−t²\u003c/sup>dt = 0，得 y(0) = 0。两边对 x 求导：e\u003csup>−(x+y)²\u003c/sup>(1 + y′) = ∫\u003csub>0\u003c/sub>\u003csup>x\u003c/sup>sin t² dt + x·sin x²，代入 (0, 0) 得 1 + y′ = 0，故 y′(0) = −1。\u003cbr>复算：用数值隐式求导核对，得 −1。"}, {"n": 12, "t": "fill", "ch": "2", "pts": 4, "src": "2012 数二 (9)", "stem": "设 y = y(x) 是由方程 x² − y + 1 = e\u003csup>y\u003c/sup> 确定的隐函数，则 d²y/dx²|\u003csub>x=0\u003c/sub> = ＿＿＿", "accept": ["1"], "key": "1", "sol": "x = 0 代入得 −y + 1 = e\u003csup>y\u003c/sup>，即 y(0) = 0。求导：2x − y′ = e\u003csup>y\u003c/sup>y′，代入得 y′(0) = 0；再求导：2 − y″ = e\u003csup>y\u003c/sup>(y′)² + e\u003csup>y\u003c/sup>y″，代入 (0, 0) 得 2 = 2y″，故 y″(0) = 1。"}, {"n": 13, "t": "fill", "ch": "3", "pts": 4, "src": "2018 数二 (10)", "stem": "曲线 y = x² + 2ln x 在其拐点处的切线方程是 ＿＿＿（写成 y = kx + b 的形式）", "accept": ["y=4x-3", "4x-3", "y-1=4(x-1)", "4(x-1)+1"], "key": "y = 4x − 3", "sol": "y′ = 2x + 2/x，y″ = 2 − 2/x²（x &gt; 0）；y″ = 0 得 x = 1 且左右变号，故拐点为 (1, 1)。切线斜率 k = y′(1) = 4，切线方程 y = 4x − 3。\u003cbr>复算：拐点处斜率 4。"}, {"n": 14, "t": "fill", "ch": "4", "pts": 4, "src": "2018 数三 (10)", "stem": "∫ e\u003csup>x\u003c/sup>·arcsin√(1 − e\u003csup>2x\u003c/sup>) dx = ＿＿＿（含任意常数 C）", "accept": ["e^x·arcsin√(1-e^{2x})-√(1-e^{2x})+C", "e^x arcsin√(1-e^(2x))-√(1-e^(2x))+C", "e^x*asin(sqrt(1-e^(2x)))-sqrt(1-e^(2x))+C", "e^x·arcsin√(1-e^(2x))-√(1-e^(2x))"], "key": "e^x·arcsin√(1 − e^{2x}) − √(1 − e^{2x}) + C", "sol": "分部积分：∫arcsin√(1 − e\u003csup>2x\u003c/sup>)d(e\u003csup>x\u003c/sup>) = e\u003csup>x\u003c/sup>arcsin√(1 − e\u003csup>2x\u003c/sup>) + ∫e\u003csup>2x\u003c/sup>/√(1 − e\u003csup>2x\u003c/sup>)dx，而 ∫e\u003csup>2x\u003c/sup>/√(1 − e\u003csup>2x\u003c/sup>)dx = −√(1 − e\u003csup>2x\u003c/sup>)。故原式 = e\u003csup>x\u003c/sup>arcsin√(1 − e\u003csup>2x\u003c/sup>) − √(1 − e\u003csup>2x\u003c/sup>) + C。\u003cbr>复算：对结果求导验证回原被积函数。"}, {"n": 15, "t": "calc", "ch": "1", "pts": 6, "src": "2016 数二 (15)", "stem": "求极限 lim\u003csub>x→0\u003c/sub> (cos 2x + 2x·sin x)\u003csup>1/x⁴\u003c/sup>（填最终结果）", "accept": ["e^(1/3)", "e^{1/3}", "e^0.3333", "1.3956", "1.39561"], "key": "e^(1/3)", "sol": "取对数：cos 2x = 1 − 2x² + (2/3)x⁴ + O(x⁶)，2x·sin x = 2x² − x⁴/3 + O(x⁶)，两者之和 = 1 + x⁴/3 + O(x⁶)，故 ln(·) ~ x⁴/3；乘 1/x⁴ 得 1/3，极限 = e\u003csup>1/3\u003c/sup> ≈ 1.3956。\u003cbr>复算：e\u003csup>1/3\u003c/sup>。"}, {"n": 16, "t": "calc", "ch": "1", "pts": 6, "src": "2011 数一 (15)", "stem": "求极限 lim\u003csub>x→0\u003c/sub> (ln(1 + x)/x)\u003csup>1/(e\u003csup>x\u003c/sup> − 1)\u003c/sup>（填最终结果）", "accept": ["e^(-1/2)", "e^{-1/2}", "e^-0.5", "0.6065", "0.60653", "1/√e", "1/sqrt(e)"], "key": "e^(−1/2)", "sol": "取对数：ln(ln(1 + x)/x)/(e\u003csup>x\u003c/sup> − 1)。由 ln(1 + x)/x = 1 − x/2 + O(x²) 得 ln(ln(1 + x)/x) ~ −x/2，又 e\u003csup>x\u003c/sup> − 1 ~ x，故指数 → −1/2，极限 = e\u003csup>−1/2\u003c/sup> ≈ 0.6065。\u003cbr>复算：e\u003csup>−1/2\u003c/sup>。"}, {"n": 17, "t": "calc", "ch": "3", "pts": 6, "src": "2015 数二 (19)", "stem": "已知 f(x) = ∫\u003csub>x\u003c/sub>\u003csup>1\u003c/sup>√(1 + t²)dt + ∫\u003csub>1\u003c/sub>\u003csup>x²\u003c/sup>√(1 + t)dt，求 f(x) 的零点个数（填个数）", "accept": ["2"], "key": "2", "sol": "f′(x) = −√(1 + x²) + 2x√(1 + x²) = √(1 + x²)(2x − 1)，故 f 在 (−∞, 1/2) 递减、在 (1/2, +∞) 递增，x = 1/2 是唯一极小值点；f(1) = 0 给出一个零点 x = 1；又 f(−1) = ∫\u003csub>−1\u003c/sub>\u003csup>1\u003c/sup>√(1 + t²)dt &gt; 0 而 f(0) ≈ −0.07 &lt; 0，故 (−1, 0) 内还有一个零点。共 2 个。\u003cbr>复算：数值扫描得两次变号。"}, {"n": 18, "t": "calc", "ch": "4", "pts": 6, "src": "2019 数二 (16)", "stem": "求不定积分 ∫ (3x + 6)/((x − 1)²(x² + x + 1)) dx", "points": [{"p": 3, "t": "把被积函数部分分式分解为 −2/(x − 1) + 3/(x − 1)² + (2x + 1)/(x² + x + 1)"}, {"p": 3, "t": "逐项积分得 −2ln|x − 1| − 3/(x − 1) + ln(x² + x + 1) + C（漏掉常数 C 最多扣 1 分）"}], "key": "−2ln|x − 1| − 3/(x − 1) + ln(x² + x + 1) + C", "sol": "部分分式分解：(3x + 6)/((x − 1)²(x² + x + 1)) = −2/(x − 1) + 3/(x − 1)² + (2x + 1)/(x² + x + 1)，逐项积分得 −2ln|x − 1| − 3/(x − 1) + ln(x² + x + 1) + C。\u003cbr>复算：对结果求导验证回原被积函数。"}, {"n": 19, "t": "proof", "ch": "3", "pts": 10, "src": "2011 数一 (18)", "stem": "(Ⅰ) 证明：对任意正整数 n，都有 1/(n + 1) &lt; ln(1 + 1/n) &lt; 1/n；(Ⅱ) 设 a\u003csub>n\u003c/sub> = 1 + 1/2 + … + 1/n − ln n，证明数列 {a\u003csub>n\u003c/sub>} 收敛。", "points": [{"p": 5, "t": "(Ⅰ) 对 f(x) = ln x 在 [n, n + 1] 上用拉格朗日中值定理：ln(1 + 1/n) = 1/ξ，n &lt; ξ &lt; n + 1，由 1/(n + 1) &lt; 1/ξ &lt; 1/n 得证"}, {"p": 3, "t": "(Ⅱ) 由 (Ⅰ) 得 a\u003csub>n+1\u003c/sub> − a\u003csub>n\u003c/sub> = 1/(n + 1) − ln(1 + 1/n) &lt; 0，故 {a\u003csub>n\u003c/sub>} 单调递减"}, {"p": 2, "t": "再证有下界：a\u003csub>n\u003c/sub> &gt; Σln(1 + 1/k) − ln n = ln(n + 1) − ln n &gt; 0，由单调有界准则知收敛"}], "key": "见解析", "sol": "(Ⅰ) 对 f(x) = ln x 在 [n, n + 1] 上应用拉格朗日中值定理：ln(1 + 1/n) = ln(n + 1) − ln n = 1/ξ，n &lt; ξ &lt; n + 1，于是 1/(n + 1) &lt; 1/ξ &lt; 1/n。(Ⅱ) a\u003csub>n+1\u003c/sub> − a\u003csub>n\u003c/sub> = 1/(n + 1) − ln(1 + 1/n) &lt; 0 ⇒ 单调递减；a\u003csub>n\u003c/sub> &gt; Σ\u003csub>k=1\u003c/sub>\u003csup>n\u003c/sup>ln(1 + 1/k) − ln n = ln(n + 1) − ln n &gt; 0 ⇒ 有下界；由单调有界准则，{a\u003csub>n\u003c/sub>} 收敛（其极限即欧拉常数 γ）。"}, {"n": 20, "t": "proof", "ch": "3", "pts": 10, "src": "2015 数二 (21)", "stem": "已知函数 f(x) 在区间 [a, +∞) 上具有二阶导数，f(a) = 0，f′(x) &gt; 0，f″(x) &gt; 0。设 b &gt; a，曲线 y = f(x) 在点 (b, f(b)) 处的切线与 x 轴的交点为 (x\u003csub>0\u003c/sub>, 0)。证明：a &lt; x\u003csub>0\u003c/sub> &lt; b。", "points": [{"p": 3, "t": "写出切线方程 y − f(b) = f′(b)(x − b)，令 y = 0 得 x\u003csub>0\u003c/sub> = b − f(b)/f′(b)"}, {"p": 3, "t": "由 f′ &gt; 0 知 f 递增，故 f(b) &gt; f(a) = 0，得 x\u003csub>0\u003c/sub> &lt; b"}, {"p": 4, "t": "对 f 在 [a, b] 用拉格朗日中值定理得 f(b) = f′(ξ)(b − a)，ξ ∈ (a, b)；由 f″ &gt; 0 知 f′ 递增，f′(ξ) &lt; f′(b)，于是 x\u003csub>0\u003c/sub> = b − f(b)/f′(b) &gt; b − (b − a) = a"}], "key": "见解析", "sol": "切线方程 y − f(b) = f′(b)(x − b)，令 y = 0 得 x\u003csub>0\u003c/sub> = b − f(b)/f′(b)。由 f′ &gt; 0 且 b &gt; a 知 f(b) &gt; f(a) = 0，又 f′(b) &gt; 0，故 f(b)/f′(b) &gt; 0，得 x\u003csub>0\u003c/sub> &lt; b。另一方面，对 f 在 [a, b] 上用拉格朗日中值定理，存在 ξ ∈ (a, b) 使 f(b) = f′(ξ)(b − a)；由 f″ &gt; 0 知 f′ 单调增加，故 f′(b) &gt; f′(ξ)，于是 f(b)/f′(b) &lt; b − a，得 x\u003csub>0\u003c/sub> &gt; a。"}]}, {"id": "p2", "name": "第二套 · 真题综合", "note": "真题原题：间断点分类、可导性判定、中值定理两问与充要条件证明。", "qs": [{"n": 1, "t": "choice", "ch": "1", "pts": 4, "src": "2010 数二 (1)", "stem": "函数 f(x) = ((x² − x)/(x² − 1))·√(1 + 1/x²) 的无穷间断点的个数为（  ）", "opts": ["0", "1", "2", "3"], "a": 1, "key": "B", "sol": "约分后 f(x) = sgn(x)·√(x² + 1)/(x + 1)（x ≠ 0, ±1）。x → 1 时极限为 √2/2（可去间断点）；x → 0 时左右极限为 1 与 −1（跳跃间断点）；只有 x → −1 时分母趋于 0 而分子趋于 −√2 ≠ 0，极限为无穷。故无穷间断点 1 个。\u003cbr>复算：x → −1 发散、左右极限 ±1、x → 1 极限 √2/2。"}, {"n": 2, "t": "choice", "ch": "1", "pts": 4, "src": "2020 数二 (2)", "stem": "函数 f(x) = e\u003csup>1/(x−1)\u003c/sup>·ln|1 + x| / ((e\u003csup>x\u003c/sup> − 1)(x − 2)) 的第二类间断点的个数为（  ）", "opts": ["1", "2", "3", "4"], "a": 2, "key": "C", "sol": "候选点为 x = −1, 0, 1, 2。x → −1 时 ln|1 + x| → −∞ 而其余因子有限非零，函数发散（第二类）；x → 0 时极限为 −1/(2e)（有限，属第一类）；x → 1 时 e\u003csup>1/(x−1)\u003c/sup> 单侧趋于 +∞，x → 2 时 x − 2 → 0 而分子非零，都发散（第二类）。共 3 个。\u003cbr>复算：−1/(2e) 与三个发散点均已核。"}, {"n": 3, "t": "choice", "ch": "1", "pts": 4, "src": "2016 数二 (1)", "stem": "设 a\u003csub>1\u003c/sub> = x(cos√x − 1)，a\u003csub>2\u003c/sub> = √x·ln(1 + ∛x)，a\u003csub>3\u003c/sub> = ∛(x + 1) − 1。当 x → 0⁺ 时，把这三个无穷小量按从低阶到高阶排列是（  ）", "opts": ["a\u003csub>2\u003c/sub>, a\u003csub>3\u003c/sub>, a\u003csub>1\u003c/sub>", "a\u003csub>3\u003c/sub>, a\u003csub>2\u003c/sub>, a\u003csub>1\u003c/sub>", "a\u003csub>1\u003c/sub>, a\u003csub>2\u003c/sub>, a\u003csub>3\u003c/sub>", "a\u003csub>2\u003c/sub>, a\u003csub>1\u003c/sub>, a\u003csub>3\u003c/sub>"], "a": 0, "key": "A", "sol": "a\u003csub>1\u003c/sub> ~ x·(−x/2) = −x²/2（2 阶）；a\u003csub>2\u003c/sub> ~ x\u003csup>1/2\u003c/sup>·x\u003csup>1/3\u003c/sup> = x\u003csup>5/6\u003c/sup>（5/6 阶）；a\u003csub>3\u003c/sub> ~ x/3（1 阶）。阶数小的在前，故 a\u003csub>2\u003c/sub>, a\u003csub>3\u003c/sub>, a\u003csub>1\u003c/sub>。\u003cbr>复算：−1/2、5/6 阶、1/3 均吻合。"}, {"n": 4, "t": "choice", "ch": "1", "pts": 4, "src": "2022 数二 (1)", "stem": "若当 x → 0 时 α(x)、β(x) 是非零无穷小量，则下列命题中真命题的序号为（  ）\u003cbr>① 若 α ~ β，则 α² ~ β²；② 若 α² ~ β²，则 α ~ β；③ 若 α ~ β，则 α − β = o(α)；④ 若 α − β = o(α)，则 α ~ β。", "opts": ["①③", "①④", "①③④", "②③④"], "a": 2, "key": "C", "sol": "① 真：α/β → 1 ⇒ α²/β² → 1。② 假：取 α = x，β = −x，则 α²/β² → 1 但 α/β → −1。③ 真：(α − β)/α = 1 − β/α → 0。④ 真：(α − β)/α → 0 ⇒ β/α → 1，即 α ~ β。"}, {"n": 5, "t": "choice", "ch": "2", "pts": 4, "src": "2013 数二 (3)", "stem": "设 f(x) = sin x（0 ≤ x &lt; π），f(x) = 2（π ≤ x ≤ 2π），F(x) = ∫\u003csub>0\u003c/sub>\u003csup>x\u003c/sup>f(t)dt，则（  ）", "opts": ["F(x) 在 x = π 处连续但不可导", "F(x) 在 x = π 处可导", "x = π 是 F(x) 的跳跃间断点", "x = π 是 F(x) 的可去间断点"], "a": 0, "key": "A", "sol": "被积函数在 x = π 处跳跃，但变限积分 F(x) = ∫\u003csub>0\u003c/sub>\u003csup>x\u003c/sup>f(t)dt 在跳跃点处仍然连续。F′\u003csub>−\u003c/sub>(π) = f(π⁻) = sin π = 0，F′\u003csub>+\u003c/sub>(π) = f(π⁺) = 2，左右导数存在但不等，故 F 在 x = π 处连续但不可导。"}, {"n": 6, "t": "choice", "ch": "2", "pts": 4, "src": "2016 数一 (4)", "stem": "已知 f(x) = x（x ≤ 0），f(x) = 1/n（1/(n + 1) &lt; x ≤ 1/n，n = 1, 2, …），则（  ）", "opts": ["x = 0 是 f(x) 的第一类间断点", "x = 0 是 f(x) 的第二类间断点", "f(x) 在 x = 0 处连续但不可导", "f(x) 在 x = 0 处可导"], "a": 3, "key": "D", "sol": "左导数 lim\u003csub>x→0⁻\u003c/sub>(x − 0)/x = 1；右导数 lim\u003csub>x→0⁺\u003c/sub>f(x)/x，当 1/(n + 1) &lt; x ≤ 1/n 时有 1 ≤ f(x)/x &lt; (n + 1)/n → 1，故 f′\u003csub>+\u003c/sub>(0) = 1。左右导数相等，f 在 x = 0 处可导。\u003cbr>复算：右导数 ≈ 1。"}, {"n": 7, "t": "choice", "ch": "3", "pts": 4, "src": "2019 数一 (2)", "stem": "设函数 f(x) = x|x|（x ≤ 0），f(x) = x·ln x（x &gt; 0），则 x = 0 是 f(x) 的（  ）", "opts": ["可导点，极值点", "不可导点，极值点", "可导点，非极值点", "不可导点，非极值点"], "a": 1, "key": "B", "sol": "f′\u003csub>+\u003c/sub>(0) = lim\u003csub>x→0⁺\u003c/sub>(x ln x)/x = lim ln x = −∞，故不可导；x &lt; 0 时 f′ = −2x &gt; 0（递增），0 &lt; x &lt; 1/e 时 f′ = 1 + ln x &lt; 0（递减），由极值第一充分条件知 x = 0 为极大值点。故为不可导点、极值点。"}, {"n": 8, "t": "choice", "ch": "4", "pts": 4, "src": "2005 数一 (8)", "stem": "设 F(x) 是连续函数 f(x) 的一个原函数，「M ⟺ N」表示「M 的充要条件是 N」，则必有（  ）", "opts": ["F(x) 是奇函数 ⟺ f(x) 是偶函数", "F(x) 是周期函数 ⟺ f(x) 是周期函数", "F(x) 是单调函数 ⟺ f(x) 是单调函数", "F(x) 是偶函数 ⟺ f(x) 是奇函数"], "a": 3, "key": "D", "sol": "记 F(x) = ∫\u003csub>0\u003c/sub>\u003csup>x\u003c/sup>f(t)dt + C。F 为偶函数时求导得 f 为奇函数；反之 f 为奇函数时 ∫\u003csub>0\u003c/sub>\u003csup>−x\u003c/sup>f(t)dt = ∫\u003csub>0\u003c/sub>\u003csup>x\u003c/sup>f(t)dt，故 F(−x) = F(x)，F 为偶函数。奇函数、周期性、单调性均无此等价关系（如 f ≡ 1 时 F 单调但非奇；f 为周期函数时其原函数不一定周期）。"}, {"n": 9, "t": "fill", "ch": "1", "pts": 4, "src": "2011 数二 (9)", "stem": "lim\u003csub>x→0\u003c/sub> ((1 + 2\u003csup>x\u003c/sup>)/2)\u003csup>1/x\u003c/sup> = ＿＿＿", "accept": ["√2", "sqrt(2)", "2^(1/2)", "1.4142", "1.41421"], "key": "√2", "sol": "取对数：(1/x)ln((1 + 2\u003csup>x\u003c/sup>)/2) = (1/x)ln(1 + (2\u003csup>x\u003c/sup> − 1)/2) ~ (1/x)·(2\u003csup>x\u003c/sup> − 1)/2 ~ (x ln 2)/(2x) = (ln 2)/2，故极限为 e\u003csup>(ln 2)/2\u003c/sup> = √2。\u003cbr>复算：√2。"}, {"n": 10, "t": "fill", "ch": "1", "pts": 4, "src": "2022 数二 (11)", "stem": "lim\u003csub>x→0\u003c/sub> ((1 + e\u003csup>x\u003c/sup>)/2)\u003csup>cot x\u003c/sup> = ＿＿＿", "accept": ["√e", "sqrt(e)", "e^(1/2)", "e^{1/2}", "1.6487", "1.64872"], "key": "√e", "sol": "取对数：(cos x/sin x)·ln((1 + e\u003csup>x\u003c/sup>)/2) ~ (1/x)·(e\u003csup>x\u003c/sup> − 1)/2 ~ 1/2，故极限为 e\u003csup>1/2\u003c/sup> = √e。\u003cbr>复算：√e。"}, {"n": 11, "t": "fill", "ch": "1", "pts": 4, "src": "2012 数三 (9)", "stem": "lim\u003csub>x→π/4\u003c/sub> (tan x)\u003csup>1/(cos x − sin x)\u003c/sup> = ＿＿＿", "accept": ["e^(-√2)", "e^{-√2}", "e^-1.414", "0.2431", "0.24312"], "key": "e^(−√2)", "sol": "令 t = x − π/4，则 tan x = (1 + t)/(1 − t) = 1 + 2t + O(t²)，ln tan x ~ 2t；又 cos x − sin x = −√2 sin t ~ −√2 t。指数部分 → 2t/(−√2 t) = −√2，故极限为 e\u003csup>−√2\u003c/sup> ≈ 0.2431。\u003cbr>复算：e\u003csup>−√2\u003c/sup>。"}, {"n": 12, "t": "fill", "ch": "2", "pts": 4, "src": "2013 数二 (12)", "stem": "曲线 x = arctan t，y = ln√(1 + t²) 上对应于 t = 1 的点处的法线斜率 k = ＿＿＿", "accept": ["-1", "−1"], "key": "-1", "sol": "dy/dx = (dy/dt)/(dx/dt) = [t/(1 + t²)]/[1/(1 + t²)] = t，故 t = 1 处切线斜率为 1，法线斜率为 −1。切点为 (π/4, ½ln 2)，法线方程为 x + y − π/4 − ½ln 2 = 0。\u003cbr>复算：切线斜率 1、切点纵坐标 ½ln 2。"}, {"n": 13, "t": "fill", "ch": "2", "pts": 4, "src": "2017 数二 (10)", "stem": "设函数 y = y(x) 由参数方程 x = t + e\u003csup>t\u003c/sup>，y = sin t 确定，则 d²y/dx²|\u003csub>t=0\u003c/sub> = ＿＿＿", "accept": ["-1/8", "-0.125", "−1/8"], "key": "-1/8", "sol": "dy/dx = cos t/(1 + e\u003csup>t\u003c/sup>)；d²y/dx² = [−sin t·(1 + e\u003csup>t\u003c/sup>) − e\u003csup>t\u003c/sup>cos t]/(1 + e\u003csup>t\u003c/sup>)³，代入 t = 0 得 −1/8。\u003cbr>复算：−1/8。"}, {"n": 14, "t": "fill", "ch": "3", "pts": 4, "src": "2013 数三 (9)", "stem": "设曲线 y = f(x) 和 y = x² − x 在点 (1, 0) 处有公共切线，则 lim\u003csub>n→∞\u003c/sub> n·f(n/(n + 2)) = ＿＿＿", "accept": ["-2", "−2"], "key": "-2", "sol": "由公共切线知 f(1) = 0、f′(1) = 1。n·f(n/(n + 2)) = n[f(n/(n + 2)) − f(1)]，而 n/(n + 2) − 1 = −2/(n + 2)，由导数定义得极限 = f′(1)·lim n·(−2/(n + 2)) = −2。\u003cbr>复算：−2。"}, {"n": 15, "t": "calc", "ch": "3", "pts": 6, "src": "2011 数一 (17)", "stem": "求方程 k·arctan x − x = 0（k 为参数）不同实根的个数。", "points": [{"p": 3, "t": "令 f(x) = k·arctan x − x，求出 f′(x) = k/(1 + x²) − 1 并讨论其符号"}, {"p": 1, "t": "k ≤ 1 时 f′ ≤ 0，f 严格单调，只有根 x = 0"}, {"p": 2, "t": "k &gt; 1 时 f 在 x = ±√(k − 1) 取极值，结合 f 为奇函数与 x → ±∞ 时的极限，得 3 个不同实根"}], "key": "k ≤ 1 时 1 个；k > 1 时 3 个", "sol": "f(x) = k·arctan x − x，f′(x) = k/(1 + x²) − 1，f 为奇函数且 f(0) = 0。k ≤ 1 时 f′ &lt; 0（x ≠ 0），f 严格递减，只有根 x = 0；k &gt; 1 时 f′ 在 (0, √(k − 1)) 为正、(√(k − 1), +∞) 为负，故 f(√(k − 1)) &gt; 0 是极大值，而 lim\u003csub>x→+∞\u003c/sub>f(x) = −∞，由零点定理在 (√(k − 1), +∞) 内有一正根 x\u003csub>0\u003c/sub>，再由奇函数得 −x\u003csub>0\u003c/sub>，共 3 个不同实根。\u003cbr>复算：k = 1/2 时 1 个根，k = 2 时 3 个根。"}, {"n": 16, "t": "calc", "ch": "3", "pts": 6, "src": "2016 数二 (21) (Ⅰ)", "stem": "已知 f(x) 在 [0, 3π/2] 上连续，在 (0, 3π/2) 内是 cos x/(2x − 3π) 的一个原函数，f(0) = 0。求 f(x) 在 [0, 3π/2] 上的平均值（填结果）。", "accept": ["1/(3π)", "1/(3*π)", "1/(3*pi)", "0.1061", "0.106103"], "key": "1/(3π)", "sol": "f(x) = ∫\u003csub>0\u003c/sub>\u003csup>x\u003c/sup>cos t/(2t − 3π)dt。平均值 = (2/(3π))∫\u003csub>0\u003c/sub>\u003csup>3π/2\u003c/sup>f(x)dx，交换积分次序得 (2/(3π))∫\u003csub>0\u003c/sub>\u003csup>3π/2\u003c/sup>(3π/2 − x)·cos x/(2x − 3π)dx = (2/(3π))·(−½)∫\u003csub>0\u003c/sub>\u003csup>3π/2\u003c/sup>cos x dx = 1/(3π)。\u003cbr>复算：1/(3π)（另：f 在 (0, 3π/2) 内确有唯一零点，位于 (π/2, 3π/2)）。"}, {"n": 17, "t": "calc", "ch": "3", "pts": 6, "src": "2010 数一 (16)", "stem": "求函数 f(x) = ∫\u003csub>1\u003c/sub>\u003csup>x²\u003c/sup>(x² − t)e\u003csup>−t²\u003c/sup>dt 的单调区间与极值。", "points": [{"p": 3, "t": "把积分拆开（或直接求导），得到 f′(x) = 2x∫\u003csub>1\u003c/sub>\u003csup>x²\u003c/sup>e\u003csup>−t²\u003c/sup>dt"}, {"p": 1, "t": "由 f′(x) = 0 得驻点 x = 0, ±1，并判定极大、极小"}, {"p": 1, "t": "极大值 f(0) = (1 − e\u003csup>−1\u003c/sup>)/2，极小值 f(±1) = 0"}, {"p": 1, "t": "单调区间：(−∞, −1)、(0, 1) 递减；(−1, 0)、(1, +∞) 递增"}], "key": "极大值 f(0) = (1 − e⁻¹)/2，极小值 f(±1) = 0", "sol": "f(x) = x²∫\u003csub>1\u003c/sub>\u003csup>x²\u003c/sup>e\u003csup>−t²\u003c/sup>dt − ∫\u003csub>1\u003c/sub>\u003csup>x²\u003c/sup>t·e\u003csup>−t²\u003c/sup>dt，求导时两式含上限的项相消，得 f′(x) = 2x∫\u003csub>1\u003c/sub>\u003csup>x²\u003c/sup>e\u003csup>−t²\u003c/sup>dt。f′ = 0 得 x = 0, ±1；f″(x) = 2∫\u003csub>1\u003c/sub>\u003csup>x²\u003c/sup>e\u003csup>−t²\u003c/sup>dt + 4x²e\u003csup>−x⁴\u003c/sup>，f″(0) &lt; 0（极大）、f″(±1) &gt; 0（极小）。故极大值 f(0) = (1 − e\u003csup>−1\u003c/sup>)/2，极小值 f(±1) = 0；单调递减区间 (−∞, −1) 与 (0, 1)，递增区间 (−1, 0) 与 (1, +∞)。\u003cbr>复算：f(0) = (1 − e⁻¹)/2、f(±1) = 0、f′(x) 表达式均已核。"}, {"n": 18, "t": "calc", "ch": "4", "pts": 6, "src": "2018 数一 (15)（同题亦为 2018 数二 (15)）", "stem": "求不定积分 ∫ e\u003csup>2x\u003c/sup>·arctan√(e\u003csup>x\u003c/sup> − 1) dx。", "points": [{"p": 2, "t": "分部积分：原式 = ½∫arctan√(e\u003csup>x\u003c/sup> − 1)d(e\u003csup>2x\u003c/sup>) = ½e\u003csup>2x\u003c/sup>arctan√(e\u003csup>x\u003c/sup> − 1) − ¼∫e\u003csup>2x\u003c/sup>/√(e\u003csup>x\u003c/sup> − 1)dx"}, {"p": 3, "t": "换元 u = √(e\u003csup>x\u003c/sup> − 1) 算得 ∫e\u003csup>2x\u003c/sup>/√(e\u003csup>x\u003c/sup> − 1)dx = (2/3)u³ + 2u = (2/3)(e\u003csup>x\u003c/sup> − 1)\u003csup>3/2\u003c/sup> + 2√(e\u003csup>x\u003c/sup> − 1)"}, {"p": 1, "t": "合并并加常数：½e\u003csup>2x\u003c/sup>arctan√(e\u003csup>x\u003c/sup> − 1) − (1/6)(e\u003csup>x\u003c/sup> − 1)\u003csup>3/2\u003c/sup> − ½√(e\u003csup>x\u003c/sup> − 1) + C"}], "key": "½e^{2x}arctan√(e^x − 1) − (1/6)(e^x − 1)^{3/2} − ½√(e^x − 1) + C", "sol": "原式 = ½e\u003csup>2x\u003c/sup>arctan√(e\u003csup>x\u003c/sup> − 1) − ¼∫e\u003csup>2x\u003c/sup>/√(e\u003csup>x\u003c/sup> − 1)dx；令 u = √(e\u003csup>x\u003c/sup> − 1)，则 ∫e\u003csup>2x\u003c/sup>/√(e\u003csup>x\u003c/sup> − 1)dx = (2/3)u³ + 2u，故结果 = ½e\u003csup>2x\u003c/sup>arctan√(e\u003csup>x\u003c/sup> − 1) − (1/6)(e\u003csup>x\u003c/sup> − 1)\u003csup>3/2\u003c/sup> − ½√(e\u003csup>x\u003c/sup> − 1) + C。\u003cbr>复算：对结果求导验证回原被积函数。"}, {"n": 19, "t": "proof", "ch": "3", "pts": 10, "src": "2020 数一 (19)", "stem": "设函数 f(x) 在区间 [0, 2] 上具有连续导数，f(0) = f(2) = 0，M = max\u003csub>[0,2]\u003c/sub>|f(x)|。证明：(Ⅰ) 存在 ξ ∈ (0, 2)，使 |f′(ξ)| ≥ M；(Ⅱ) 若对任意 x ∈ (0, 2) 有 |f′(x)| ≤ M，则 M = 0。", "points": [{"p": 4, "t": "(Ⅰ) 设 M = |f(c)|（c ∈ [0, 2]）。对 f 在 [0, c] 与 [c, 2] 上分别用拉格朗日中值定理，得 |f′(ξ\u003csub>1\u003c/sub>)|c = M、|f′(ξ\u003csub>2\u003c/sub>)|(2 − c) = M；c ≤ 1 时取 ξ = ξ\u003csub>1\u003c/sub>，c ≥ 1 时取 ξ = ξ\u003csub>2\u003c/sub>，均可保证 |f′(ξ)| ≥ M"}, {"p": 3, "t": "(Ⅱ) 反证 M &gt; 0，则 0 &lt; c &lt; 2。若 0 &lt; c &lt; 1，由 M = |f′(ξ\u003csub>1\u003c/sub>)|c ≤ Mc 与 c &lt; 1 矛盾；同理 1 &lt; c &lt; 2 也矛盾"}, {"p": 3, "t": "c = 1 时构造 G(x) = f(x) − Mx（或 f(x) + Mx，视 f(1) 的符号），由 G(0) = G(1) = 0 及 G′ ≤ 0 得 G ≡ 0，从而 M = 0"}], "key": "见解析", "sol": "(Ⅰ) 设 M = |f(c)|，c ∈ [0, 2]。在 [0, c] 上用拉格朗日中值定理得 M = |f(c) − f(0)| = |f′(ξ\u003csub>1\u003c/sub>)|c；在 [c, 2] 上得 M = |f′(ξ\u003csub>2\u003c/sub>)|(2 − c)。若 c ≤ 1 则 |f′(ξ\u003csub>1\u003c/sub>)| = M/c ≥ M；若 c ≥ 1 则 |f′(ξ\u003csub>2\u003c/sub>)| = M/(2 − c) ≥ M。\u003cbr>(Ⅱ) 反证设 M &gt; 0，则 c ∈ (0, 2)。若 0 &lt; c &lt; 1，由 M = |f′(ξ\u003csub>1\u003c/sub>)|c ≤ Mc 且 c &lt; 1 矛盾；1 &lt; c &lt; 2 同理矛盾；c = 1 时设 f(1) = M（f(1) = −M 时对称处理），令 G(x) = f(x) − Mx，则 G(0) = 0、G(1) = f(1) − M = 0，而 G′(x) = f′(x) − M ≤ 0，故 G 单调不增，由 G(0) = G(1) = 0 得 G ≡ 0，从而 f(x) ≡ Mx，与 f(2) = 0 矛盾。综上 M = 0。"}, {"n": 20, "t": "proof", "ch": "3", "pts": 10, "src": "2022 数一 (20)", "stem": "设函数 f(x) 在 (−∞, +∞) 上有二阶连续导数。证明：f″(x) ≥ 0 的充要条件是对任意不同的实数 a、b，都有 f((a + b)/2) ≤ (1/(b − a))∫\u003csub>a\u003c/sub>\u003csup>b\u003c/sup>f(x)dx。", "points": [{"p": 5, "t": "必要性：在 m = (a + b)/2 处作二阶泰勒展开并对 [a, b] 积分；利用 ∫\u003csub>a\u003c/sub>\u003csup>b\u003c/sup>(x − m)dx = 0 且 ∫\u003csub>a\u003c/sub>\u003csup>b\u003c/sup>(x − m)²dx &gt; 0，得 ∫\u003csub>a\u003c/sub>\u003csup>b\u003c/sup>f(x)dx ≥ f(m)(b − a)"}, {"p": 5, "t": "充分性：反证，若存在 x\u003csub>0\u003c/sub> 使 f″(x\u003csub>0\u003c/sub>) &lt; 0，由 f″ 连续存在小区间 [a\u003csub>0\u003c/sub>, b\u003csub>0\u003c/sub>] 使 f″ &lt; 0；在其中取 a &lt; b，仿必要性方向可得 f((a + b)/2) &gt; (1/(b − a))∫\u003csub>a\u003c/sub>\u003csup>b\u003c/sup>f(x)dx，与条件矛盾"}], "key": "见解析", "sol": "记 m = (a + b)/2，t = x − m。由泰勒公式 f(x) = f(m) + f′(m)t + ½f″(ξ)t²；若 f″ ≥ 0，则 f(x) ≥ f(m) + f′(m)t。在 [a, b] 上积分，注意 ∫\u003csub>a\u003c/sub>\u003csup>b\u003c/sup>t dt = 0，得 ∫\u003csub>a\u003c/sub>\u003csup>b\u003c/sup>f(x)dx ≥ f(m)(b − a)，即为所需不等式（也可构造 F(x) = ∫\u003csub>a\u003c/sub>\u003csup>x\u003c/sup>f(t)dt − f((a + x)/2)(x − a) 用单调性证明）。反之，若存在 x\u003csub>0\u003c/sub> 使 f″(x\u003csub>0\u003c/sub>) &lt; 0，由 f″ 连续可知存在含 x\u003csub>0\u003c/sub> 的小区间 [a\u003csub>0\u003c/sub>, b\u003csub>0\u003c/sub>] 使 f″ &lt; 0；在其中任取 a &lt; b，仿必要性方向（此时 f″ &lt; 0）可得 f(m) &gt; 平均值，与题设矛盾，故 f″(x) ≥ 0。"}]}, {"id": "p3", "name": "第三套 · 真题专项", "note": "真题原题：无穷小阶的比较、数列阶、参数方程高阶导数、不定积分技巧与中值定理综合证明。", "qs": [{"n": 1, "t": "choice", "ch": "1", "pts": 4, "src": "2010 数一 (1)", "stem": "lim\u003csub>x→∞\u003c/sub> [x²/((x − a)(x + b))]\u003csup>x\u003c/sup> =（  ）（a、b 为常数）", "opts": ["1", "e", "e\u003csup>a − b\u003c/sup>", "e\u003csup>b − a\u003c/sup>"], "a": 2, "key": "C", "sol": "x² − (x − a)(x + b) = (a − b)x + ab，故括号内 = 1 + ((a − b)x + ab)/((x − a)(x + b))，指数部分 x·((a − b)x + ab)/((x − a)(x + b)) → a − b，极限为 e\u003csup>a − b\u003c/sup>。\u003cbr>复算：a = 1、b = 2 时极限为 e⁻¹。"}, {"n": 2, "t": "choice", "ch": "1", "pts": 4, "src": "2019 数一 (1)", "stem": "当 x → 0 时，若 x − tan x 与 x\u003csup>k\u003c/sup> 是同阶无穷小，则 k =（  ）", "opts": ["1", "2", "3", "4"], "a": 2, "key": "C", "sol": "tan x = x + x³/3 + O(x⁵)，故 x − tan x ~ −x³/3，与 x³ 同阶，k = 3。\u003cbr>复算：系数 −1/3。"}, {"n": 3, "t": "choice", "ch": "1", "pts": 4, "src": "2014 数三 (3)", "stem": "设 p(x) = a + bx + cx² + dx³，当 x → 0 时若 p(x) − tan x 是比 x³ 高阶的无穷小，则下列选项错误的是（  ）", "opts": ["a = 0", "b = 1", "c = 0", "d = 1/6"], "a": 3, "key": "D", "sol": "tan x = x + x³/3 + O(x⁵)，要让 p(x) − tan x = o(x³) 必须 a = 0、b = 1、c = 0、d = 1/3，故 d = 1/6 是错的（1/6 是 sin x 的系数）。\u003cbr>复算：d = 1/3 时残差为 o(x³)；d = 1/6 时残差 ~ x³/6 ≠ o(x³)。"}, {"n": 4, "t": "choice", "ch": "1", "pts": 4, "src": "2020 数二 (1)", "stem": "当 x → 0⁺ 时，下列无穷小量中最高阶的是（  ）", "opts": ["∫\u003csub>0\u003c/sub>\u003csup>x\u003c/sup>(e\u003csup>t²\u003c/sup> − 1)dt", "∫\u003csub>0\u003c/sub>\u003csup>x\u003c/sup>ln(1 + √(t³))dt", "∫\u003csub>0\u003c/sub>\u003csup>sin x\u003c/sup>sin t² dt", "∫\u003csub>0\u003c/sub>\u003csup>1−cos x\u003c/sup>√(sin³t) dt"], "a": 3, "key": "D", "sol": "A：e\u003csup>t²\u003c/sup> − 1 ~ t²，故积分 ~ x³/3（3 阶）；B：ln(1 + √(t³)) ~ t\u003csup>3/2\u003c/sup>，故积分 ~ (2/5)x\u003csup>5/2\u003c/sup>（5/2 阶）；C：sin t² ~ t²，故 ∫\u003csub>0\u003c/sub>\u003csup>sin x\u003c/sup> ~ sin³x/3 ~ x³/3（3 阶）；D：√(sin³t) ~ t\u003csup>3/2\u003c/sup>，故积分 ~ (2/5)(x²/2)\u003csup>5/2\u003c/sup> = 2/(5·2\u003csup>5/2\u003c/sup>)·x⁵（5 阶）。阶数 3、5/2、3、5，最高阶是 D。\u003cbr>复算：四项的阶 3、5/2、3、5 与 D 的系数 2/(5·2\u003csup>5/2\u003c/sup>) 均已用数值积分核对（来源见页脚）。"}, {"n": 5, "t": "choice", "ch": "1", "pts": 4, "src": "2018 数二 (1)", "stem": "若 lim\u003csub>x→0\u003c/sub>(e\u003csup>x\u003c/sup> + ax² + bx)\u003csup>1/x²\u003c/sup> = 1，则（  ）", "opts": ["a = 1/2，b = −1", "a = −1/2，b = −1", "a = 1/2，b = 1", "a = −1/2，b = 1"], "a": 1, "key": "B", "sol": "e\u003csup>x\u003c/sup> + ax² + bx = 1 + (1 + b)x + (1/2 + a)x² + O(x³)；要使 (·)\u003csup>1/x²\u003c/sup> → 1，必须一次项与二次项系数都为 0，即 b = −1、a = −1/2。\u003cbr>复算：代入后极限为 1。"}, {"n": 6, "t": "choice", "ch": "1", "pts": 4, "src": "2023 数二 (3)", "stem": "已知数列 {x\u003csub>n\u003c/sub>}、{y\u003csub>n\u003c/sub>} 满足 x\u003csub>1\u003c/sub> = y\u003csub>1\u003c/sub> = 1/2，x\u003csub>n+1\u003c/sub> = sin x\u003csub>n\u003c/sub>，y\u003csub>n+1\u003c/sub> = y\u003csub>n\u003c/sub>²（n = 1, 2, …），则当 n → ∞ 时（  ）", "opts": ["x\u003csub>n\u003c/sub> 是 y\u003csub>n\u003c/sub> 的高阶无穷小", "y\u003csub>n\u003c/sub> 是 x\u003csub>n\u003c/sub> 的高阶无穷小", "x\u003csub>n\u003c/sub> 与 y\u003csub>n\u003c/sub> 是等价无穷小", "x\u003csub>n\u003c/sub> 与 y\u003csub>n\u003c/sub> 是同阶但不等价的无穷小"], "a": 1, "key": "B", "sol": "由 sin u &lt; u 知 {x\u003csub>n\u003c/sub>} 单调递减趋于 0，且由 sin x ≥ (2/π)x（0 ≤ x ≤ π/2）得 x\u003csub>n\u003c/sub> ≥ (1/2)(2/π)\u003csup>n−1\u003c/sup>，即 x\u003csub>n\u003c/sub> 至多按指数衰减；而 y\u003csub>n\u003c/sub> = (1/2)\u003csup>2\u003csup>n−1\u003c/sup>\u003c/sup> 是双指数衰减。于是 y\u003csub>n\u003c/sub>/x\u003csub>n\u003c/sub> ≤ 2(π/2)\u003csup>n−1\u003c/sup>(1/2)\u003csup>2\u003csup>n−1\u003c/sup>\u003c/sup> → 0，即 y\u003csub>n\u003c/sub> = o(x\u003csub>n\u003c/sub>)。\u003cbr>复算：迭代 25 次得 y\u003csub>n\u003c/sub>/x\u003csub>n\u003c/sub> ≈ 0。"}, {"n": 7, "t": "choice", "ch": "1", "pts": 4, "src": "2013 数三 (2)", "stem": "函数 f(x) = (|x|\u003csup>x\u003c/sup> − 1)/(x(x + 1)ln|x|) 的可去间断点的个数为（  ）", "opts": ["0", "1", "2", "3"], "a": 2, "key": "C", "sol": "|x|\u003csup>x\u003c/sup> − 1 = e\u003csup>x ln|x|\u003c/sup> − 1 ~ x·ln|x|。x → 0 时 f → x·ln|x|/(x·1·ln|x|) → 1；x → 1 时 f → 1/2，两点极限有限，都是可去间断点；x → −1 时分子趋于 −ln|x| 而分母 x(x + 1)ln|x| 量级为 (x + 1)²，极限为无穷（第二类）。故可去间断点 2 个。\u003cbr>复算：1 与 1/2。"}, {"n": 8, "t": "choice", "ch": "3", "pts": 4, "src": "2012 数一 (1)", "stem": "曲线 y = (x² + x)/(x² − 1) 的渐近线的条数为（  ）", "opts": ["0", "1", "2", "3"], "a": 2, "key": "C", "sol": "x → 1 时 y → ∞，得铅直渐近线 x = 1；x → ∞ 时 y → 1，得水平渐近线 y = 1；同一方向上已有水平渐近线就不再有斜渐近线。故共 2 条。\u003cbr>复算：水平极限 1、x → 1 时发散。"}, {"n": 9, "t": "fill", "ch": "1", "pts": 4, "src": "2016 数一 (9)", "stem": "lim\u003csub>x→0\u003c/sub> [∫\u003csub>0\u003c/sub>\u003csup>x\u003c/sup>t·ln(1 + t·sin t)dt]/(1 − cos x²) = ＿＿＿", "accept": ["1/2", "0.5"], "key": "1/2", "sol": "t·ln(1 + t·sin t) ~ t·t·t = t³，故分子 ~ x⁴/4；分母 1 − cos x² ~ (x²)²/2 = x⁴/2，比值 → 1/2。\u003cbr>复算：1/2。"}, {"n": 10, "t": "fill", "ch": "1", "pts": 4, "src": "2016 数三 (9)", "stem": "已知函数 f(x) 满足 lim\u003csub>x→0\u003c/sub>(√(1 + f(x)sin 2x) − 1)/(e\u003csup>3x\u003c/sup> − 1) = 2，则 lim\u003csub>x→0\u003c/sub>f(x) = ＿＿＿", "accept": ["6"], "key": "6", "sol": "√(1 + u) − 1 ~ u/2 = f(x)sin 2x/2 ~ x·f(x)；分母 e\u003csup>3x\u003c/sup> − 1 ~ 3x，故极限 = lim f(x)/3 = 2，得 lim f(x) = 6。\u003cbr>复算：f ≡ 6 时该极限为 2。"}, {"n": 11, "t": "fill", "ch": "1", "pts": 4, "src": "2018 数一 (9)", "stem": "若 lim\u003csub>x→0\u003c/sub>((1 − tan x)/(1 + tan x))\u003csup>1/sin kx\u003c/sup> = e，则 k = ＿＿＿", "accept": ["-2", "−2"], "key": "-2", "sol": "括号内 = 1 − 2tan x/(1 + tan x) ~ 1 − 2x，取对数 ~ −2x；又 1/sin kx ~ 1/(kx)，故 −2/k = 1，得 k = −2。\u003cbr>复算：k = −2 时原极限为 e。"}, {"n": 12, "t": "fill", "ch": "1", "pts": 4, "src": "2019 数三 (9)", "stem": "lim\u003csub>n→∞\u003c/sub>(1/(1×2) + 1/(2×3) + … + 1/(n(n + 1)))\u003csup>n\u003c/sup> = ＿＿＿", "accept": ["1/e", "e^(-1)", "e^{-1}", "0.3679", "0.36788"], "key": "1/e", "sol": "括号内裂项求和 = 1 − 1/(n + 1)，故原式 = (1 − 1/(n + 1))\u003csup>n\u003c/sup>，取对数 n·ln(1 − 1/(n + 1)) → −1，极限为 e\u003csup>−1\u003c/sup> = 1/e。\u003cbr>复算：1/e。"}, {"n": 13, "t": "fill", "ch": "2", "pts": 4, "src": "2015 数二 (10)", "stem": "函数 f(x) = x²·2\u003csup>x\u003c/sup> 在 x = 0 处的 n 阶导数 f\u003csup>(n)\u003c/sup>(0) = ＿＿＿（n ≥ 2）", "accept": ["n(n-1)(ln2)^(n-2)", "n(n-1)(ln2)^{n-2}", "n(n-1)(ln 2)^(n-2)"], "key": "n(n − 1)(ln 2)^(n−2)", "sol": "由莱布尼茨公式，只有对 x² 求两次导的那一项在 x = 0 处不为零：f\u003csup>(n)\u003c/sup>(0) = C(n, 2)·2·(2\u003csup>x\u003c/sup>)\u003csup>(n−2)\u003c/sup>|\u003csub>x=0\u003c/sub> = n(n − 1)(ln 2)\u003csup>n−2\u003c/sup>。\u003cbr>复算：n = 2…6 全部吻合。"}, {"n": 14, "t": "fill", "ch": "2", "pts": 4, "src": "2021 数一 (12)", "stem": "设 y = y(x) 由参数方程 x = 2e\u003csup>t\u003c/sup> + t + 1，y = 4(t − 1)e\u003csup>t\u003c/sup> + t² 确定，则 d²y/dx²|\u003csub>t=0\u003c/sub> = ＿＿＿", "accept": ["2/3"], "key": "2/3", "sol": "dx/dt = 2e\u003csup>t\u003c/sup> + 1，dy/dt = 4e\u003csup>t\u003c/sup> + 4(t − 1)e\u003csup>t\u003c/sup> + 2t = 2t(2e\u003csup>t\u003c/sup> + 1)，故 dy/dx = 2t；d²y/dx² = 2/(2e\u003csup>t\u003c/sup> + 1)，t = 0 时等于 2/3。\u003cbr>复算：2/3。"}, {"n": 15, "t": "calc", "ch": "1", "pts": 6, "src": "2013 数三 (15)", "stem": "当 x → 0 时，1 − cos x·cos 2x·cos 3x 与 a·x\u003csup>n\u003c/sup> 为等价无穷小，求 n 与 a 的值（把两个值都填上）。", "accept": ["a=7,n=2", "n=2,a=7", "7,2", "(7,2)", "a=7n=2"], "key": "a = 7，n = 2", "sol": "1 − cos x·cos 2x·cos 3x = (1 − cos x) + cos x(1 − cos 2x) + cos x·cos 2x(1 − cos 3x) ~ x²/2 + 2x² + (9/2)x² = 7x²，故 n = 2、a = 7。\u003cbr>复算：该式与 7x² 之比 → 1。"}, {"n": 16, "t": "calc", "ch": "1", "pts": 6, "src": "2015 数一 (15)", "stem": "设 f(x) = x + a·ln(1 + x) + b·x·sin x，g(x) = k·x³，若 x → 0 时 f(x) 与 g(x) 是等价无穷小，求 a、b、k 的值（把三个值都填上）。", "accept": ["a=-1,b=-1/2,k=-1/3", "a=-1b=-1/2k=-1/3", "-1,-1/2,-1/3", "a=-1, b=-1/2, k=-1/3"], "key": "a = −1，b = −1/2，k = −1/3", "sol": "f(x) = x + a(x − x²/2 + x³/3) + b(x² + O(x⁴)) = (1 + a)x + (b − a/2)x² + (a/3)x³ + O(x⁴)；要与 kx³ 等价须 1 + a = 0、b − a/2 = 0、k = a/3，即 a = −1、b = −1/2、k = −1/3。\u003cbr>复算：f(x)/(−x³/3) → 1。"}, {"n": 17, "t": "calc", "ch": "3", "pts": 6, "src": "2017 数三 (18)", "stem": "已知方程 1/ln(1 + x) − 1/x = k 在区间 (0, 1) 内有实根，求 k 的取值范围。", "points": [{"p": 3, "t": "令 f(x) = 1/ln(1 + x) − 1/x（0 &lt; x ≤ 1），求 f′(x)，并借助 g(x) = (1 + x)ln²(1 + x) − x² &lt; 0 判定 f′ &lt; 0，f 单调递减"}, {"p": 2, "t": "算出区间两端的极限值：lim\u003csub>x→0⁺\u003c/sub>f(x) = 1/2，f(1) = 1/ln 2 − 1"}, {"p": 1, "t": "由单调性与开区间取值得 1/ln 2 − 1 &lt; k &lt; 1/2"}], "key": "1/ln 2 − 1 \u003c k \u003c 1/2", "sol": "f(x) = 1/ln(1 + x) − 1/x，f′(x) = [(1 + x)ln²(1 + x) − x²]/[x²(1 + x)ln²(1 + x)]；令 g(x) = (1 + x)ln²(1 + x) − x²，由 ln(1 + x) &lt; x 可证 g′(x) &lt; 0 且 g(0) = 0，故 g(x) &lt; 0，从而 f′ &lt; 0，f 在 (0, 1] 上严格递减；又 lim\u003csub>x→0⁺\u003c/sub>f(x) = 1/2、f(1) = 1/ln 2 − 1，故 k 在 (0, 1) 内可取遍 (1/ln 2 − 1, 1/2)，两端点取不到。\u003cbr>复算：1/2 与 1/ln 2 − 1。"}, {"n": 18, "t": "calc", "ch": "4", "pts": 6, "src": "2003 数二 第五题", "stem": "计算不定积分 ∫ x·e\u003csup>arctan x\u003c/sup>/(1 + x²)\u003csup>3/2\u003c/sup> dx。", "points": [{"p": 3, "t": "令 x = tan t，化为 ∫ e\u003csup>t\u003c/sup>·sin t dt"}, {"p": 2, "t": "两次分部积分并移项得 ∫e\u003csup>t\u003c/sup>sin t dt = ½e\u003csup>t\u003c/sup>(sin t − cos t) + C"}, {"p": 1, "t": "回代 sin t = x/√(1 + x²)、cos t = 1/√(1 + x²)，得 (x − 1)e\u003csup>arctan x\u003c/sup>/(2√(1 + x²)) + C"}], "key": "(x − 1)e^{arctan x}/(2√(1+x²)) + C", "sol": "令 x = tan t，则 dx = sec²t dt，(1 + x²)\u003csup>3/2\u003c/sup> = sec³t，原式 = ∫e\u003csup>t\u003c/sup>·sin t dt = ½e\u003csup>t\u003c/sup>(sin t − cos t) + C；回代得 (x − 1)e\u003csup>arctan x\u003c/sup>/(2√(1 + x²)) + C。\u003cbr>复算：对结果求导验证回原被积函数。"}, {"n": 19, "t": "proof", "ch": "3", "pts": 10, "src": "2013 数一 (18)", "stem": "设奇函数 f(x) 在 [−1, 1] 上具有二阶导数，且 f(1) = 1。证明：(Ⅰ) 存在 ξ ∈ (0, 1)，使 f′(ξ) = 1；(Ⅱ) 存在 η ∈ (−1, 1)，使 f″(η) + f′(η) = 1。", "points": [{"p": 4, "t": "(Ⅰ) 由奇函数得 f(0) = 0；令 F(x) = f(x) − x，则 F(0) = F(1) = 0，用罗尔定理得 ξ ∈ (0, 1) 使 f′(ξ) = 1"}, {"p": 3, "t": "(Ⅱ) 由 f 为奇函数知 f′ 为偶函数，故 f′(−ξ) = f′(ξ) = 1"}, {"p": 3, "t": "构造 G(x) = e\u003csup>x\u003c/sup>(f′(x) − 1)，则 G(−ξ) = G(ξ) = 0，对 G 在 [−ξ, ξ] 上用罗尔定理，得 η ∈ (−ξ, ξ) 使 G′(η) = 0，即 e\u003csup>η\u003c/sup>[f″(η) + f′(η) − 1] = 0"}], "key": "见解析", "sol": "(Ⅰ) 奇函数 ⇒ f(0) = 0。令 F(x) = f(x) − x，则 F(0) = 0、F(1) = f(1) − 1 = 0，由罗尔定理存在 ξ ∈ (0, 1) 使 F′(ξ) = 0，即 f′(ξ) = 1。\u003cbr>(Ⅱ) f 为奇函数 ⇒ f′ 为偶函数，故 f′(−ξ) = f′(ξ) = 1。令 G(x) = e\u003csup>x\u003c/sup>(f′(x) − 1)，则 G(−ξ) = G(ξ) = 0，对 G 在 [−ξ, ξ] 上用罗尔定理，存在 η ∈ (−ξ, ξ) ⊂ (−1, 1) 使 G′(η) = 0，即 e\u003csup>η\u003c/sup>[f″(η) + f′(η) − 1] = 0，故 f″(η) + f′(η) = 1。"}, {"n": 20, "t": "proof", "ch": "3", "pts": 10, "src": "2017 数一 (18)", "stem": "设函数 f(x) 在区间 [0, 1] 上具有二阶导数，且 f(1) &gt; 0，lim\u003csub>x→0⁺\u003c/sub>f(x)/x &lt; 0。证明：(Ⅰ) 方程 f(x) = 0 在区间 (0, 1) 内至少存在一个实根；(Ⅱ) 方程 f(x)f″(x) + [f′(x)]² = 0 在区间 (0, 1) 内至少存在两个不同实根。", "points": [{"p": 4, "t": "(Ⅰ) 由 lim\u003csub>x→0⁺\u003c/sub>f(x)/x &lt; 0 与极限保号性，存在 δ &gt; 0 使 x ∈ (0, δ) 时 f(x) &lt; 0；结合 f(1) &gt; 0 与零点定理得 (0, 1) 内有根 ξ"}, {"p": 2, "t": "由该极限存在及 f 连续得 f(0) = 0，于是 F(x) = f(x)f′(x) 满足 F(0) = 0、F(ξ) = 0"}, {"p": 2, "t": "对 F 在 [0, ξ] 上用罗尔定理，得一点使 F′ = 0，即 f·f″ + (f′)² = 0"}, {"p": 2, "t": "再对 f 在 [0, ξ] 上用罗尔定理得 ξ\u003csub>1\u003c/sub> ∈ (0, ξ) 使 f′(ξ\u003csub>1\u003c/sub>) = 0，于是 F(ξ\u003csub>1\u003c/sub>) = 0；对 F 在 [ξ\u003csub>1\u003c/sub>, ξ] 上再用罗尔定理得第二个（不同的）零点"}], "key": "见解析", "sol": "(Ⅰ) 由 lim\u003csub>x→0⁺\u003c/sub>f(x)/x &lt; 0 及极限的保号性，存在 δ &gt; 0 使 x ∈ (0, δ) 时 f(x) &lt; 0；又 f(1) &gt; 0，由零点定理，方程 f(x) = 0 在 (0, 1) 内至少有一个实根 ξ。\u003cbr>(Ⅱ) 令 F(x) = f(x)f′(x)，则 F′(x) = f(x)f″(x) + [f′(x)]²。因 lim\u003csub>x→0⁺\u003c/sub>f(x)/x 存在且 f 连续，得 f(0) = 0，故 F(0) = f(0)f′(0) = 0；又由 f(ξ) = 0 得 F(ξ) = 0，对 F 在 [0, ξ] 上用罗尔定理，存在一点使 F′ = 0。另一方面，对 f 在 [0, ξ] 上用罗尔定理，得 ξ\u003csub>1\u003c/sub> ∈ (0, ξ) 使 f′(ξ\u003csub>1\u003c/sub>) = 0，从而 F(ξ\u003csub>1\u003c/sub>) = 0；再对 F 在 [ξ\u003csub>1\u003c/sub>, ξ] 上用罗尔定理，又得一点使 F′ = 0。两点不同，故方程在 (0, 1) 内至少有两个不同实根。"}]}, {"id": "p4", "name": "第四套 · 热身（自编）", "note": "按同济上册第 1–4 章自编的热身卷，非真题；题型、难度与考试一致。", "qs": [{"n": 1, "t": "choice", "ch": "1", "pts": 4, "stem": "当 x → 0 时，极限 lim\u003csub>x→0\u003c/sub> (1 − cos x) / x² 的值是（  ）", "opts": ["0", "1/2", "1", "不存在"], "a": 1, "key": "1/2", "src": "自编（真题风格）", "sol": "1 − cos x ~ x²/2（也可写 1 − cos x = 2sin²(x/2)），故极限为 1/2；用洛必达法则两次同样得 1/2。"}, {"n": 2, "t": "choice", "ch": "1", "pts": 4, "stem": "设 f(x) = x·sin(1/x)（x ≠ 0），f(0) = 0，则 f(x) 在 x = 0 处（  ）", "opts": ["连续且可导", "连续但不可导", "不连续", "可导但不连续"], "a": 1, "key": "B", "src": "自编（真题风格）", "sol": "连续：|x·sin(1/x)| ≤ |x| → 0（x → 0），等于 f(0)。不可导：[f(x) − f(0)]/x = sin(1/x) 当 x → 0 时无极限。"}, {"n": 3, "t": "choice", "ch": "3", "pts": 4, "stem": "曲线 y = x³ − 3x² + 2 的拐点是（  ）", "opts": ["(1, 0)", "(0, 2)", "(2, −2)", "没有拐点"], "a": 0, "key": "A", "src": "自编（真题风格）", "sol": "y′ = 3x² − 6x，y″ = 6x − 6；y″ 在 x = 1 左右变号，且 y(1) = 1 − 3 + 2 = 0，故拐点为 (1, 0)。"}, {"n": 4, "t": "choice", "ch": "1", "pts": 4, "stem": "当 x → 0 时，与 x 等价的无穷小是（  ）", "opts": ["tan x − sin x", "1 − cos x", "ln(1 + x)", "e\u003csup>x\u003c/sup> − 1 − x"], "a": 2, "key": "C", "src": "自编（真题风格）", "sol": "tan x − sin x ~ x³/2，1 − cos x ~ x²/2，e\u003csup>x\u003c/sup> − 1 − x ~ x²/2，只有 ln(1 + x) ~ x。"}, {"n": 5, "t": "choice", "ch": "3", "pts": 4, "stem": "设 f(x) 在 [a, b] 上连续，在 (a, b) 内可导，且 f(a) = f(b) = 0，则（  ）", "opts": ["至少存在一点 ξ ∈ (a, b)，使 f′(ξ) = 0", "至少存在一点 ξ ∈ (a, b)，使 f′(ξ) = 1", "在 (a, b) 内必有某点 ξ 使 f(ξ) = 0", "存在 ξ ∈ (a, b)，使 f′(ξ) &gt; 0"], "a": 0, "key": "A", "src": "自编（真题风格）", "sol": "罗尔定理直接给出第一项成立。其余各项都不必然：取 f ≡ 0 时 f′ 恒为 0，第 2、4 项不成立；取 f(x) = (x − a)(b − x)，在 (a, b) 内处处为正，第 3 项不成立。"}, {"n": 6, "t": "choice", "ch": "4", "pts": 4, "stem": "设 F(x) 是 f(x) 的一个原函数，则 ∫ f(2x) dx =（  ）", "opts": ["F(2x) + C", "2F(2x) + C", "½F(2x) + C", "F(x/2) + C"], "a": 2, "key": "C", "src": "自编（真题风格）", "sol": "令 u = 2x，则 dx = du/2，∫f(2x)dx = ½∫f(u)du = ½F(2x) + C。"}, {"n": 7, "t": "choice", "ch": "3", "pts": 4, "stem": "函数 f(x) = x − ln x 的单调增加区间是（  ）", "opts": ["(0, 1)", "(1, +∞)", "(0, +∞)", "(−∞, 1)"], "a": 1, "key": "B", "src": "自编（真题风格）", "sol": "f′(x) = 1 − 1/x = (x − 1)/x；当 x &gt; 1 时 f′(x) &gt; 0，故单调增加区间为 (1, +∞)（定义域 x &gt; 0）。"}, {"n": 8, "t": "choice", "ch": "1", "pts": 4, "stem": "lim\u003csub>x→∞\u003c/sub> (x² + 3x − 1) / (2x² − x + 5) =（  ）", "opts": ["0", "1/3", "1/2", "2"], "a": 2, "key": "C", "src": "自编（真题风格）", "sol": "分子分母同为 2 次，极限等于最高次项系数之比：1/2。"}, {"n": 9, "t": "fill", "ch": "1", "pts": 4, "stem": "lim\u003csub>x→0\u003c/sub> (tan x − sin x) / x³ = ＿＿＿", "accept": ["1/2", "0.5"], "key": "1/2", "src": "自编（真题风格）", "sol": "tan x − sin x = tan x·(1 − cos x) ~ x·(x²/2) = x³/2，故极限为 1/2。（泰勒：tan x = x + x³/3 + o(x³)，sin x = x − x³/6 + o(x³)。）"}, {"n": 10, "t": "fill", "ch": "2", "pts": 4, "stem": "设 y = x\u003csup>x\u003c/sup>（x &gt; 0），则 y′(1) = ＿＿＿", "accept": ["1"], "key": "1", "src": "自编（真题风格）", "sol": "y = e\u003csup>x·ln x\u003c/sup>，y′ = x\u003csup>x\u003c/sup>(ln x + 1)，故 y′(1) = 1·(0 + 1) = 1。"}, {"n": 11, "t": "fill", "ch": "3", "pts": 4, "stem": "函数 f(x) = x³ − 3x 在闭区间 [−2, 2] 上的最大值是 ＿＿＿", "accept": ["2"], "key": "2", "src": "自编（真题风格）", "sol": "f′ = 3x² − 3 = 0 得 x = ±1。算端点与驻点：f(−2) = −2，f(−1) = 2，f(1) = −2，f(2) = 2，最大值为 2。"}, {"n": 12, "t": "fill", "ch": "1", "pts": 4, "stem": "设 f(x) = x²sin(1/x)（x ≠ 0），f(0) = a。若 f(x) 在 x = 0 处连续，则 a = ＿＿＿", "accept": ["0"], "key": "0", "src": "自编（真题风格）", "sol": "|x²sin(1/x)| ≤ x² → 0（x → 0），由连续定义 f(0) = a 必须等于该极限，故 a = 0。"}, {"n": 13, "t": "fill", "ch": "2", "pts": 4, "stem": "曲线 y = x³ − 3x² 在点 (1, −2) 处切线的斜率 k = ＿＿＿", "accept": ["-3", "−3"], "key": "-3", "src": "自编（真题风格）", "sol": "y′ = 3x² − 6x，y′(1) = 3 − 6 = −3。（点 (1, −2) 在曲线上：1 − 3 = −2。）"}, {"n": 14, "t": "fill", "ch": "4", "pts": 4, "stem": "设 f(x) 可导，f′(x) = 1/(1 + x²)，且 f(1) = 0，则 f(0) = ＿＿＿", "accept": ["-π/4", "-pi/4", "-0.7854", "-0.785398", "-3.14159/4"], "key": "-π/4", "src": "自编（真题风格）", "sol": "由 f′(x) = 1/(1 + x²) 得 f(x) = arctan x + C。由 f(1) = π/4 + C = 0 得 C = −π/4，故 f(0) = −π/4 ≈ −0.785。"}, {"n": 15, "t": "calc", "ch": "1", "pts": 6, "stem": "求极限 lim\u003csub>x→∞\u003c/sub> ( (x + 1)/(x − 1) )\u003csup>x\u003c/sup>", "accept": ["e^2", "e²", "7.389", "7.3891", "7.38906", "e*e"], "key": "e²", "src": "自编（真题风格）", "sol": "属 1\u003csup>∞\u003c/sup> 型。原式 = lim (1 + 2/(x − 1))\u003csup>x\u003c/sup>，取对数：x·ln((x + 1)/(x − 1)) = x·ln(1 + 2/(x − 1)) ~ x·2/(x − 1) → 2，故极限为 e² ≈ 7.389。"}, {"n": 16, "t": "calc", "ch": "2", "pts": 6, "stem": "由方程 x² + xy + y² = 3 确定隐函数 y = y(x)，求 y′(1)（点 (1, 1) 在曲线上）", "accept": ["-1", "−1"], "key": "-1", "src": "自编（真题风格）", "sol": "两边对 x 求导：2x + y + x·y′ + 2y·y′ = 0，得 y′ = −(2x + y)/(x + 2y)。代入 (1, 1)：y′(1) = −(2 + 1)/(1 + 2) = −1。"}, {"n": 17, "t": "calc", "ch": "3", "pts": 6, "stem": "求 f(x) = x³ − 3x + 1 的极大值（填极大值本身）", "accept": ["3"], "key": "3", "src": "自编（真题风格）", "sol": "f′ = 3x² − 3 = 0 得 x = ±1；f″ = 6x，f″(−1) = −6 &lt; 0，故 x = −1 处取极大值，f(−1) = −1 + 3 + 1 = 3。"}, {"n": 18, "t": "calc", "ch": "4", "pts": 6, "stem": "求不定积分 ∫ x·e\u003csup>−x\u003c/sup> dx（填最终结果，含任意常数 C）", "accept": ["-(x+1)e^{-x}+c", "-(x+1)e^(-x)+c", "-(x+1)e^-x+c", "-xe^(-x)-e^(-x)+c", "-e^(-x)*(x+1)+c", "-e^(-x)(x+1)+c", "(-x-1)e^(-x)+c", "-(x+1)/e^x+c", "-e^(-x)-xe^(-x)+c"], "key": "−(x + 1)e^(−x) + C", "src": "自编（真题风格）", "sol": "分部积分：∫x·e\u003csup>−x\u003c/sup>dx = −x·e\u003csup>−x\u003c/sup> + ∫e\u003csup>−x\u003c/sup>dx = −x·e\u003csup>−x\u003c/sup> − e\u003csup>−x\u003c/sup> + C = −(x + 1)e\u003csup>−x\u003c/sup> + C。\u003cbr>验证：d/dx[−(x + 1)e\u003csup>−x\u003c/sup>] = −e\u003csup>−x\u003c/sup> + (x + 1)e\u003csup>−x\u003c/sup> = x·e\u003csup>−x\u003c/sup>。"}, {"n": 19, "t": "proof", "ch": "3", "pts": 10, "stem": "证明：当 x &gt; 0 时，x − x²/2 &lt; ln(1 + x) &lt; x。", "points": [{"p": 2, "t": "令 f(x) = x − ln(1 + x)，求出 f′(x) = x/(1 + x) &gt; 0（x &gt; 0）"}, {"p": 3, "t": "由 f(0) = 0 及 f 在 [0, +∞) 上单调增加，得 f(x) &gt; 0，即 ln(1 + x) &lt; x"}, {"p": 2, "t": "令 g(x) = ln(1 + x) − x + x²/2，求出 g′(x) = 1/(1 + x) − 1 + x = x²/(1 + x) ≥ 0"}, {"p": 3, "t": "由 g(0) = 0 得 g(x) &gt; 0（x &gt; 0），即 x − x²/2 &lt; ln(1 + x)"}], "key": "见解析", "src": "自编（真题风格）", "sol": "\u003cb>右半边：\u003c/b>令 f(x) = x − ln(1 + x)，则 f(0) = 0，f′(x) = 1 − 1/(1 + x) = x/(1 + x) &gt; 0（x &gt; 0），故 f 在 [0, +∞) 上严格单调增加，f(x) &gt; f(0) = 0，即 ln(1 + x) &lt; x。\u003cbr>\u003cb>左半边：\u003c/b>令 g(x) = ln(1 + x) − x + x²/2，则 g(0) = 0，g′(x) = 1/(1 + x) − 1 + x = x²/(1 + x) ≥ 0，故 g 在 [0, +∞) 上单调增加，g(x) &gt; g(0) = 0（x &gt; 0），即 x − x²/2 &lt; ln(1 + x)。\u003cbr>\u003cb>常见错误：\u003c/b>左半边若沿用同一个辅助函数做不出来，必须重新构造 g。"}, {"n": 20, "t": "proof", "ch": "3", "pts": 10, "stem": "设 f(x) 在 [0, 1] 上连续，在 (0, 1) 内可导，且 f(0) = 0，f(1) = 1。证明：存在 ξ ∈ (0, 1)，使 f′(ξ) = 2ξ。", "points": [{"p": 3, "t": "构造辅助函数 F(x) = f(x) − x²"}, {"p": 2, "t": "说明 F 在 [0, 1] 上连续、在 (0, 1) 内可导"}, {"p": 2, "t": "验证 F(0) = 0，F(1) = f(1) − 1 = 0"}, {"p": 3, "t": "由罗尔定理，存在 ξ ∈ (0, 1) 使 F′(ξ) = 0，即 f′(ξ) − 2ξ = 0，得 f′(ξ) = 2ξ"}], "key": "见解析", "src": "自编（真题风格）", "sol": "令 F(x) = f(x) − x²，x ∈ [0, 1]。由 f 与 x² 均连续知 F 在 [0, 1] 上连续；由 f 在 (0, 1) 内可导知 F 在 (0, 1) 内可导，且 F′(x) = f′(x) − 2x。又 F(0) = 0，F(1) = f(1) − 1 = 0。由罗尔定理，存在 ξ ∈ (0, 1) 使 F′(ξ) = 0，即 f′(ξ) = 2ξ。\u003cbr>\u003cb>思路：\u003c/b>要证的 f′(ξ) = 2ξ 等价于 (f(x) − x²)′ 在 ξ 处为零，故把结论“抬进”辅助函数。\u003cb>常见错误：\u003c/b>直接对 f 用罗尔（f(0) ≠ f(1)）。"}]}];
+
+var CH = {'1':'第 1 章 函数与极限','2':'第 2 章 导数与微分','3':'第 3 章 中值定理与导数应用','4':'第 4 章 不定积分'};
+var LET = 'ABCDEFGH';
+var PS = {};        /* 每套卷的状态 */
+function st(id){
+  if(!PS[id]) PS[id] = {picked:{},text:{},rubric:{},over:{},graded:false,left:90*60,timer:null,showAll:false,done:false};
+  return PS[id];
+}
+var cur = PAPERS[0].id;
+
+/* ---------- 判分工具 ---------- */
+function norm(s){
+  return String(s).toLowerCase()
+    .replace(/[\s　]/g,'')
+    .replace(/[·＊*×]/g,'')
+    .replace(/\^/g,'')
+    .replace(/[{}\[\]]/g,'')
+    .replace(/²/g,'2').replace(/³/g,'3')
+    .replace(/pi/g,'π')
+    .replace(/[−–—－]/g,'-')
+    .replace(/＋/g,'+').replace(/＝/g,'=')
+    .replace(/，/g,',').replace(/；/g,';')
+    .replace(/（/g,'(').replace(/）/g,')')
+    .replace(/\+c$/,'').replace(/-c$/,'')
+    .replace(/^y=/,'').replace(/^k=/,'');
+}
+function num(s){
+  var t = norm(s).replace(/(\d)π/g,'$1*π').replace(/π/g,String(Math.PI)).replace(/(\d)\(/g,'$1*(');
+  if(!/^[0-9+\-*/().]+$/.test(t)) return null;
+  try { var v = Function('"use strict";return ('+t+')')(); return (typeof v === 'number' && isFinite(v)) ? v : null; }
+  catch(e){ return null; }
+}
+function matchAnswer(q, raw){
+  if(!raw || !raw.trim()) return false;
+  var u = norm(raw);
+  for(var i=0;i<q.accept.length;i++){
+    var a = q.accept[i];
+    if(norm(a) === u || String(a).toLowerCase().trim() === raw.toLowerCase().trim()) return true;
+    var nu = num(u), na = num(a);
+    if(nu !== null && na !== null && Math.abs(nu-na) <= 1e-4*Math.max(1,Math.abs(na))) return true;
+  }
+  return false;
+}
+function paperById(id){ for(var i=0;i<PAPERS.length;i++){ if(PAPERS[i].id===id) return PAPERS[i]; } return PAPERS[0]; }
+function fmt(s){ s=Math.max(0,s); var m=Math.floor(s/60), r=s%60; return (m<10?'0':'')+m+':'+(r<10?'0':'')+r; }
+function el(id){ return document.getElementById(id); }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+
+/* ---------- 渲染一套卷 ---------- */
+var TITLES = {choice:'一、选择题', fill:'二、填空题', calc:'三、计算题', proof:'四、证明题'};
+function secHead(t, qs){
+  var n = 0, pts = 0;
+  qs.forEach(function(q){ if(q.t===t){ n++; pts += q.pts; } });
+  return '<div class="sec"><div class="secTitle">'+TITLES[t]+'（共 '+n+' 题，'+pts+' 分）</div></div>';
+}
+function renderPaper(){
+  var P = paperById(cur), s = st(cur), html = '', sec = '';
+  el('pname').textContent = P.name + ' · ' + (P.note||'');
+  el('clock').textContent = fmt(s.left);
+  el('btnStart').textContent = s.timer ? '暂停' : (s.left < 90*60 ? '继续计时' : '开始计时');
+  P.qs.forEach(function(q){
+    if(q.t !== sec){ sec = q.t; html += secHead(sec, P.qs); }
+    html += '<div class="q" id="q'+q.n+'" data-n="'+q.n+'">'
+         +  '<div><span class="qno">'+q.n+'.</span> '+q.stem+' <span class="pts">（'+q.pts+' 分）</span> '
+         +  (q.src ? '<span class="src">'+q.src+'</span> ' : '')
+         +  '<span class="tag">'+CH[q.ch]+'</span></div>';
+    if(q.t === 'choice'){
+      html += '<div class="opts">';
+      q.opts.forEach(function(o,i){
+        html += '<label class="opt"><input type="radio" name="c'+(cur+'_'+q.n)+'" value="'+i+'"'
+             +  ' data-q="'+q.n+'" data-kind="choice"'+(s.picked[q.n]===i?' checked':'')+'>'
+             +  LET[i]+'. '+o+'</label>';
+      });
+      html += '</div>';
+    } else {
+      if(q.t === 'calc') html += '<textarea class="work" data-q="'+q.n+'" data-kind="work" placeholder="在此写过程（不判分，留痕用）">'+esc(s.text['w'+q.n]||'')+'</textarea>';
+      if(q.t === 'proof') html += '<textarea class="work" data-q="'+q.n+'" data-kind="work" placeholder="在此写证明过程（不判分）">'+esc(s.text['w'+q.n]||'')+'</textarea>';
+      if(q.accept) html += '<div style="margin-top:5px">答：<input class="ans" type="text" data-q="'+q.n+'" data-kind="text"'
+           +  ' value="'+String(s.text[q.n]||'').replace(/"/g,'&quot;')+'" placeholder="填最终结果"></div>';
+      if(q.points){
+        html += '<div class="rubric">';
+        q.points.forEach(function(pt,i){
+          html += '<label><input type="checkbox" data-q="'+q.n+'" data-kind="rub" data-i="'+i+'"'
+               +  ((s.rubric[q.n]&&s.rubric[q.n][i])?' checked':'')+'> '+pt.t+' <span class="pts">('+pt.p+' 分)</span></label>';
+        });
+        html += '</div>';
+      }
+    }
+    html += '<div class="feedback" id="fb'+q.n+'"></div>'
+         +  '<div class="sol'+(s.showAll?'':' hidden')+'" id="sol'+q.n+'"><b>解析：</b>'+q.sol+'</div>'
+         +  (q.ref ? '<div class="hint" style="margin-top:3px">参考解答：'+q.ref+'</div>' : '')
+         +  '</div>';
+  });
+  el('qs').innerHTML = html;
+  el('btnAll').textContent = s.showAll ? '收起解析' : '显示全部解析';
+  el('report').innerHTML = '';
+  if(s.graded) grade(true);
+  renderTabs();
+}
+function renderTabs(){
+  var html = '';
+  PAPERS.forEach(function(P){
+    var s = st(P.id);
+    html += '<button class="tab'+(P.id===cur?' on':'')+'" data-pid="'+P.id+'">'+P.name
+         +  (s.graded ? ' <span class="sc">'+s.total+'/100</span>' : '') + '</button>';
+  });
+  var done = PAPERS.filter(function(P){ return st(P.id).graded; });
+  el('tabs').innerHTML = html;
+  el('sum').textContent = done.length ? '已完成 '+done.length+'/'+PAPERS.length+' 套：'
+      + done.map(function(P){ return P.name+' '+st(P.id).total+' 分'; }).join('，') : '';
+}
+function renderAllQuestionsButKeepScroll(){ renderPaper(); }
+
+/* ---------- 事件 ---------- */
+document.addEventListener('click', function(e){
+  var t = e.target;
+  if(t.dataset && t.dataset.pid){
+    var s = st(cur);
+    if(s.timer){ clearInterval(s.timer); s.timer = null; }   /* 切换时停表 */
+    cur = t.dataset.pid; renderPaper(); return;
+  }
+  if(t.dataset && t.dataset.over){
+    var parts = t.dataset.over.split(':');
+    st(cur).over[parts[0]] = parts[1];
+    grade(); return;
+  }
+  if(t.dataset && t.dataset.showone){ el('sol'+t.dataset.showone).classList.toggle('hidden'); return; }
+  if(t.id === 'btnSend'){
+    var P = paperById(cur), s = st(cur);
+    var txt = '微积分（上）期中自测 · ' + P.name + '：总分 ' + s.total + '/100，错题：第 ' + s.wrongs.join('、') + ' 题。'
+            + '请把这几个考点整理成一份复习笔记（考点、我的错因推测、易混淆点、2 道同类练习题带答案）。';
+    if(window.hermes && window.hermes.send){ window.hermes.send(txt); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){ t.textContent = '已复制，粘贴给你的 AI 助手即可'; },
+                                             function(){ t.dataset.copy = txt; t.textContent = '复制失败，请手动选中下方文字'; });
+    } else { t.dataset.copy = txt; t.textContent = '请手动复制：' + txt; }
+    return;
+  }
+});
+document.addEventListener('change', function(e){
+  var el0 = e.target, n = el0.dataset.q, kind = el0.dataset.kind, s = st(cur);
+  if(kind === 'choice') s.picked[n] = +el0.value;
+  if(kind === 'rub'){ s.rubric[n] = s.rubric[n] || {}; s.rubric[n][el0.dataset.i] = el0.checked; }
+  if(s.graded) grade();
+});
+document.addEventListener('input', function(e){
+  var el0 = e.target, s = st(cur);
+  if(el0.dataset.kind === 'text') s.text[el0.dataset.q] = el0.value;
+  if(el0.dataset.kind === 'work') s.text['w'+el0.dataset.q] = el0.value;
+});
+document.addEventListener('click', function(e){
+  if(e.target.id === 'btnStart'){
+    var s = st(cur);
+    if(s.timer){ clearInterval(s.timer); s.timer = null; e.target.textContent = '继续计时'; }
+    else { s.timer = setInterval(function(){ tick(cur); }, 1000); e.target.textContent = '暂停'; }
+  }
+  if(e.target.id === 'btnSubmit'){ var s2 = st(cur); if(s2.timer){ clearInterval(s2.timer); s2.timer=null; } grade(); }
+  if(e.target.id === 'btnReset'){
+    var s3 = st(cur);
+    if(s3.timer){ clearInterval(s3.timer); s3.timer = null; }
+    PS[cur] = {picked:{},text:{},rubric:{},over:{},graded:false,left:90*60,timer:null,showAll:false,done:false};
+    renderPaper();
+  }
+  if(e.target.id === 'btnAll'){
+    var s4 = st(cur);
+    s4.showAll = !s4.showAll;
+    renderPaper();
+  }
+});
+function tick(id){
+  var s = st(id);
+  if(s.left <= 0) return;
+  s.left--;
+  if(id === cur) el('clock').textContent = fmt(s.left);
+  if(s.left === 0){ clearInterval(s.timer); s.timer = null; el('status').textContent = '　时间到，本套已自动判分。'; grade(); }
+}
+
+/* ---------- 判分 ---------- */
+function qScore(q, s){
+  if(s.over[q.n] === 'right') return {s:q.pts, st:'ok', why:'（已手动改判为正确）'};
+  if(s.over[q.n] === 'wrong') return {s:0, st:'bad', why:'（已手动改判为错误）'};
+  if(q.t === 'choice'){
+    var p = s.picked[q.n];
+    if(p === undefined) return {s:0, st:'bad', why:'未作答'};
+    return p === q.a ? {s:q.pts, st:'ok', why:''} : {s:0, st:'bad', why:'选了 '+LET[p]};
+  }
+  if(q.accept){
+    var raw = s.text[q.n];
+    if(!raw || !raw.trim()) return {s:0, st:'bad', why:'未作答'};
+    return matchAnswer(q, raw) ? {s:q.pts, st:'ok', why:''} : {s:0, st:'bad', why:'与参考答案不一致'};
+  }
+  var rb = s.rubric[q.n] || {}, got = 0;
+  q.points.forEach(function(pt,i){ if(rb[i]) got += pt.p; });
+  return {s:got, st:(got===q.pts?'ok':(got>0?'part':'bad')), why:'你按得分点自评 '+got+' 分', self:true};
+}
+function grade(silent){
+  var P = paperById(cur), s = st(cur), total = 0, byCh = {}, wrongs = [];
+  s.graded = true;
+  P.qs.forEach(function(q){
+    var r = qScore(q, s);
+    total += r.s;
+    byCh[q.ch] = byCh[q.ch] || {s:0, full:0};
+    byCh[q.ch].s += r.s; byCh[q.ch].full += q.pts;
+    var fb = el('fb'+q.n);
+    var mark = r.st==='ok' ? '<span class="mark-ok">✔ 得 '+r.s+'/'+q.pts+' 分</span>'
+             : (r.st==='part' ? '<span class="mark-part">◐ 得 '+r.s+'/'+q.pts+' 分</span>'
+                              : '<span class="mark-bad">✘ 得 0/'+q.pts+' 分</span>');
+    var over = '';
+    if(q.t !== 'proof' && q.accept){
+      over = (r.st==='ok') ? ' <button class="mini" data-over="'+q.n+':wrong">其实答错了</button>'
+                           : ' <button class="mini" data-over="'+q.n+':right">我答对了，改判</button>';
+    }
+    fb.innerHTML = mark + (r.why ? ' <span class="hint">'+r.why+'</span>' : '') + over;
+    var solEl = el('sol'+q.n);
+    if(solEl) solEl.classList.toggle('hidden', !(s.showAll || r.s < q.pts));
+    if(r.s < q.pts) wrongs.push(q.n);
+  });
+  s.total = total; s.wrongs = wrongs; s.byCh = byCh;
+  if(!silent) el('report').innerHTML = reportHTML(P, s);
+  renderTabs();
+}
+function reportHTML(P, s){
+  var used = 90*60 - s.left, nRight = P.qs.length - s.wrongs.length;
+  var srcs = {};
+  P.qs.forEach(function(q){ if(q.src) srcs[q.src] = (srcs[q.src]||0)+1; });
+  var html = '<div class="card"><div><span class="big">'+s.total+'</span> / 100 分'
+           + '<span class="hint">　全对 '+nRight+'/'+P.qs.length+' 题　用时 '+fmt(used)+'</span></div>'
+           + '<div class="hint">选择、填空、计算题按标准答案自动判分；证明题是你按得分点自评的结果。</div>';
+  html += s.wrongs.length
+        ? '<div style="margin-top:6px">错题：'+s.wrongs.map(function(n){ return '<a class="jump" href="#q'+n+'">第 '+n+' 题</a>'; }).join('、')+'（解析已展开）</div>'
+        : '<div style="margin-top:6px" class="mark-ok">全对。</div>';
+  html += '<table><tr><th>章节</th><th>得分</th><th>满分</th><th>掌握度</th></tr>';
+  ['1','2','3','4'].forEach(function(k){
+    var b = s.byCh[k]; if(!b) return;
+    var rate = b.s/b.full, cls = rate>=0.85?'mark-ok':(rate>=0.6?'mark-part':'mark-bad');
+    html += '<tr><td>'+CH[k]+'</td><td>'+b.s+'</td><td>'+b.full+'</td><td class="'+cls+'">'+Math.round(rate*100)+'%</td></tr>';
+  });
+  html += '</table>';
+  html += '<div class="hint" style="margin-top:6px">本套题目来源：'+Object.keys(srcs).map(function(k){ return k+'（'+srcs[k]+' 题）'; }).join('；')+'</div>';
+  if(s.wrongs.length) html += '<div style="margin-top:8px"><button class="mini" id="btnSend">复制错题清单（交给 AI 助手整理成复习笔记）</button></div>';
+  html += '</div>';
+  return html;
+}
+renderPaper();
+
+</script>
+</body>
+</html>
