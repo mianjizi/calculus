@@ -18,7 +18,7 @@
   第一、二、三套取自历年考研数学真题（以 2010–2024 为主），**每题标出年份 / 卷种 / 题号**；第四套为自编热身卷，已标注。
 - **讲义**：29 个考点，统一按「一句话 → 为什么 → 怎么做 → 原理（推导）→ 名师方法（带出处）→ 本卷真题的关键一步 → 例题 → 易错点 → 小练带答案」组织；
   附录 A 逐题索引、附录 B 辅助函数与定理选择清单、附录 C 考前易错清单、附录 D 名师方法索引。
-- **文本版讲义**：[`复习讲义.md`](复习讲义.md)（GitHub 直接渲染，含全部附录表格）。
+- **文本版讲义**：[`tools/复习讲义.md`](tools/复习讲义.md)（GitHub 直接渲染，含全部附录表格）。
 
 ## 出处与版权
 
@@ -37,4 +37,33 @@
 | 自测页端到端 | 54 项通过，0 失败（空卷 0 分、按参考答案 100 分、108 种写法判对、错题解析展开、改判生效） |
 | 讲义页端到端 | 38 项通过，0 失败（折叠、搜索、索引行数、每个考点都带出处链接） |
 
-> 本仓库**只放内容**：题库 JSON 与生成、校验、测试脚本都保留在本地，未随仓库发布。
+## 仓库结构
+
+```
+index.html  quiz.html  notes.html  README.md     ← 页面内容：在网页上直接看 / 用
+tools/                                           ← 题库 JSON + 生成、校验、测试脚本
+```
+
+根目录只放**能在网上直接用**的东西；工具集中在 `tools/`：
+
+| 文件 | 作用 |
+|---|---|
+| `bank.json` | 四套卷题库（`quiz.html` 的唯一输入源，逐题带出处与参考答案） |
+| `复习讲义.md` | 讲义正文源文件（含全部附录表格） |
+| `notes_map.json`、`methods/*.json`、`deepen/*.json` | 考点↔题号映射、名师方法、各考点原理与例题 |
+| `build.py`、`build_notes.py`、`apply_deepen.py` | 生成自测页 / 讲义页（输出中文名 `自测.html`、`复习讲义.html`，与根目录的 `quiz.html`、`notes.html` 内容一致，仅文件名与页间链接不同） |
+| `check.py`、`check_notes.py` | 结构校验、题库↔考点地图↔映射↔讲义↔名师方法五方对账 |
+| `verify_math.py`、`verify_alias.py` | 逐题符号计算复算、填空等价写法核验（需要 `sympy`） |
+| `test_all.mjs`、`test_notes.mjs` | 页面端到端测试（需要 `jsdom`） |
+
+自己重建 / 复核：
+
+```bash
+cd tools
+python check.py && python build.py
+python apply_deepen.py && python build_notes.py && python check_notes.py
+python verify_math.py
+node test_all.mjs 自测.html bank.json
+```
+
+脚本一律按「脚本自己所在目录」定位输入文件，所以在 `tools/` 里可以直接跑，不需要改路径。
