@@ -62,8 +62,10 @@ tools/                                           ← 题库 JSON + 生成、校�
 cd tools
 python check.py && python build.py
 python apply_deepen.py && python build_notes.py && python check_notes.py
-python verify_math.py
+python verify_math.py       # 需要 sympy
+npm i jsdom                 # 页面测试的依赖
 node test_all.mjs 自测.html bank.json
+node test_notes.mjs 复习讲义.html bank.json
 ```
 
 脚本一律按「脚本自己所在目录」定位输入文件，所以在 `tools/` 里可以直接跑，不需要改路径。
